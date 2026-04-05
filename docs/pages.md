@@ -15,8 +15,8 @@
 | 1st (left)    | Home        | `House`           | `/`         |
 | 2nd           | Portfolio   | `BriefcaseBusiness`| `/portfolio`|
 | 3rd (center)  | **Track** (big button) | `DollarSign` | `/track` |
-| 4th           | Events      | `CalendarDays`    | `/events`   |
-| 5th (right)   | Analysis    | `ChartPie`        | `/analysis` |
+| 4th           | Events      | `CalendarClock`        | `/events`   |
+| 5th (right)   | Analysis    | `ChartNoAxesColumn`    | `/analysis` |
 
 ---
 

@@ -1,6 +1,6 @@
 import { View, TouchableOpacity, Text, StyleSheet, useWindowDimensions } from 'react-native';
 import { useRouter, usePathname } from 'expo-router';
-import { House, BriefcaseBusiness, DollarSign, CalendarDays, ChartPie } from 'lucide-react-native';
+import { House, BriefcaseBusiness, DollarSign, CalendarClock, ChartNoAxesColumn } from 'lucide-react-native';
 import Svg, { Path } from 'react-native-svg';
 
 import { COLORS } from '@/constants/colors';
@@ -17,8 +17,8 @@ interface TabItem {
 const TABS: TabItem[] = [
   { name: 'index', label: 'Home', icon: House, route: '/' },
   { name: 'portfolio', label: 'Portfolio', icon: BriefcaseBusiness, route: '/portfolio' },
-  { name: 'events', label: 'Events', icon: CalendarDays, route: '/events' },
-  { name: 'analysis', label: 'Analysis', icon: ChartPie, route: '/analysis' },
+  { name: 'events', label: 'Events', icon: CalendarClock, route: '/events' },
+  { name: 'analysis', label: 'Analysis', icon: ChartNoAxesColumn, route: '/analysis' },
 ];
 
 export default function TabBar() {
