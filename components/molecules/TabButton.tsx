@@ -15,7 +15,7 @@ export default function TabButton({ label, icon: Icon, active, onPress }: TabBut
   return (
     <TouchableOpacity className="flex-1 items-center justify-center gap-1" onPress={onPress} accessibilityRole="button">
       <Icon size={22} color={color} />
-      <Text style={{ color, fontFamily: FONTS.medium, fontSize: FONT_SIZES.micro }}>{label}</Text>
+      <Text style={{ color, fontFamily: FONTS.semiBold, fontSize: FONT_SIZES.micro }}>{label}</Text>
     </TouchableOpacity>
   );
 }

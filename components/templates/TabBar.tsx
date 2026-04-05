@@ -67,7 +67,7 @@ export default function TabBar() {
           >
             <DollarSign size={26} color={COLORS.white} />
           </TouchableOpacity>
-          <Text style={{ fontFamily: FONTS.medium, fontSize: FONT_SIZES.micro, color: '#999' }}>Track</Text>
+          <Text style={{ fontFamily: FONTS.semiBold, fontSize: FONT_SIZES.micro, color: '#999' }}>Track</Text>
         </View>
 
         {TABS.slice(2).map((tab) => (
