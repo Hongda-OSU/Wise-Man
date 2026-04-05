@@ -1,9 +1,15 @@
 export const COLORS = {
   // Brand
   forestGreen: '#1A2E28',
-  warmCream: '#F0EFE9',
-  nearBlack: '#1A1A1A',
   warmWhite: '#F5F0E8',
+
+  // Background
+  bgPrimary: '#F0EFE9',
+  toggleBg: '#E6E3DC',
+
+  // Text
+  textPrimary: '#1A1A1A',
+  textSecondary: '#999999',
 
   // Semantic
   income: '#27AE72',
@@ -11,6 +17,5 @@ export const COLORS = {
   warning: '#F0A500',
 
   // UI
-  toggleBg: '#E6E3DC',
   white: '#FFFFFF',
 } as const;
