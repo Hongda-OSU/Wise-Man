@@ -28,14 +28,14 @@ export default function TabBar() {
 
   const mid = width / 2;
   const notchHalf = 66;
-  const path = `M 0 90 L 0 20 L ${mid - notchHalf} 20 C ${mid - notchHalf / 2} 20 ${mid - notchHalf / 2} 2 ${mid} 2 C ${mid + notchHalf / 2} 2 ${mid + notchHalf / 2} 20 ${mid + notchHalf} 20 L ${width} 20 L ${width} 90 Z`;
+  const path = `M 0 100 L 0 20 L ${mid - notchHalf} 20 C ${mid - notchHalf / 2} 20 ${mid - notchHalf / 2} 2 ${mid} 2 C ${mid + notchHalf / 2} 2 ${mid + notchHalf / 2} 20 ${mid + notchHalf} 20 L ${width} 20 L ${width} 100 Z`;
 
   return (
-    <View className="h-[90px] bg-transparent">
+    <View className="h-[100px] bg-transparent">
       <Svg
         width={width}
-        height={90}
-        viewBox={`0 0 ${width} 90`}
+        height={100}
+        viewBox={`0 0 ${width} 100`}
         style={StyleSheet.absoluteFill}
       >
         <Path
