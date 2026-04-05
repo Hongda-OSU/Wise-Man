@@ -59,7 +59,7 @@ export default function TabBar() {
 
         <View className="flex-1 items-center justify-center gap-1">
           <TouchableOpacity
-            className="w-14 h-14 rounded-full bg-[#1A2E28] items-center justify-center -mt-7"
+            className="w-14 h-14 rounded-full bg-[#1A2E28] items-center justify-center -mt-8"
             style={styles.trackShadow}
             onPress={() => router.push('/track')}
             accessibilityRole="button"
