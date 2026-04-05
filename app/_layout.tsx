@@ -17,7 +17,7 @@ export default function RootLayout() {
   }
 
   return (
-    <Stack screenOptions={{ headerShown: false }}>
+    <Stack screenOptions={{ headerShown: false, contentStyle: { backgroundColor: '#F0EFE9' } }}>
       <Stack.Screen name="(tabs)" />
       <Stack.Screen name="track" />
     </Stack>
