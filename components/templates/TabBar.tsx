@@ -1,9 +1,10 @@
-import { View, TouchableOpacity, Text, StyleSheet } from 'react-native';
+import { View, TouchableOpacity, Text, StyleSheet, useWindowDimensions } from 'react-native';
 import { useRouter, usePathname } from 'expo-router';
 import { House, BriefcaseBusiness, DollarSign, CalendarDays, ChartPie } from 'lucide-react-native';
 import Svg, { Path } from 'react-native-svg';
 
 import { COLORS } from '@/constants/colors';
+import TabButton from '@/components/molecules/TabButton';
 
 interface TabItem {
   name: string;
@@ -22,17 +23,22 @@ const TABS: TabItem[] = [
 export default function TabBar() {
   const router = useRouter();
   const pathname = usePathname();
+  const { width } = useWindowDimensions();
+
+  const mid = width / 2;
+  const notchHalf = 66;
+  const path = `M 0 90 L 0 20 L ${mid - notchHalf} 20 C ${mid - notchHalf / 2} 20 ${mid - notchHalf / 2} 2 ${mid} 2 C ${mid + notchHalf / 2} 2 ${mid + notchHalf / 2} 20 ${mid + notchHalf} 20 L ${width} 20 L ${width} 90 Z`;
 
   return (
     <View className="h-[90px] bg-transparent">
       <Svg
-        width="100%"
+        width={width}
         height={90}
-        viewBox="0 0 393 90"
+        viewBox={`0 0 ${width} 90`}
         style={StyleSheet.absoluteFill}
       >
         <Path
-          d="M 0 90 L 0 20 L 130.5 20 C 163.5 20 163.5 2 196.5 2 C 229.5 2 229.5 20 262.5 20 L 393 20 L 393 90 Z"
+          d={path}
           fill="white"
           stroke="#E5E3DC"
           strokeWidth="0.5"
@@ -43,7 +49,8 @@ export default function TabBar() {
         {TABS.slice(0, 2).map((tab) => (
           <TabButton
             key={tab.name}
-            tab={tab}
+            label={tab.label}
+            icon={tab.icon}
             active={pathname === tab.route}
             onPress={() => router.push(tab.route as any)}
           />
@@ -65,23 +72,14 @@ export default function TabBar() {
         {TABS.slice(2).map((tab) => (
           <TabButton
             key={tab.name}
-            tab={tab}
+            label={tab.label}
+            icon={tab.icon}
             active={pathname === tab.route}
             onPress={() => router.push(tab.route as any)}
           />
         ))}
       </View>
     </View>
-  );
-}
-
-function TabButton({ tab, active, onPress }: { tab: TabItem; active: boolean; onPress: () => void }) {
-  const color = active ? COLORS.forestGreen : '#999';
-  return (
-    <TouchableOpacity className="flex-1 items-center justify-center gap-1" onPress={onPress} accessibilityRole="button">
-      <tab.icon size={22} color={color} />
-      <Text className="text-[11px] font-medium" style={{ color }}>{tab.label}</Text>
-    </TouchableOpacity>
   );
 }
 
