@@ -4,7 +4,7 @@ import { House, BriefcaseBusiness, DollarSign, CalendarClock, ChartNoAxesColumn 
 import Svg, { Path } from 'react-native-svg';
 
 import { COLORS } from '@/constants/colors';
-import { FONTS } from '@/constants/fonts';
+import { FONTS, FONT_SIZES } from '@/constants/fonts';
 import TabButton from '@/components/molecules/TabButton';
 
 interface TabItem {
@@ -67,7 +67,7 @@ export default function TabBar() {
           >
             <DollarSign size={26} color={COLORS.white} />
           </TouchableOpacity>
-          <Text className="text-[11px] text-[#999]" style={{ fontFamily: FONTS.medium }}>Track</Text>
+          <Text style={{ fontFamily: FONTS.medium, fontSize: FONT_SIZES.micro, color: '#999' }}>Track</Text>
         </View>
 
         {TABS.slice(2).map((tab) => (
