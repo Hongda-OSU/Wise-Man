@@ -1,12 +1,14 @@
 import { Tabs } from 'expo-router';
 
+import TabBar from '@/components/templates/TabBar';
+
 export default function TabLayout() {
   return (
-    <Tabs>
-      <Tabs.Screen name="index" options={{ title: 'Home' }} />
-      <Tabs.Screen name="portfolio" options={{ title: 'Portfolio' }} />
-      <Tabs.Screen name="events" options={{ title: 'Events' }} />
-      <Tabs.Screen name="analysis" options={{ title: 'Analysis' }} />
+    <Tabs tabBar={() => <TabBar />} screenOptions={{ headerShown: false }}>
+      <Tabs.Screen name="index" />
+      <Tabs.Screen name="portfolio" />
+      <Tabs.Screen name="events" />
+      <Tabs.Screen name="analysis" />
     </Tabs>
   );
 }
