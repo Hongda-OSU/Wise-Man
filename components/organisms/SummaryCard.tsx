@@ -31,7 +31,7 @@ export default function SummaryCard({ month, netBalance, income, expense }: Summ
       </View>
 
       {/* Net balance amount */}
-      <Text style={{ fontFamily: FONTS.moneyBold, fontSize: 44, color: COLORS.white, letterSpacing: -2, marginBottom: 16 }}>
+      <Text style={{ fontFamily: FONTS.moneyBold, fontSize: FONT_SIZES.display, color: COLORS.white, letterSpacing: -2, marginBottom: 16 }}>
         ${formatCurrency(netBalance)}
       </Text>
 
