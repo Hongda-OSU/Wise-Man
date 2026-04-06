@@ -3,16 +3,13 @@ import { Calendar, ArrowUp, ArrowDown } from 'lucide-react-native';
 
 import { COLORS } from '@/constants/colors';
 import { FONTS, FONT_SIZES } from '@/constants/fonts';
+import { formatCurrency } from '@/utils/formatCurrency';
 
 interface SummaryCardProps {
   month: string;
   netBalance: number;
   income: number;
   expense: number;
-}
-
-function formatCurrency(amount: number): string {
-  return amount.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 }
 
 export default function SummaryCard({ month, netBalance, income, expense }: SummaryCardProps) {
@@ -64,7 +61,7 @@ export default function SummaryCard({ month, netBalance, income, expense }: Summ
         <View className="gap-1">
           <View className="flex-row items-center gap-1">
             <ArrowUp size={12} color={COLORS.income} />
-            <Text style={{ fontFamily: FONTS.medium, fontSize: FONT_SIZES.caption, color: 'rgba(255,255,255,0.5)' }}>
+            <Text style={{ fontFamily: FONTS.medium, fontSize: FONT_SIZES.caption, color: COLORS.textSecondary }}>
               Income
             </Text>
           </View>
@@ -76,7 +73,7 @@ export default function SummaryCard({ month, netBalance, income, expense }: Summ
         <View className="gap-1">
           <View className="flex-row items-center gap-1">
             <ArrowDown size={12} color={COLORS.expense} />
-            <Text style={{ fontFamily: FONTS.medium, fontSize: FONT_SIZES.caption, color: 'rgba(255,255,255,0.5)' }}>
+            <Text style={{ fontFamily: FONTS.medium, fontSize: FONT_SIZES.caption, color: COLORS.textSecondary }}>
               Expense
             </Text>
           </View>
