@@ -1,4 +1,6 @@
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+// TODO: migrate to ReanimatedSwipeable — requires dev client (eas build)
+// eslint-disable-next-line deprecation/deprecation
 import Swipeable from 'react-native-gesture-handler/Swipeable';
 import { Pencil, Trash2 } from 'lucide-react-native';
 
@@ -68,7 +70,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: COLORS.white,
     borderRadius: 16,
-    padding: 12,
+    paddingVertical: 12,
+    paddingHorizontal: 16,
     gap: 12,
   },
   info: {
