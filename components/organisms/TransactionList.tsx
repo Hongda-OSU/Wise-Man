@@ -9,16 +9,18 @@ interface TransactionListProps {
   sections: TransactionSection[];
   onEdit: (id: string) => void;
   onDelete: (id: string) => void;
+  listHeader?: React.ReactNode;
 }
 
-export default function TransactionList({ sections, onEdit, onDelete }: TransactionListProps) {
+export default function TransactionList({ sections, onEdit, onDelete, listHeader }: TransactionListProps) {
   return (
     <SectionList
       sections={sections}
       keyExtractor={(item) => item.id}
       showsVerticalScrollIndicator={false}
-      contentContainerStyle={{ paddingHorizontal: 24, paddingBottom: 120 }}
+      contentContainerStyle={{ paddingBottom: 120 }}
       stickySectionHeadersEnabled={false}
+      ListHeaderComponent={listHeader ? <>{listHeader}</> : undefined}
       renderSectionHeader={({ section }) => (
         <Text style={{
           fontFamily: FONTS.medium,
@@ -26,6 +28,7 @@ export default function TransactionList({ sections, onEdit, onDelete }: Transact
           color: COLORS.textSecondary,
           marginTop: 16,
           marginBottom: 8,
+          paddingHorizontal: 24,
         }}>
           {section.title}
         </Text>
@@ -33,6 +36,7 @@ export default function TransactionList({ sections, onEdit, onDelete }: Transact
       renderItem={({ item, index, section }) => (
         <View style={{
           marginBottom: index === section.data.length - 1 ? 0 : 8,
+          paddingHorizontal: 24,
         }}>
           <TransactionItem
             transaction={item}
