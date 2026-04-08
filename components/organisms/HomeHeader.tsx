@@ -1,4 +1,3 @@
-import AppHeader from '@/components/templates/AppHeader';
 import SummaryCard from '@/components/organisms/SummaryCard';
 import TransactionHeader from '@/components/molecules/TransactionHeader';
 
@@ -10,7 +9,6 @@ interface HomeHeaderProps {
 export default function HomeHeader({ view, onViewChange }: HomeHeaderProps) {
   return (
     <>
-      <AppHeader />
       <SummaryCard
         month="March 2026"
         netBalance={3240.50}
