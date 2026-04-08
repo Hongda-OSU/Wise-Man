@@ -1,4 +1,4 @@
-import { View, StyleSheet } from 'react-native';
+import { View } from 'react-native';
 
 import type { CategoryConfig } from '@/constants/categories';
 
@@ -12,15 +12,11 @@ export default function CategoryIcon({ category, size = 44, borderRadius = 13 }:
   const iconSize = Math.round(size * 0.45);
 
   return (
-    <View style={[styles.container, { width: size, height: size, borderRadius, backgroundColor: category.bg }]}>
+    <View
+      className="items-center justify-center"
+      style={{ width: size, height: size, borderRadius, backgroundColor: category.bg }}
+    >
       <category.icon size={iconSize} color={category.color} />
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
