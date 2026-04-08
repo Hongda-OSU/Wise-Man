@@ -16,7 +16,7 @@ interface SummaryCardProps {
 
 export default function SummaryCard({ month, netBalance, income, expense }: SummaryCardProps) {
   return (
-    <View className="mx-5 rounded-[20px] px-7 py-6 overflow-hidden" style={styles.card}>
+    <View className="mx-5 mt-4 rounded-[20px] px-7 py-6 overflow-hidden" style={styles.card}>
       {/* Top row */}
       <View className="flex-row items-center justify-between mb-2">
         <View className="flex-row items-center gap-2">

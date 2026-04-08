@@ -7,7 +7,7 @@ import AppIcon from '@/components/atoms/AppIcon';
 
 export default function AppHeader() {
   return (
-    <View className="flex-row items-center justify-between px-7 pt-4 pb-7">
+    <View className="flex-row items-center justify-between px-7 pt-4 pb-4">
       {/* Left: App icon + name */}
       <View className="flex-row items-center gap-3">
         <AppIcon />
