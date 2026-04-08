@@ -26,6 +26,7 @@ export default function TransactionList({ sections, onEdit, onDelete, listHeader
           fontFamily: FONTS.medium,
           fontSize: FONT_SIZES.caption,
           color: COLORS.textSecondary,
+          letterSpacing: -0.65,
           marginTop: 16,
           marginBottom: 8,
           paddingHorizontal: 24,
