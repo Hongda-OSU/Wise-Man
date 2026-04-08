@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text } from 'react-native';
 // TODO: migrate to ReanimatedSwipeable — requires dev client (eas build)
 // eslint-disable-next-line deprecation/deprecation
 import Swipeable from 'react-native-gesture-handler/Swipeable';
@@ -31,7 +31,7 @@ export default function TransactionItem({ transaction, onEdit, onDelete }: Trans
           icon={Pencil}
           label="Edit"
           backgroundColor={COLORS.forestGreen}
-          style={styles.editAction}
+          className="rounded-2xl mr-2"
           onPress={() => onEdit(transaction.id)}
         />
       )}
@@ -40,14 +40,14 @@ export default function TransactionItem({ transaction, onEdit, onDelete }: Trans
           icon={Trash2}
           label="Delete"
           backgroundColor={COLORS.expense}
-          style={styles.deleteAction}
+          className="rounded-2xl ml-2"
           onPress={() => onDelete(transaction.id)}
         />
       )}
     >
-      <View style={styles.item}>
+      <View className="flex-row items-center bg-white rounded-2xl py-3 px-4 gap-3">
         <CategoryIcon category={category} size={44} borderRadius={13} />
-        <View style={styles.info}>
+        <View className="flex-1">
           <Text style={{ fontFamily: FONTS.semiBold, fontSize: FONT_SIZES.body, color: COLORS.textPrimary, letterSpacing: -0.3 }}>
             {transaction.note ?? category.label}
           </Text>
@@ -62,26 +62,3 @@ export default function TransactionItem({ transaction, onEdit, onDelete }: Trans
     </Swipeable>
   );
 }
-
-const styles = StyleSheet.create({
-  editAction: {
-    borderRadius: 16,
-    marginRight: 8,
-  },
-  deleteAction: {
-    borderRadius: 16,
-    marginLeft: 8,
-  },
-  item: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    backgroundColor: COLORS.white,
-    borderRadius: 16,
-    paddingVertical: 12,
-    paddingHorizontal: 16,
-    gap: 12,
-  },
-  info: {
-    flex: 1,
-  },
-});

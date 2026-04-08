@@ -1,4 +1,4 @@
-import { Text, TouchableOpacity, StyleSheet } from 'react-native';
+import { Text, TouchableOpacity } from 'react-native';
 import type { ComponentType } from 'react';
 
 import { COLORS } from '@/constants/colors';
@@ -8,14 +8,15 @@ interface SwipeActionProps {
   icon: ComponentType<{ size: number; color: string }>;
   label: string;
   backgroundColor: string;
-  style?: object;
+  className?: string;
   onPress: () => void;
 }
 
-export default function SwipeAction({ icon: Icon, label, backgroundColor, style, onPress }: SwipeActionProps) {
+export default function SwipeAction({ icon: Icon, label, backgroundColor, className, onPress }: SwipeActionProps) {
   return (
     <TouchableOpacity
-      style={[styles.action, { backgroundColor }, style]}
+      className={`items-center justify-center ${className ?? ''}`}
+      style={{ backgroundColor, width: 72 }}
       onPress={onPress}
       accessibilityRole="button"
       accessibilityLabel={label}
@@ -27,11 +28,3 @@ export default function SwipeAction({ icon: Icon, label, backgroundColor, style,
     </TouchableOpacity>
   );
 }
-
-const styles = StyleSheet.create({
-  action: {
-    width: 72,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
