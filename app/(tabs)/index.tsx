@@ -4,6 +4,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import AppHeader from '@/components/templates/AppHeader';
 import HomeHeader from '@/components/organisms/HomeHeader';
 import TransactionList from '@/components/organisms/TransactionList';
+import CalendarView from '@/components/organisms/CalendarView';
 import { COLORS } from '@/constants/colors';
 import { MOCK_TRANSACTIONS } from '@/mocks/transactions';
 
@@ -25,24 +26,35 @@ export default function HomeScreen() {
     console.log('Delete transaction:', id);
   };
 
+  const header = (
+    <HomeHeader
+      view={view}
+      onViewChange={setView}
+      month="March 2026"
+      income={income}
+      expense={expense}
+      netBalance={netBalance}
+    />
+  );
+
   return (
     <SafeAreaView className="flex-1" style={{ backgroundColor: COLORS.bgPrimary }} edges={['top']}>
       <AppHeader />
-      <TransactionList
-        sections={MOCK_TRANSACTIONS}
-        onEdit={handleEdit}
-        onDelete={handleDelete}
-        listHeader={
-          <HomeHeader
-            view={view}
-            onViewChange={setView}
-            month="March 2026"
-            income={income}
-            expense={expense}
-            netBalance={netBalance}
-          />
-        }
-      />
+      {view === 'list' ? (
+        <TransactionList
+          sections={MOCK_TRANSACTIONS}
+          onEdit={handleEdit}
+          onDelete={handleDelete}
+          listHeader={header}
+        />
+      ) : (
+        <CalendarView
+          sections={MOCK_TRANSACTIONS}
+          onEdit={handleEdit}
+          onDelete={handleDelete}
+          listHeader={header}
+        />
+      )}
     </SafeAreaView>
   );
 }
