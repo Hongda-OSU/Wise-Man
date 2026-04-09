@@ -51,7 +51,7 @@ export default function HomeEmptyView() {
       </View>
 
       <Text className="mb-4" style={styles.title}>No transactions yet</Text>
-      <Text className="text-center mb-12" style={styles.subtitle}>
+      <Text className="text-center mb-12 leading-5" style={styles.subtitle}>
         Track your income and expenses{'\n'}to start managing your finances
       </Text>
 
@@ -75,6 +75,5 @@ const styles = StyleSheet.create({
     fontSize: FONT_SIZES.caption,
     color: COLORS.textSecondary,
     letterSpacing: 0.65,
-    lineHeight: 20,
   },
 });

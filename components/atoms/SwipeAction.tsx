@@ -22,7 +22,7 @@ export default function SwipeAction({ icon: Icon, label, backgroundColor, classN
       accessibilityLabel={label}
     >
       <Icon size={18} color={COLORS.white} />
-      <Text style={styles.label}>{label}</Text>
+      <Text className="mt-1" style={styles.label}>{label}</Text>
     </TouchableOpacity>
   );
 }
@@ -32,6 +32,5 @@ const styles = StyleSheet.create({
     fontFamily: FONTS.semiBold,
     fontSize: FONT_SIZES.micro,
     color: COLORS.white,
-    marginTop: 4,
   },
 });

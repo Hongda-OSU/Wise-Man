@@ -27,7 +27,7 @@ export default function SummaryCard({ month, netBalance, income, expense }: Summ
       </View>
 
       {/* Net balance amount */}
-      <Text style={styles.amount}>${formatCurrency(netBalance)}</Text>
+      <Text className="mb-4" style={styles.amount}>${formatCurrency(netBalance)}</Text>
 
       {/* Progress bar */}
       <BalanceProgressBar income={income} netBalance={netBalance} expense={expense} />
@@ -61,6 +61,5 @@ const styles = StyleSheet.create({
     fontSize: FONT_SIZES.display,
     color: COLORS.white,
     letterSpacing: -2,
-    marginBottom: 16,
   },
 });

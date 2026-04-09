@@ -13,8 +13,8 @@ interface ButtonProps {
 export default function Button({ label, onPress, backgroundColor = COLORS.forestGreen, accessibilityLabel }: ButtonProps) {
   return (
     <TouchableOpacity
-      className="items-center py-4 px-12"
-      style={[styles.button, { backgroundColor }]}
+      className="items-center py-4 px-12 rounded-2xl"
+      style={{ backgroundColor }}
       onPress={onPress}
       accessibilityRole="button"
       accessibilityLabel={accessibilityLabel ?? label}
@@ -25,9 +25,6 @@ export default function Button({ label, onPress, backgroundColor = COLORS.forest
 }
 
 const styles = StyleSheet.create({
-  button: {
-    borderRadius: 16,
-  },
   label: {
     fontFamily: FONTS.semiBold,
     fontSize: FONT_SIZES.body,
