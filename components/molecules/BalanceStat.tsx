@@ -1,4 +1,4 @@
-import { View, Text } from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
 import { ArrowUp, ArrowDown } from 'lucide-react-native';
 
 import { COLORS } from '@/constants/colors';
@@ -20,13 +20,22 @@ export default function BalanceStat({ type, amount }: BalanceStatProps) {
     <View className="gap-1">
       <View className="flex-row items-center gap-1">
         <Icon size={12} color={color} />
-        <Text style={{ fontFamily: FONTS.medium, fontSize: FONT_SIZES.caption, color: COLORS.textSecondary }}>
-          {label}
-        </Text>
+        <Text style={styles.label}>{label}</Text>
       </View>
-      <Text style={{ fontFamily: FONTS.moneyBold, fontSize: 16, color, letterSpacing: -0.8 }}>
-        ${formatCurrency(amount)}
-      </Text>
+      <Text style={[styles.amount, { color }]}>${formatCurrency(amount)}</Text>
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  label: {
+    fontFamily: FONTS.medium,
+    fontSize: FONT_SIZES.caption,
+    color: COLORS.textSecondary,
+  },
+  amount: {
+    fontFamily: FONTS.moneyBold,
+    fontSize: 16,
+    letterSpacing: -0.8,
+  },
+});

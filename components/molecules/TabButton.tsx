@@ -1,4 +1,4 @@
-import { TouchableOpacity, Text } from 'react-native';
+import { TouchableOpacity, Text, StyleSheet } from 'react-native';
 
 import { COLORS } from '@/constants/colors';
 import { FONTS, FONT_SIZES } from '@/constants/fonts';
@@ -15,7 +15,14 @@ export default function TabButton({ label, icon: Icon, active, onPress }: TabBut
   return (
     <TouchableOpacity className="flex-1 items-center justify-center gap-1" onPress={onPress} accessibilityRole="button">
       <Icon size={22} color={color} />
-      <Text style={{ color, fontFamily: FONTS.semiBold, fontSize: FONT_SIZES.micro }}>{label}</Text>
+      <Text style={[styles.label, { color }]}>{label}</Text>
     </TouchableOpacity>
   );
 }
+
+const styles = StyleSheet.create({
+  label: {
+    fontFamily: FONTS.semiBold,
+    fontSize: FONT_SIZES.micro,
+  },
+});

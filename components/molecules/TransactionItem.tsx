@@ -1,4 +1,4 @@
-import { View, Text } from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
 // TODO: migrate to ReanimatedSwipeable — requires dev client (eas build)
 // eslint-disable-next-line deprecation/deprecation
 import Swipeable from 'react-native-gesture-handler/Swipeable';
@@ -48,17 +48,33 @@ export default function TransactionItem({ transaction, onEdit, onDelete }: Trans
       <View className="flex-row items-center bg-white rounded-2xl py-3 px-4 gap-3">
         <CategoryIcon category={category} size={44} borderRadius={13} />
         <View className="flex-1">
-          <Text style={{ fontFamily: FONTS.semiBold, fontSize: FONT_SIZES.body, color: COLORS.textPrimary, letterSpacing: -0.3 }}>
-            {transaction.note ?? category.label}
-          </Text>
-          <Text style={{ fontFamily: FONTS.regular, fontSize: FONT_SIZES.caption, color: COLORS.textSecondary, marginTop: 2 }}>
-            {category.label}
-          </Text>
+          <Text style={styles.name}>{transaction.note ?? category.label}</Text>
+          <Text style={styles.category}>{category.label}</Text>
         </View>
-        <Text style={{ fontFamily: FONTS.moneyBold, fontSize: FONT_SIZES.body, color: amountColor, letterSpacing: -0.5 }}>
+        <Text style={[styles.amount, { color: amountColor }]}>
           {amountPrefix}${formatCurrency(transaction.amount)}
         </Text>
       </View>
     </Swipeable>
   );
 }
+
+const styles = StyleSheet.create({
+  name: {
+    fontFamily: FONTS.semiBold,
+    fontSize: FONT_SIZES.body,
+    color: COLORS.textPrimary,
+    letterSpacing: -0.3,
+  },
+  category: {
+    fontFamily: FONTS.regular,
+    fontSize: FONT_SIZES.caption,
+    color: COLORS.textSecondary,
+    marginTop: 2,
+  },
+  amount: {
+    fontFamily: FONTS.moneyBold,
+    fontSize: FONT_SIZES.body,
+    letterSpacing: -0.5,
+  },
+});

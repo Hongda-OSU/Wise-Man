@@ -21,19 +21,13 @@ export default function SummaryCard({ month, netBalance, income, expense }: Summ
       <View className="flex-row items-center justify-between mb-2">
         <View className="flex-row items-center gap-2">
           <Calendar size={14} color={COLORS.textSecondary} />
-          <Text style={{ fontFamily: FONTS.regular, fontSize: FONT_SIZES.caption, color: COLORS.textSecondary, letterSpacing: -0.65 }}>
-            {month}
-          </Text>
+          <Text style={styles.meta}>{month}</Text>
         </View>
-        <Text style={{ fontFamily: FONTS.regular, fontSize: FONT_SIZES.caption, color: COLORS.textSecondary, letterSpacing: -0.65 }}>
-          NET BALANCE
-        </Text>
+        <Text style={styles.meta}>NET BALANCE</Text>
       </View>
 
       {/* Net balance amount */}
-      <Text style={{ fontFamily: FONTS.moneyBold, fontSize: FONT_SIZES.display, color: COLORS.white, letterSpacing: -2, marginBottom: 16 }}>
-        ${formatCurrency(netBalance)}
-      </Text>
+      <Text style={styles.amount}>${formatCurrency(netBalance)}</Text>
 
       {/* Progress bar */}
       <BalanceProgressBar income={income} netBalance={netBalance} expense={expense} />
@@ -55,5 +49,18 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.3,
     shadowRadius: 16,
     elevation: 8,
+  },
+  meta: {
+    fontFamily: FONTS.regular,
+    fontSize: FONT_SIZES.caption,
+    color: COLORS.textSecondary,
+    letterSpacing: -0.65,
+  },
+  amount: {
+    fontFamily: FONTS.moneyBold,
+    fontSize: FONT_SIZES.display,
+    color: COLORS.white,
+    letterSpacing: -2,
+    marginBottom: 16,
   },
 });

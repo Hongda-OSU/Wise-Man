@@ -1,4 +1,4 @@
-import { View, Text } from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
 import { List, CalendarDays } from 'lucide-react-native';
 
 import { COLORS } from '@/constants/colors';
@@ -18,9 +18,7 @@ const VIEW_SEGMENTS = [
 export default function TransactionHeader({ view, onViewChange }: TransactionHeaderProps) {
   return (
     <View className="flex-row items-center justify-between px-7 mt-8 mb-3">
-      <Text style={{ fontFamily: FONTS.semiBold, fontSize: FONT_SIZES.caption, color: COLORS.textSecondary, letterSpacing: 0.5 }}>
-        TRANSACTIONS
-      </Text>
+      <Text style={styles.title}>TRANSACTIONS</Text>
       <SegmentedControl
         segments={VIEW_SEGMENTS}
         activeKey={view}
@@ -29,3 +27,12 @@ export default function TransactionHeader({ view, onViewChange }: TransactionHea
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  title: {
+    fontFamily: FONTS.semiBold,
+    fontSize: FONT_SIZES.caption,
+    color: COLORS.textSecondary,
+    letterSpacing: 0.5,
+  },
+});

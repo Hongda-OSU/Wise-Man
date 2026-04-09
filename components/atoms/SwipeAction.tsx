@@ -1,4 +1,4 @@
-import { Text, TouchableOpacity } from 'react-native';
+import { Text, TouchableOpacity, StyleSheet } from 'react-native';
 import type { ComponentType } from 'react';
 
 import { COLORS } from '@/constants/colors';
@@ -22,9 +22,16 @@ export default function SwipeAction({ icon: Icon, label, backgroundColor, classN
       accessibilityLabel={label}
     >
       <Icon size={18} color={COLORS.white} />
-      <Text style={{ fontFamily: FONTS.semiBold, fontSize: FONT_SIZES.micro, color: COLORS.white, marginTop: 4 }}>
-        {label}
-      </Text>
+      <Text style={styles.label}>{label}</Text>
     </TouchableOpacity>
   );
 }
+
+const styles = StyleSheet.create({
+  label: {
+    fontFamily: FONTS.semiBold,
+    fontSize: FONT_SIZES.micro,
+    color: COLORS.white,
+    marginTop: 4,
+  },
+});
