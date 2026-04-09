@@ -1,9 +1,10 @@
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
 import { useRouter } from 'expo-router';
-import Svg, { Path, Circle } from 'react-native-svg';
+import Svg, { Path } from 'react-native-svg';
 
 import { COLORS } from '@/constants/colors';
 import { FONTS, FONT_SIZES } from '@/constants/fonts';
+import Button from '@/components/atoms/Button';
 
 function EmptyStateIcon() {
   return (
@@ -54,15 +55,7 @@ export default function HomeEmptyView() {
         Track your income and expenses{'\n'}to start managing your finances
       </Text>
 
-      <TouchableOpacity
-        className="items-center py-4 px-12"
-        style={styles.button}
-        onPress={() => router.push('/track')}
-        accessibilityRole="button"
-        accessibilityLabel="Get Started"
-      >
-        <Text style={styles.buttonText}>Get Started !</Text>
-      </TouchableOpacity>
+      <Button label="Get Started !" onPress={() => router.push('/track')} />
     </View>
   );
 }
@@ -83,14 +76,5 @@ const styles = StyleSheet.create({
     color: COLORS.textSecondary,
     letterSpacing: 0.65,
     lineHeight: 20,
-  },
-  button: {
-    backgroundColor: COLORS.forestGreen,
-    borderRadius: 16,
-  },
-  buttonText: {
-    fontFamily: FONTS.semiBold,
-    fontSize: FONT_SIZES.body,
-    color: COLORS.white,
   },
 });
