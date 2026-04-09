@@ -4,7 +4,9 @@ import { ChevronLeft, ChevronRight } from 'lucide-react-native';
 
 import { COLORS } from '@/constants/colors';
 import { FONTS, FONT_SIZES } from '@/constants/fonts';
+import CalendarDayCell from '@/components/molecules/CalendarDayCell';
 import TransactionItem from '@/components/molecules/TransactionItem';
+import { toDateString } from '@/utils/dateUtils';
 import type { TransactionSection } from '@/types/transaction';
 
 const WEEKDAYS = ['S', 'M', 'T', 'W', 'T', 'F', 'S'];
@@ -20,10 +22,6 @@ interface CalendarViewProps {
   onEdit: (id: string) => void;
   onDelete: (id: string) => void;
   listHeader?: React.ReactNode;
-}
-
-function toDateString(year: number, month: number, day: number): string {
-  return `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
 }
 
 function chunkIntoRows(days: (number | null)[]): (number | null)[][] {
@@ -125,7 +123,7 @@ export default function CalendarView({ sections, onEdit, onDelete, listHeader }:
           <View key={rowIndex} className="flex-row justify-between">
             {row.map((day, colIndex) => {
               if (day === null) {
-                return <View key={colIndex} style={styles.cell} />;
+                return <View key={colIndex} style={{ width: 44, height: CELL_H }} />;
               }
 
               const dateStr = toDateString(year, month, day);
@@ -133,22 +131,15 @@ export default function CalendarView({ sections, onEdit, onDelete, listHeader }:
               const isSelected = selectedDate === dateStr;
 
               return (
-                <TouchableOpacity
+                <CalendarDayCell
                   key={dateStr}
-                  style={[styles.cell, isSelected ? styles.cellSelected : styles.cellDefault]}
+                  day={day}
+                  income={data?.income ?? 0}
+                  expense={data?.expense ?? 0}
+                  isSelected={isSelected}
                   onPress={() => setSelectedDate(dateStr)}
-                  activeOpacity={0.7}
-                  accessibilityRole="button"
                   accessibilityLabel={`${day} ${monthLabel}`}
-                >
-                  <Text style={[styles.dayNumber, isSelected && styles.textSelected]}>{day}</Text>
-                  <Text style={[data?.income ? styles.amountIncome : styles.amountZero]} numberOfLines={1}>
-                    {data?.income ? `+${Math.round(data.income)}` : '$0'}
-                  </Text>
-                  <Text style={[data?.expense ? styles.amountExpense : styles.amountZero]} numberOfLines={1}>
-                    {data?.expense ? `-${Math.round(data.expense)}` : '$0'}
-                  </Text>
-                </TouchableOpacity>
+                />
               );
             })}
           </View>
@@ -189,45 +180,6 @@ const styles = StyleSheet.create({
     fontFamily: FONTS.medium,
     fontSize: FONT_SIZES.caption,
     color: COLORS.textSecondary,
-  },
-  cell: {
-    width: 44,
-    height: CELL_H,
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderRadius: 10,
-  },
-  cellDefault: {
-    backgroundColor: COLORS.white,
-  },
-  cellSelected: {
-    backgroundColor: COLORS.forestGreen,
-  },
-  dayNumber: {
-    fontFamily: FONTS.medium,
-    fontSize: FONT_SIZES.caption,
-    color: COLORS.textPrimary,
-  },
-  amountIncome: {
-    fontFamily: FONTS.regular,
-    fontSize: 8,
-    color: COLORS.income,
-    marginTop: 1,
-  },
-  amountExpense: {
-    fontFamily: FONTS.regular,
-    fontSize: 8,
-    color: COLORS.expense,
-    marginTop: 1,
-  },
-  amountZero: {
-    fontFamily: FONTS.regular,
-    fontSize: 8,
-    color: COLORS.textSecondary,
-    marginTop: 1,
-  },
-  textSelected: {
-    color: COLORS.white,
   },
   sectionHeader: {
     fontFamily: FONTS.medium,
