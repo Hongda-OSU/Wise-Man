@@ -11,7 +11,14 @@ export default function AppHeader() {
       {/* Left: App icon + name */}
       <View className="flex-row items-center gap-3">
         <AppIcon />
-        <Text style={{ fontFamily: FONTS.semiBold, color: COLORS.textPrimary, fontSize: 18, letterSpacing: -0.9 }}>Wise Man</Text>
+        <Text style={{
+          fontFamily: FONTS.serif,
+          color: COLORS.textPrimary,
+          fontSize: 18,
+          textShadowColor: COLORS.textPrimary,
+          textShadowOffset: { width: 0.4, height: 0.4 },
+          textShadowRadius: 0.1,
+        }}>Wise Man</Text>
       </View>
 
       {/* Right: Search + Profile */}

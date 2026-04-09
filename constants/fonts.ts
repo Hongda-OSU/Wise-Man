@@ -8,6 +8,9 @@ export const FONTS = {
   // Money amounts
   moneyBold: 'Manrope_700Bold',
   moneyExtraBold: 'Manrope_800ExtraBold',
+
+  // App name
+  serif: 'InstrumentSerif_400Regular',
 } as const;
 
 export const FONT_SIZES = {
