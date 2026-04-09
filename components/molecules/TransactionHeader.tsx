@@ -17,7 +17,7 @@ const VIEW_SEGMENTS = [
 
 export default function TransactionHeader({ view, onViewChange }: TransactionHeaderProps) {
   return (
-    <View className="flex-row items-center justify-between px-7 mt-8 mb-3">
+    <View className="flex-row items-center justify-between px-8 mt-7 mb-3">
       <Text style={styles.title}>TRANSACTIONS</Text>
       <SegmentedControl
         segments={VIEW_SEGMENTS}

@@ -98,9 +98,9 @@ export default function CalendarView({ sections, onEdit, onDelete, listHeader }:
       {listHeader}
 
       {/* Month navigation */}
-      <View className="flex-row items-center justify-between px-7 mt-4 mb-4">
+      <View className="flex-row items-center justify-between px-8 mt-4 mb-4">
         <Text style={styles.monthLabel}>{monthLabel}</Text>
-        <View className="flex-row gap-3 mr-2">
+        <View className="flex-row gap-3 mr-2.5">
           <TouchableOpacity onPress={prevMonth} style={styles.navBtn} accessibilityRole="button" accessibilityLabel="Previous month">
             <ChevronLeft size={18} color={COLORS.textPrimary} />
           </TouchableOpacity>
@@ -111,14 +111,14 @@ export default function CalendarView({ sections, onEdit, onDelete, listHeader }:
       </View>
 
       {/* Weekday headers */}
-      <View className="flex-row justify-between px-6 mb-2">
+      <View className="flex-row justify-between px-7 mb-2">
         {WEEKDAYS.map((day, i) => (
           <Text key={i} style={styles.weekday}>{day}</Text>
         ))}
       </View>
 
       {/* Calendar rows */}
-      <View className="px-6 gap-1 mb-10">
+      <View className="px-7 gap-1.5 mb-6">
         {calendarRows.map((row, rowIndex) => (
           <View key={rowIndex} className="flex-row justify-between">
             {row.map((day, colIndex) => {
@@ -148,9 +148,9 @@ export default function CalendarView({ sections, onEdit, onDelete, listHeader }:
 
       {/* Selected day transactions */}
       {selectedSectionTitle && (
-        <Text className="mt-5 mb-2 px-6" style={styles.sectionHeader}>{selectedSectionTitle}</Text>
+        <Text className="mt-5 mb-2 px-7" style={styles.sectionHeader}>{selectedSectionTitle}</Text>
       )}
-      <View className="gap-2 px-6">
+      <View className="gap-2 px-7">
         {selectedTransactions.map((tx) => (
           <TransactionItem key={tx.id} transaction={tx} onEdit={onEdit} onDelete={onDelete} />
         ))}
@@ -169,8 +169,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   monthLabel: {
-    fontFamily: FONTS.bold,
-    fontSize: FONT_SIZES.heading2,
+    fontFamily: FONTS.semiBold,
+    fontSize: FONT_SIZES.body,
     color: COLORS.textPrimary,
     letterSpacing: -0.5,
   },

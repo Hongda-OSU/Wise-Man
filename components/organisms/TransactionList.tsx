@@ -24,7 +24,7 @@ export default function TransactionList({ sections, onEdit, onDelete, listHeader
       ListHeaderComponent={listHeader ? <>{listHeader}</> : undefined}
       ListEmptyComponent={<HomeEmptyView />}
       renderSectionHeader={({ section }) => (
-        <Text className="mt-4 mb-2 px-6" style={styles.sectionHeader}>{section.title}</Text>
+        <Text className="mt-4 mb-2 px-8" style={styles.sectionHeader}>{section.title}</Text>
       )}
       renderItem={({ item, index, section }) => (
         <View style={{ marginBottom: index === section.data.length - 1 ? 0 : 8, paddingHorizontal: 24 }}>
