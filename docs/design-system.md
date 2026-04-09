@@ -12,6 +12,9 @@
 - Usage: All UI text (labels, categories, descriptions, buttons)
 - Weights: Regular (400) / Medium (500) / Bold (700)
 
+### App Name — Instrument Serif
+- Usage: Header "Wise Man" title, App icon letters, Empty state titles, Splash screen
+
 ### Financial Numbers — Manrope
 - Usage: All money amounts ($3,240.50, $5,200.00, etc.)
 - Weights: Bold (700) / ExtraBold (800)
@@ -31,23 +34,12 @@
 
 ### Brand Colors
 
-| Name         | Hex       | Usage                        |
-|--------------|-----------|------------------------------|
-| Forest Green | `#1A2E28` | Primary, buttons, emphasis   |
-| Warm White   | `#F5F0E8` | Icon letter color            |
-
-### Background Colors
-
 | Name        | Hex       | Usage                        |
 |-------------|-----------|------------------------------|
-| BG Primary  | `#F0EFE9` | Light mode background        |
-
-### Text Colors
-
-| Name           | Hex       | Usage          |
-|----------------|-----------|----------------|
-| Text Primary   | `#1A1A1A` | Primary text   |
-| Text Secondary | `#999999` | Secondary text |
+| Forest Green| `#1A2E28` | Primary, buttons, emphasis   |
+| Warm Cream  | `#F0EFE9` | Light mode background        |
+| Near Black  | `#1A1A1A` | Primary text                 |
+| Warm White  | `#F5F0E8` | Icon letter color            |
 
 ### Semantic Colors
 
