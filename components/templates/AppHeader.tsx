@@ -1,4 +1,4 @@
-import { View, Text, TouchableOpacity } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { Search, User } from 'lucide-react-native';
 
 import { COLORS } from '@/constants/colors';
@@ -11,14 +11,7 @@ export default function AppHeader() {
       {/* Left: App icon + name */}
       <View className="flex-row items-center gap-3">
         <AppIcon />
-        <Text style={{
-          fontFamily: FONTS.serif,
-          color: COLORS.textPrimary,
-          fontSize: 18,
-          textShadowColor: COLORS.textPrimary,
-          textShadowOffset: { width: 0.4, height: 0.4 },
-          textShadowRadius: 0.1,
-        }}>Wise Man</Text>
+        <Text style={styles.appName}>Wise Man</Text>
       </View>
 
       {/* Right: Search + Profile */}
@@ -33,3 +26,14 @@ export default function AppHeader() {
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  appName: {
+    fontFamily: FONTS.serif,
+    fontSize: 18,
+    color: COLORS.textPrimary,
+    textShadowColor: COLORS.textPrimary,
+    textShadowOffset: { width: 0.4, height: 0.4 },
+    textShadowRadius: 0.1,
+  },
+});
