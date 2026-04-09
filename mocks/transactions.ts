@@ -1,5 +1,7 @@
 import type { TransactionSection } from '@/types/transaction';
 
+export const MOCK_TRANSACTIONS_EMPTY: TransactionSection[] = [];
+
 export const MOCK_TRANSACTIONS: TransactionSection[] = [
   {
     title: 'March 15, 2026',

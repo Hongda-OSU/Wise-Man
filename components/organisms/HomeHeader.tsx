@@ -4,16 +4,20 @@ import TransactionHeader from '@/components/molecules/TransactionHeader';
 interface HomeHeaderProps {
   view: 'list' | 'calendar';
   onViewChange: (view: 'list' | 'calendar') => void;
+  month: string;
+  income: number;
+  expense: number;
+  netBalance: number;
 }
 
-export default function HomeHeader({ view, onViewChange }: HomeHeaderProps) {
+export default function HomeHeader({ view, onViewChange, month, income, expense, netBalance }: HomeHeaderProps) {
   return (
     <>
       <SummaryCard
-        month="March 2026"
-        netBalance={3240.50}
-        income={5000}
-        expense={1959.50}
+        month={month}
+        netBalance={netBalance}
+        income={income}
+        expense={expense}
       />
       <TransactionHeader view={view} onViewChange={onViewChange} />
     </>
