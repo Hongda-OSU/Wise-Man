@@ -50,7 +50,7 @@ export default function HomeEmptyView() {
         <EmptyStateIcon />
       </View>
 
-      <Text className="mb-4" style={styles.title}>No transactions yet</Text>
+      <Text className="mb-6" style={styles.title}>No transactions yet</Text>
       <Text className="text-center mb-12 leading-5" style={styles.subtitle}>
         Track your income and expenses{'\n'}to start managing your finances
       </Text>
