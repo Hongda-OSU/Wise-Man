@@ -5,7 +5,7 @@ import AppHeader from '@/components/templates/AppHeader';
 import HomeHeader from '@/components/organisms/HomeHeader';
 import TransactionList from '@/components/organisms/TransactionList';
 import { COLORS } from '@/constants/colors';
-import { MOCK_TRANSACTIONS_EMPTY as MOCK_TRANSACTIONS } from '@/mocks/transactions';
+import { MOCK_TRANSACTIONS } from '@/mocks/transactions';
 
 export default function HomeScreen() {
   const [view, setView] = useState<'list' | 'calendar'>('list');
