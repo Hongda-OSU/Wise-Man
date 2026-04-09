@@ -58,6 +58,7 @@ const styles = StyleSheet.create({
     fontFamily: FONTS.serif,
     fontSize: 18,
     color: COLORS.textPrimary,
+    letterSpacing: 0.18,
     textShadowColor: COLORS.textPrimary,
     textShadowOffset: { width: 0.4, height: 0.4 },
     textShadowRadius: 0.1,
