@@ -166,33 +166,48 @@ export const INCOME_CATEGORIES = [
 ] as const;
 ```
 
-## Styling Conventions (NativeWind)
+## Styling Conventions (NativeWind + StyleSheet)
 
-### Use NativeWind className for common styles
+### Use NativeWind `className` for layout
 ```tsx
-// ✅ Good — simple layout
-<View className="flex-1 bg-[#F0EFE9] px-6 pt-4">
-  <Text className="text-lg font-bold text-[#1A1A1A]">Title</Text>
+// ✅ Good — layout, spacing, flex
+<View className="flex-row items-center justify-between px-6 mt-4 gap-3">
+  <Text className="mt-4 mb-2 px-6">Section Title</Text>
 </View>
 ```
 
-### Use StyleSheet for complex or dynamic styles
+### Use StyleSheet for font styles and fixed sizes
 ```tsx
-// ✅ Good — when you need computed values or complex styles
+// ✅ Good — font styles, fixed sizes, border-radius
 const styles = StyleSheet.create({
-  categoryIcon: {
-    width: 56,
-    height: 56,
-    borderRadius: 16,
+  title: {
+    fontFamily: FONTS.semiBold,
+    fontSize: FONT_SIZES.body,
+    color: COLORS.textPrimary,
+    letterSpacing: -0.3,
+  },
+  icon: {
+    width: 44,
+    height: 44,
+    borderRadius: 13,
   },
 });
 ```
 
+### Use inline style only for dynamic values
+```tsx
+// ✅ Good — value depends on props or state
+<Text style={[styles.amount, { color: amountColor }]}>...</Text>
+<View style={{ width: size, height: size, borderRadius, backgroundColor: category.bg }} />
+```
+
 ### Rules
-- Use COLORS constants in StyleSheet, Tailwind arbitrary values `[#hex]` in className
-- Never hardcode colors directly — always reference constants or Design System
-- Prefer `className` for layout (flex, padding, margin, gap)
-- Prefer `StyleSheet` for component-specific sizes and border-radius
+- `className` — layout only: flex, padding, margin, gap, rounded, bg (static)
+- `StyleSheet` — font styles (`fontFamily`, `fontSize`, `color`, `letterSpacing`) and fixed sizes/border-radius
+- Inline `style` — dynamic values computed from props or state
+- Use `COLORS` constants in StyleSheet; use Tailwind arbitrary values `[#hex]` in className only when no constant exists
+- Never hardcode colors directly — always reference `COLORS` constants or Design System
+- `textShadow` and custom `fontFamily` cannot be expressed in NativeWind — always use StyleSheet
 
 ## State Management (Zustand)
 
