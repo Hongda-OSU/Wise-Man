@@ -15,8 +15,8 @@
 | 1st (left)    | Home        | `House`           | `/`         |
 | 2nd           | Portfolio   | `BriefcaseBusiness`| `/portfolio`|
 | 3rd (center)  | **Track** (big button) | `DollarSign` | `/track` |
-| 4th           | Events      | `CalendarDays`    | `/events`   |
-| 5th (right)   | Analysis    | `ChartPie`        | `/analysis` |
+| 4th           | Events      | `CalendarClock`   | `/events`   |
+| 5th (right)   | Analysis    | `ChartNoAxesColumn`| `/analysis` |
 
 ---
 
@@ -31,6 +31,7 @@ Transaction feed page. First page user sees when opening the app.
 - Tap a record → navigate to Transaction Detail
 - **Swipe right**: item shifts right, green bg + Edit icon + "Edit" text (icon above text)
 - **Swipe left**: item shifts left, red bg + Delete icon + "Delete" text (icon above text)
+- **Empty State** (no transactions): Summary Card shows $0.00, transaction area shows unDraw illustration (finance-guy-avatar, branded `#1A2E28`) + "No transactions yet" + "Track your income and expenses to start managing your finances" + "Get Started" button (navigates to Track page). Button only visible when transaction list is empty.
 
 ---
 

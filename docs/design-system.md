@@ -12,6 +12,9 @@
 - Usage: All UI text (labels, categories, descriptions, buttons)
 - Weights: Regular (400) / Medium (500) / Bold (700)
 
+### App Name — Instrument Serif
+- Usage: Header "Wise Man" title, App icon letters, Empty state titles, Splash screen
+
 ### Financial Numbers — Manrope
 - Usage: All money amounts ($3,240.50, $5,200.00, etc.)
 - Weights: Bold (700) / ExtraBold (800)

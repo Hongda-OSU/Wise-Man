@@ -19,9 +19,11 @@ All specs are in the `docs/` folder:
 - `docs/design-system.md` — Colors, fonts, spacing, category icons
 - `docs/pages.md` — Page specs, layouts, interactions for every screen
 - `docs/git-conventions.md` — Commit format, branch naming, dev flow
+- `docs/dev-conventions.md` — Atomic Design, import order, naming, styling, state management
 
 **Always read these docs before building any UI component.**
 **Always follow git conventions for commits and branching.**
+**Always follow dev conventions for code structure and naming.**
 
 ## Key Design Rules
 - App language: English only, no i18n

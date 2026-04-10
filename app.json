@@ -1,19 +1,20 @@
 {
   "expo": {
-    "name": "Wise-Man",
-    "slug": "Wise-Man",
+    "name": "Wise Man",
+    "slug": "Wise Man",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
     "newArchEnabled": true,
     "splash": {
-      "image": "./assets/splash-icon.png",
-      "resizeMode": "contain",
-      "backgroundColor": "#F0EFE9"
+      "image": "./assets/images/splash-screen.png",
+      "resizeMode": "cover",
+      "backgroundColor": "#1A2E28"
     },
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "backgroundColor": "#F0EFE9"
     },
     "android": {
       "adaptiveIcon": {
@@ -24,7 +25,8 @@
       "predictiveBackGestureEnabled": false
     },
     "web": {
-      "favicon": "./assets/favicon.png"
+      "favicon": "./assets/favicon.png",
+       "bundler": "metro"
     },
     "plugins": [
       "expo-router",

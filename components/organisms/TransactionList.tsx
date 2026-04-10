@@ -1,0 +1,49 @@
+import { SectionList, View, Text, StyleSheet } from 'react-native';
+
+import { COLORS } from '@/constants/colors';
+import { FONTS, FONT_SIZES } from '@/constants/fonts';
+import TransactionItem from '@/components/molecules/TransactionItem';
+import HomeEmptyView from '@/components/organisms/HomeEmptyView';
+import type { TransactionSection } from '@/types/transaction';
+
+interface TransactionListProps {
+  sections: TransactionSection[];
+  onEdit: (id: string) => void;
+  onDelete: (id: string) => void;
+  listHeader?: React.ReactNode;
+}
+
+export default function TransactionList({ sections, onEdit, onDelete, listHeader }: TransactionListProps) {
+  return (
+    <SectionList
+      sections={sections}
+      keyExtractor={(item) => item.id}
+      showsVerticalScrollIndicator={false}
+      contentContainerStyle={{ paddingBottom: 120 }}
+      stickySectionHeadersEnabled={false}
+      ListHeaderComponent={listHeader ? <>{listHeader}</> : undefined}
+      ListEmptyComponent={<HomeEmptyView />}
+      renderSectionHeader={({ section }) => (
+        <Text className="mt-4 mb-2 px-8" style={styles.sectionHeader}>{section.title}</Text>
+      )}
+      renderItem={({ item, index, section }) => (
+        <View style={{ marginBottom: index === section.data.length - 1 ? 0 : 8, paddingHorizontal: 24 }}>
+          <TransactionItem
+            transaction={item}
+            onEdit={onEdit}
+            onDelete={onDelete}
+          />
+        </View>
+      )}
+    />
+  );
+}
+
+const styles = StyleSheet.create({
+  sectionHeader: {
+    fontFamily: FONTS.medium,
+    fontSize: FONT_SIZES.caption,
+    color: COLORS.textSecondary,
+    letterSpacing: -0.65,
+  },
+});
