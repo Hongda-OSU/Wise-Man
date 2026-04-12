@@ -1,8 +1,8 @@
 import { View, Text, StyleSheet } from "react-native";
-import { CreditCard, CalendarDays } from "lucide-react-native";
 
 import { COLORS } from "@/constants/colors";
 import { FONTS, FONT_SIZES } from "@/constants/fonts";
+import { DETAIL_ACCOUNT, DETAIL_DATE } from "@/constants/details";
 import DetailCard from "@/components/molecules/DetailCard";
 import NoteCard from "@/components/molecules/NoteCard";
 
@@ -25,17 +25,17 @@ export default function DetailsSection({
       <Text style={styles.sectionTitle}>DETAILS</Text>
       <View className="flex-row gap-5">
         <DetailCard
-          icon={CreditCard}
-          iconBg="#E8F0FF"
-          iconColor="#4A6AE8"
-          label="ACCOUNT"
+          icon={DETAIL_ACCOUNT.icon}
+          iconBg={DETAIL_ACCOUNT.iconBg}
+          iconColor={DETAIL_ACCOUNT.iconColor}
+          label={DETAIL_ACCOUNT.label}
           value="Cash"
         />
         <DetailCard
-          icon={CalendarDays}
-          iconBg="#FFF3DC"
-          iconColor="#C8922A"
-          label="DATE"
+          icon={DETAIL_DATE.icon}
+          iconBg={DETAIL_DATE.iconBg}
+          iconColor={DETAIL_DATE.iconColor}
+          label={DETAIL_DATE.label}
           value={`Today, ${today}`}
         />
       </View>

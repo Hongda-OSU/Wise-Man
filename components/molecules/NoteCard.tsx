@@ -1,8 +1,9 @@
 import { View, Text, TextInput, StyleSheet } from "react-native";
-import { SquarePen, ChevronRight } from "lucide-react-native";
+import { ChevronRight } from "lucide-react-native";
 
 import { COLORS } from "@/constants/colors";
 import { FONTS, FONT_SIZES } from "@/constants/fonts";
+import { DETAIL_NOTE } from "@/constants/details";
 
 interface NoteCardProps {
   note: string;
@@ -14,10 +15,10 @@ export default function NoteCard({ note, onChangeNote }: NoteCardProps) {
     <View className="bg-white rounded-2xl p-4">
       <View className="flex-row items-center justify-between mb-3">
         <View className="flex-row items-center gap-2">
-          <View className="items-center justify-center" style={styles.iconBox}>
-            <SquarePen size={14} color="#7A4AE8" />
+          <View className="items-center justify-center" style={[styles.iconBox, { backgroundColor: DETAIL_NOTE.iconBg }]}>
+            <DETAIL_NOTE.icon size={14} color={DETAIL_NOTE.iconColor} />
           </View>
-          <Text style={styles.label}>NOTE</Text>
+          <Text style={styles.label}>{DETAIL_NOTE.label}</Text>
         </View>
         <ChevronRight size={16} color={COLORS.textSecondary} />
       </View>
@@ -40,7 +41,6 @@ const styles = StyleSheet.create({
     width: 28,
     height: 28,
     borderRadius: 9,
-    backgroundColor: "#F0E8FF",
   },
   label: {
     fontFamily: FONTS.medium,
