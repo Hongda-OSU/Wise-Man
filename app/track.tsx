@@ -97,7 +97,7 @@ export default function TrackScreen() {
 
         {/* Confirm Button */}
         <TouchableOpacity
-          className="items-center justify-center px-6 py-5 my-2"
+          className="items-center justify-center px-7 py-5 mt-3 mb-3"
           style={styles.confirmBtn}
           accessibilityRole="button"
         >
@@ -118,7 +118,7 @@ const styles = StyleSheet.create({
     letterSpacing: -0.8,
   },
   confirmBtn: {
-    borderRadius: 16,
+    borderRadius: 12,
     backgroundColor: COLORS.forestGreen,
   },
   confirmText: {

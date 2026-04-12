@@ -17,8 +17,8 @@ export default function NoteCard({
   onFocus,
 }: NoteCardProps) {
   return (
-    <View className="bg-white rounded-2xl px-4 py-6">
-      <View className="flex-row items-center justify-between mb-3">
+    <View className="bg-white rounded-2xl p-4">
+      <View className="flex-row items-center justify-between mb-4">
         <View className="flex-row items-center gap-2">
           <View
             className="items-center justify-center"
