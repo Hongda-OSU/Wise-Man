@@ -64,21 +64,21 @@ export default function AmountCard({
 
       {/* Category pill */}
       <View
-        className="flex-row items-center gap-2 px-3 py-1 rounded-full mb-4"
+        className="flex-row items-center gap-2 px-3 py-1 rounded-full mb-4 mt-1"
         style={styles.pill}
       >
         {selectedCategory ? selectedPill : placeholderPill}
       </View>
 
       {/* Amount */}
-      <View className="mb-5 w-full items-center justify-center h-[60px]">
+      <View className="mb-5 w-full items-center justify-center h-[70px]">
         <Text style={styles.amount} adjustsFontSizeToFit numberOfLines={1}>
           {displayAmount}
         </Text>
       </View>
 
       {/* Hint */}
-      <Text className="mb-3" style={styles.hint}>
+      <Text className="mb-4" style={styles.hint}>
         TAP TO ENTER AMOUNT
       </Text>
 
@@ -137,7 +137,7 @@ const styles = StyleSheet.create({
   },
   amount: {
     fontFamily: FONTS.moneyExtraBold,
-    fontSize: 46,
+    fontSize: 50,
     color: COLORS.white,
     letterSpacing: -2,
   },
