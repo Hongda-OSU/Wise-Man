@@ -2,7 +2,7 @@ import {
   Coffee, Bus, Home, ShoppingBag, TvMinimal,
   Heart, GraduationCap, Users, AlertCircle,
   DollarSign, BookOpen, Activity, ArrowLeftRight,
-  Gift, RotateCcw, Percent, Wallet, MoreHorizontal,
+  Gift, RotateCcw, Wallet, MoreHorizontal,
 } from 'lucide-react-native';
 
 export interface CategoryConfig {
@@ -28,11 +28,10 @@ export const EXPENSE_CATEGORIES: CategoryConfig[] = [
 export const INCOME_CATEGORIES: CategoryConfig[] = [
   { id: 'salary',     label: 'Salary',     icon: DollarSign,      bg: '#EAFFF3', color: '#27AE72' },
   { id: 'freelance',  label: 'Freelance',  icon: BookOpen,        bg: '#EDE8FF', color: '#6C5CE7' },
-  { id: 'investment', label: 'Investment', icon: Activity,        bg: '#FFF8E8', color: '#E8A84A' },
+  { id: 'invest',     label: 'Invest',     icon: Activity,        bg: '#FFF8E8', color: '#E8A84A' },
   { id: 'transfer',   label: 'Transfer',   icon: ArrowLeftRight,  bg: '#E0EEFF', color: '#3B7DD8' },
   { id: 'gift',       label: 'Gift',       icon: Gift,            bg: '#FFE8F0', color: '#D44A7A' },
   { id: 'refund',     label: 'Refund',     icon: RotateCcw,       bg: '#FFF0E0', color: '#E08A30' },
-  { id: 'interest',   label: 'Interest',   icon: Percent,         bg: '#E0F5E8', color: '#2D8A56' },
   { id: 'allowance',  label: 'Allowance',  icon: Wallet,          bg: '#FFF0F5', color: '#C75090' },
   { id: 'other',      label: 'Other',      icon: MoreHorizontal,  bg: '#F0F0F0', color: '#888888' },
 ];
