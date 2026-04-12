@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import {
   View,
   Text,
@@ -21,6 +21,7 @@ import { EXPENSE_CATEGORIES, INCOME_CATEGORIES } from "@/constants/categories";
 
 export default function TrackScreen() {
   const router = useRouter();
+  const scrollViewRef = useRef<ScrollView>(null);
   const [type, setType] = useState<"expense" | "income">("expense");
   const [amount, setAmount] = useState("");
   const [categoryId, setCategoryId] = useState<string | null>(null);
@@ -62,10 +63,12 @@ export default function TrackScreen() {
 
       {/* Content */}
       <ScrollView
+        ref={scrollViewRef}
         className="flex-1"
         keyboardDismissMode="on-drag"
         keyboardShouldPersistTaps="handled"
         showsVerticalScrollIndicator={false}
+        automaticallyAdjustKeyboardInsets
         contentContainerStyle={{ gap: 24, paddingTop: 24, paddingBottom: 24 }}
       >
         <AmountCard
@@ -81,7 +84,16 @@ export default function TrackScreen() {
             Keyboard.dismiss();
           }}
         />
-        <DetailsSection note={note} onChangeNote={setNote} />
+        <DetailsSection
+          note={note}
+          onChangeNote={setNote}
+          onNoteFocus={() =>
+            setTimeout(
+              () => scrollViewRef.current?.scrollToEnd({ animated: true }),
+              300,
+            )
+          }
+        />
       </ScrollView>
     </SafeAreaView>
   );

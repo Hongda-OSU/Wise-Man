@@ -9,11 +9,13 @@ import NoteCard from "@/components/molecules/NoteCard";
 interface DetailsSectionProps {
   note: string;
   onChangeNote: (text: string) => void;
+  onNoteFocus?: () => void;
 }
 
 export default function DetailsSection({
   note,
   onChangeNote,
+  onNoteFocus,
 }: DetailsSectionProps) {
   const today = new Date().toLocaleDateString("en-US", {
     month: "short",
@@ -39,7 +41,7 @@ export default function DetailsSection({
           value={`Today, ${today}`}
         />
       </View>
-      <NoteCard note={note} onChangeNote={onChangeNote} />
+      <NoteCard note={note} onChangeNote={onChangeNote} onFocus={onNoteFocus} />
     </View>
   );
 }

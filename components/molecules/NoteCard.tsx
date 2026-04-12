@@ -8,14 +8,22 @@ import { DETAIL_NOTE } from "@/constants/details";
 interface NoteCardProps {
   note: string;
   onChangeNote: (text: string) => void;
+  onFocus?: () => void;
 }
 
-export default function NoteCard({ note, onChangeNote }: NoteCardProps) {
+export default function NoteCard({
+  note,
+  onChangeNote,
+  onFocus,
+}: NoteCardProps) {
   return (
     <View className="bg-white rounded-2xl px-4 py-6">
       <View className="flex-row items-center justify-between mb-3">
         <View className="flex-row items-center gap-2">
-          <View className="items-center justify-center" style={[styles.iconBox, { backgroundColor: DETAIL_NOTE.iconBg }]}>
+          <View
+            className="items-center justify-center"
+            style={[styles.iconBox, { backgroundColor: DETAIL_NOTE.iconBg }]}
+          >
             <DETAIL_NOTE.icon size={14} color={DETAIL_NOTE.iconColor} />
           </View>
           <Text style={styles.label}>{DETAIL_NOTE.label}</Text>
@@ -26,6 +34,7 @@ export default function NoteCard({ note, onChangeNote }: NoteCardProps) {
         <TextInput
           value={note}
           onChangeText={onChangeNote}
+          onFocus={onFocus}
           placeholder="What's this transaction for?"
           placeholderTextColor={COLORS.textSecondary}
           multiline
