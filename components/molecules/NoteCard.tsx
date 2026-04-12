@@ -12,7 +12,7 @@ interface NoteCardProps {
 
 export default function NoteCard({ note, onChangeNote }: NoteCardProps) {
   return (
-    <View className="bg-white rounded-2xl p-4">
+    <View className="bg-white rounded-2xl px-4 py-6">
       <View className="flex-row items-center justify-between mb-3">
         <View className="flex-row items-center gap-2">
           <View className="items-center justify-center" style={[styles.iconBox, { backgroundColor: DETAIL_NOTE.iconBg }]}>
