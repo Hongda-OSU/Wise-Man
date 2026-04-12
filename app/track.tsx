@@ -94,6 +94,17 @@ export default function TrackScreen() {
             )
           }
         />
+
+        {/* Confirm Button */}
+        <TouchableOpacity
+          className="items-center justify-center px-6 py-5 mt-2"
+          style={styles.confirmBtn}
+          accessibilityRole="button"
+        >
+          <Text style={styles.confirmText}>
+            {type === "expense" ? "Add Expense" : "Add Income"}
+          </Text>
+        </TouchableOpacity>
       </ScrollView>
     </SafeAreaView>
   );
@@ -105,5 +116,15 @@ const styles = StyleSheet.create({
     fontSize: FONT_SIZES.heading2,
     color: COLORS.textPrimary,
     letterSpacing: -0.8,
+  },
+  confirmBtn: {
+    borderRadius: 16,
+    backgroundColor: COLORS.forestGreen,
+  },
+  confirmText: {
+    fontFamily: FONTS.semiBold,
+    fontSize: FONT_SIZES.body,
+    color: COLORS.white,
+    letterSpacing: -0.3,
   },
 });
