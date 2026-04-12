@@ -11,6 +11,7 @@ import { Star } from "lucide-react-native";
 import { COLORS } from "@/constants/colors";
 import { FONTS, FONT_SIZES } from "@/constants/fonts";
 import type { CategoryConfig } from "@/constants/categories";
+import { formatAmountDisplay } from "@/utils/formatCurrency";
 
 interface AmountCardProps {
   selectedCategory: CategoryConfig | null;
@@ -25,20 +26,21 @@ export default function AmountCard({
 }: AmountCardProps) {
   const inputRef = useRef<TextInput>(null);
 
-  const formatAmount = (raw: string): string => {
-    if (!raw) return '$0.00';
-    const [intPart, decPart] = raw.split('.');
-    const formatted = parseInt(intPart || '0', 10).toLocaleString('en-US');
-    if (decPart !== undefined) return `$${formatted}.${decPart.slice(0, 2)}`;
-    return `$${formatted}.00`;
-  };
-  const displayAmount = formatAmount(amount);
+  const displayAmount = formatAmountDisplay(amount);
 
   const handleChangeText = (text: string) => {
     const cleaned = text.replace(/[^0-9.]/g, '');
     const parts = cleaned.split('.');
     const sanitized = parts.length > 2 ? parts[0] + '.' + parts[1] : cleaned;
     onAmountChange(sanitized);
+  };
+
+  const handleBlur = () => {
+    if (!amount) return;
+    const num = parseFloat(amount);
+    if (!isNaN(num)) {
+      onAmountChange(num.toFixed(2));
+    }
   };
 
   return (
@@ -90,6 +92,7 @@ export default function AmountCard({
         ref={inputRef}
         value={amount}
         onChangeText={handleChangeText}
+        onBlur={handleBlur}
         keyboardType="decimal-pad"
         maxLength={13}
         style={styles.hiddenInput}
