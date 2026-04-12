@@ -1,26 +1,29 @@
 import { useState } from "react";
-import {
-  View,
-  Text,
-  TouchableOpacity,
-  TouchableWithoutFeedback,
-  Keyboard,
-  ScrollView,
-  StyleSheet,
-} from "react-native";
+import { View, Text, TouchableOpacity, ScrollView, StyleSheet, Keyboard } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useRouter } from "expo-router";
 import { ChevronLeft } from "lucide-react-native";
 
 import ToggleBar from "@/components/molecules/ToggleBar";
 import AmountCard from "@/components/organisms/AmountCard";
+import CategoryGrid from "@/components/organisms/CategoryGrid";
 import { COLORS } from "@/constants/colors";
 import { FONTS, FONT_SIZES } from "@/constants/fonts";
+import { EXPENSE_CATEGORIES, INCOME_CATEGORIES } from "@/constants/categories";
 
 export default function TrackScreen() {
   const router = useRouter();
   const [type, setType] = useState<"expense" | "income">("expense");
   const [amount, setAmount] = useState("");
+  const [categoryId, setCategoryId] = useState<string | null>(null);
+
+  const categories = type === "expense" ? EXPENSE_CATEGORIES : INCOME_CATEGORIES;
+  const selectedCategory = categories.find((c) => c.id === categoryId) ?? null;
+
+  const handleTypeChange = (value: "expense" | "income") => {
+    setType(value);
+    setCategoryId(null);
+  };
 
   return (
     <SafeAreaView
@@ -44,17 +47,31 @@ export default function TrackScreen() {
         <View className="flex-1" />
       </View>
 
+      {/* Toggle */}
+      <ToggleBar active={type} onChange={handleTypeChange} />
+
       {/* Content */}
-      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-        <View className="flex-1 pt-2 gap-6">
-          <ToggleBar active={type} onChange={setType} />
-          <AmountCard
-            selectedCategory={null}
-            amount={amount}
-            onAmountChange={setAmount}
-          />
-        </View>
-      </TouchableWithoutFeedback>
+      <ScrollView
+        className="flex-1"
+        keyboardDismissMode="on-drag"
+        keyboardShouldPersistTaps="handled"
+        showsVerticalScrollIndicator={false}
+        contentContainerStyle={{ gap: 24, paddingTop: 24, paddingBottom: 24 }}
+      >
+        <AmountCard
+          selectedCategory={selectedCategory}
+          amount={amount}
+          onAmountChange={setAmount}
+        />
+        <CategoryGrid
+          categories={categories}
+          selectedId={categoryId}
+          onSelect={(id) => {
+            setCategoryId((prev) => prev === id ? null : id);
+            Keyboard.dismiss();
+          }}
+        />
+      </ScrollView>
     </SafeAreaView>
   );
 }

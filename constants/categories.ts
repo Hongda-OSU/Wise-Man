@@ -18,7 +18,7 @@ export const EXPENSE_CATEGORIES: CategoryConfig[] = [
   { id: 'transport',     label: 'Transport',       icon: Bus,             bg: '#DDEEFF', color: '#4A90E8' },
   { id: 'housing',       label: 'Housing',         icon: Home,            bg: '#FFE8E8', color: '#D04040' },
   { id: 'shopping',      label: 'Shopping',        icon: ShoppingBag,     bg: '#FFF3DC', color: '#C8922A' },
-  { id: 'entertainment', label: 'Entertainment',   icon: TvMinimal,       bg: '#F0E0FF', color: '#9B59B6' },
+  { id: 'entertainment', label: 'Entertain',   icon: TvMinimal,       bg: '#F0E0FF', color: '#9B59B6' },
   { id: 'health',        label: 'Health',          icon: Heart,           bg: '#D8FFE8', color: '#3EAA6E' },
   { id: 'education',     label: 'Education',       icon: GraduationCap,   bg: '#FFF8E0', color: '#D4A017' },
   { id: 'social',        label: 'Social',          icon: Users,           bg: '#DFFAF8', color: '#18B5A0' },
