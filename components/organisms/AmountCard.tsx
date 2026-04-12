@@ -1,10 +1,16 @@
-import { useRef } from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
-import { Star } from 'lucide-react-native';
+import { useRef } from "react";
+import {
+  View,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  StyleSheet,
+} from "react-native";
+import { Star } from "lucide-react-native";
 
-import { COLORS } from '@/constants/colors';
-import { FONTS, FONT_SIZES } from '@/constants/fonts';
-import type { CategoryConfig } from '@/constants/categories';
+import { COLORS } from "@/constants/colors";
+import { FONTS, FONT_SIZES } from "@/constants/fonts";
+import type { CategoryConfig } from "@/constants/categories";
 
 interface AmountCardProps {
   selectedCategory: CategoryConfig | null;
@@ -12,24 +18,34 @@ interface AmountCardProps {
   onAmountChange: (value: string) => void;
 }
 
-export default function AmountCard({ selectedCategory, amount, onAmountChange }: AmountCardProps) {
+export default function AmountCard({
+  selectedCategory,
+  amount,
+  onAmountChange,
+}: AmountCardProps) {
   const inputRef = useRef<TextInput>(null);
 
-  const displayAmount = amount ? `$${amount}` : '$0.00';
+  const displayAmount = amount ? `$${amount}` : "$0.00";
 
   return (
     <TouchableOpacity
       activeOpacity={1}
       onPress={() => inputRef.current?.focus()}
       className="rounded-[20px] overflow-hidden items-center"
-      style={[styles.card, { paddingHorizontal: 24, paddingTop: 24, paddingBottom: 42 }]}
+      style={[
+        styles.card,
+        { paddingHorizontal: 24, paddingTop: 24, paddingBottom: 24 },
+      ]}
     >
       {/* Decorative circles */}
       <View style={styles.circleTopLeft} />
       <View style={styles.circleBottomRight} />
 
       {/* Category pill */}
-      <View className="flex-row items-center gap-2 px-3 py-1 rounded-full mb-4" style={styles.pill}>
+      <View
+        className="flex-row items-center gap-2 px-3 py-1 rounded-full mb-4"
+        style={styles.pill}
+      >
         {selectedCategory ? (
           <>
             <selectedCategory.icon size={12} color={COLORS.white} />
@@ -44,10 +60,14 @@ export default function AmountCard({ selectedCategory, amount, onAmountChange }:
       </View>
 
       {/* Amount */}
-      <Text className="mb-3" style={styles.amount}>{displayAmount}</Text>
+      <Text className="mb-5" style={styles.amount}>
+        {displayAmount}
+      </Text>
 
       {/* Hint */}
-      <Text style={styles.hint}>TAP TO ENTER AMOUNT</Text>
+      <Text className="mb-3" style={styles.hint}>
+        TAP TO ENTER AMOUNT
+      </Text>
 
       {/* Hidden input */}
       <TextInput
@@ -71,25 +91,25 @@ const styles = StyleSheet.create({
     elevation: 8,
   },
   circleTopLeft: {
-    position: 'absolute',
+    position: "absolute",
     width: 120,
     height: 120,
     borderRadius: 60,
-    backgroundColor: 'rgba(255,255,255,0.04)',
+    backgroundColor: "rgba(255,255,255,0.04)",
     top: -40,
     left: -30,
   },
   circleBottomRight: {
-    position: 'absolute',
+    position: "absolute",
     width: 200,
     height: 200,
     borderRadius: 100,
-    backgroundColor: 'rgba(255,255,255,0.04)',
+    backgroundColor: "rgba(255,255,255,0.04)",
     bottom: -70,
     right: -55,
   },
   pill: {
-    backgroundColor: 'rgba(255,255,255,0.14)',
+    backgroundColor: "rgba(255,255,255,0.14)",
   },
   pillLabel: {
     fontFamily: FONTS.medium,
@@ -99,23 +119,22 @@ const styles = StyleSheet.create({
   pillPlaceholder: {
     fontFamily: FONTS.medium,
     fontSize: FONT_SIZES.micro,
-    color: 'rgba(255,255,255,0.55)',
+    color: COLORS.textSecondary,
   },
   amount: {
     fontFamily: FONTS.moneyExtraBold,
-    fontSize: 48,
+    fontSize: 50,
     color: COLORS.white,
     letterSpacing: -2,
   },
   hint: {
     fontFamily: FONTS.medium,
     fontSize: FONT_SIZES.micro,
-    color: 'rgba(255,255,255,0.3)',
+    color: COLORS.textSecondary,
     letterSpacing: 1.2,
-    marginTop: 6,
   },
   hiddenInput: {
-    position: 'absolute',
+    position: "absolute",
     opacity: 0,
     width: 1,
     height: 1,
