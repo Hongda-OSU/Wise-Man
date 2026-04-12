@@ -27,7 +27,7 @@ export default function Button({ label, onPress, backgroundColor = COLORS.forest
 const styles = StyleSheet.create({
   label: {
     fontFamily: FONTS.semiBold,
-    fontSize: FONT_SIZES.body,
+    fontSize: FONT_SIZES.subBody,
     color: COLORS.white,
   },
 });

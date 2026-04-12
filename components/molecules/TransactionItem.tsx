@@ -62,7 +62,7 @@ export default function TransactionItem({ transaction, onEdit, onDelete }: Trans
 const styles = StyleSheet.create({
   name: {
     fontFamily: FONTS.semiBold,
-    fontSize: FONT_SIZES.body,
+    fontSize: FONT_SIZES.subBody,
     color: COLORS.textPrimary,
     letterSpacing: -0.3,
   },
@@ -74,7 +74,7 @@ const styles = StyleSheet.create({
   },
   amount: {
     fontFamily: FONTS.moneyBold,
-    fontSize: FONT_SIZES.body,
+    fontSize: FONT_SIZES.subBody,
     letterSpacing: -0.5,
   },
 });
