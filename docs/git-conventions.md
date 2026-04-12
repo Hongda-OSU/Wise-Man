@@ -26,6 +26,8 @@ Add detail with a second `-m` when needed:
 git commit -m "<type>: <description>" -m "<body>"
 ```
 
+Never add `Co-Authored-By` or any AI authorship trailer to commits.
+
 ## Workflow
 
 ```bash
