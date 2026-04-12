@@ -1,5 +1,12 @@
 import { useState } from "react";
-import { View, Text, TouchableOpacity, ScrollView, StyleSheet, Keyboard } from "react-native";
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  ScrollView,
+  StyleSheet,
+  Keyboard,
+} from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useRouter } from "expo-router";
 import { ChevronLeft } from "lucide-react-native";
@@ -7,6 +14,7 @@ import { ChevronLeft } from "lucide-react-native";
 import ToggleBar from "@/components/molecules/ToggleBar";
 import AmountCard from "@/components/organisms/AmountCard";
 import CategoryGrid from "@/components/organisms/CategoryGrid";
+import DetailsSection from "@/components/organisms/DetailsSection";
 import { COLORS } from "@/constants/colors";
 import { FONTS, FONT_SIZES } from "@/constants/fonts";
 import { EXPENSE_CATEGORIES, INCOME_CATEGORIES } from "@/constants/categories";
@@ -16,8 +24,10 @@ export default function TrackScreen() {
   const [type, setType] = useState<"expense" | "income">("expense");
   const [amount, setAmount] = useState("");
   const [categoryId, setCategoryId] = useState<string | null>(null);
+  const [note, setNote] = useState("");
 
-  const categories = type === "expense" ? EXPENSE_CATEGORIES : INCOME_CATEGORIES;
+  const categories =
+    type === "expense" ? EXPENSE_CATEGORIES : INCOME_CATEGORIES;
   const selectedCategory = categories.find((c) => c.id === categoryId) ?? null;
 
   const handleTypeChange = (value: "expense" | "income") => {
@@ -67,10 +77,11 @@ export default function TrackScreen() {
           categories={categories}
           selectedId={categoryId}
           onSelect={(id) => {
-            setCategoryId((prev) => prev === id ? null : id);
+            setCategoryId((prev) => (prev === id ? null : id));
             Keyboard.dismiss();
           }}
         />
+        <DetailsSection note={note} onChangeNote={setNote} />
       </ScrollView>
     </SafeAreaView>
   );

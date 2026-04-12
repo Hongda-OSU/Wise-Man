@@ -19,13 +19,13 @@ export default function CategoryGrid({
   return (
     <View className="px-1">
       <Text style={styles.sectionTitle}>CATEGORY</Text>
-      <View className="flex-row flex-wrap">
+      <View className="flex-row flex-wrap" style={{ rowGap: 16 }}>
         {categories.map((cat) => {
           const isSelected = cat.id === selectedId;
           return (
             <TouchableOpacity
               key={cat.id}
-              className="items-center mb-4"
+              className="items-center"
               style={styles.cell}
               onPress={() => onSelect(cat.id)}
               accessibilityRole="button"
@@ -61,7 +61,7 @@ export default function CategoryGrid({
         })}
 
         {/* Add button */}
-        <TouchableOpacity className="items-center mb-4" style={styles.cell}>
+        <TouchableOpacity className="items-center" style={styles.cell}>
           <View
             className="items-center justify-center mb-2"
             style={styles.addIcon}
