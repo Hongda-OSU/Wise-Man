@@ -12,7 +12,7 @@ export default function ToggleBar({ active, onChange }: ToggleBarProps) {
   return (
     <View className="flex-row rounded-xl p-1" style={styles.track}>
       <TouchableOpacity
-        className="flex-1 items-center justify-center rounded-lg py-2"
+        className="flex-1 items-center justify-center rounded-lg py-3"
         style={{ backgroundColor: active === 'expense' ? COLORS.forestGreen : 'transparent' }}
         onPress={() => onChange('expense')}
         accessibilityRole="button"

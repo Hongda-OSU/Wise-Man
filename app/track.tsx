@@ -5,12 +5,14 @@ import { useRouter } from 'expo-router';
 import { ChevronLeft } from 'lucide-react-native';
 
 import ToggleBar from '@/components/molecules/ToggleBar';
+import AmountCard from '@/components/organisms/AmountCard';
 import { COLORS } from '@/constants/colors';
 import { FONTS, FONT_SIZES } from '@/constants/fonts';
 
 export default function TrackScreen() {
   const router = useRouter();
   const [type, setType] = useState<'expense' | 'income'>('expense');
+  const [amount, setAmount] = useState('');
 
   return (
     <SafeAreaView className="flex-1 px-7" style={{ backgroundColor: COLORS.bgPrimary }} edges={['top', 'bottom']}>
@@ -29,8 +31,13 @@ export default function TrackScreen() {
       </View>
 
       {/* Content */}
-      <View className="flex-1 pt-2">
+      <View className="flex-1 pt-2 gap-6">
         <ToggleBar active={type} onChange={setType} />
+        <AmountCard
+          selectedCategory={null}
+          amount={amount}
+          onAmountChange={setAmount}
+        />
       </View>
     </SafeAreaView>
   );
