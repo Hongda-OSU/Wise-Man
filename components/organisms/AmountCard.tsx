@@ -25,7 +25,21 @@ export default function AmountCard({
 }: AmountCardProps) {
   const inputRef = useRef<TextInput>(null);
 
-  const displayAmount = amount ? `$${amount}` : "$0.00";
+  const formatAmount = (raw: string): string => {
+    if (!raw) return '$0.00';
+    const [intPart, decPart] = raw.split('.');
+    const formatted = parseInt(intPart || '0', 10).toLocaleString('en-US');
+    if (decPart !== undefined) return `$${formatted}.${decPart.slice(0, 2)}`;
+    return `$${formatted}.00`;
+  };
+  const displayAmount = formatAmount(amount);
+
+  const handleChangeText = (text: string) => {
+    const cleaned = text.replace(/[^0-9.]/g, '');
+    const parts = cleaned.split('.');
+    const sanitized = parts.length > 2 ? parts[0] + '.' + parts[1] : cleaned;
+    onAmountChange(sanitized);
+  };
 
   return (
     <TouchableOpacity
@@ -60,9 +74,11 @@ export default function AmountCard({
       </View>
 
       {/* Amount */}
-      <Text className="mb-5" style={styles.amount}>
-        {displayAmount}
-      </Text>
+      <View className="mb-5 w-full items-center justify-center" style={{ height: 60 }}>
+        <Text style={styles.amount} adjustsFontSizeToFit numberOfLines={1}>
+          {displayAmount}
+        </Text>
+      </View>
 
       {/* Hint */}
       <Text className="mb-3" style={styles.hint}>
@@ -73,8 +89,9 @@ export default function AmountCard({
       <TextInput
         ref={inputRef}
         value={amount}
-        onChangeText={onAmountChange}
+        onChangeText={handleChangeText}
         keyboardType="decimal-pad"
+        maxLength={13}
         style={styles.hiddenInput}
       />
     </TouchableOpacity>
