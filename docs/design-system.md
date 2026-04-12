@@ -10,7 +10,7 @@
 
 ### UI Text — DM Sans
 - Usage: All UI text (labels, categories, descriptions, buttons)
-- Weights: Regular (400) / Medium (500) / Bold (700)
+- Weights: Regular (400) / Medium (500) / SemiBold (600) / Bold (700)
 
 ### App Name — Instrument Serif
 - Usage: Header "Wise Man" title, App icon letters, Empty state titles, Splash screen
@@ -98,6 +98,5 @@ Track page Income mode, 5-column layout, Add button at the end.
 | Transfer   | `#E0EEFF` | `#3B7DD8`  | `ArrowLeftRight`   |
 | Gift       | `#FFE8F0` | `#D44A7A`  | `Gift`             |
 | Refund     | `#FFF0E0` | `#E08A30`  | `RotateCcw`        |
-| Interest   | `#E0F5E8` | `#2D8A56`  | `Percent`          |
 | Allowance  | `#FFF0F5` | `#C75090`  | `Wallet`           |
 | Other      | `#F0F0F0` | `#888888`  | `MoreHorizontal`   |

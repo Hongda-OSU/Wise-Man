@@ -28,16 +28,13 @@ components/
 │
 ├── templates/      # Page-level layouts (optional, use if needed)
 │   └── TabPageLayout.tsx      # Header + content + tab bar wrapper
-│
-└── screens/        # Full screens (map to Expo Router pages)
-    # These live in app/ directory via Expo Router
 ```
 
 ### Rules
 - **Atoms**: No internal state, pure presentational, receive all data via props
 - **Molecules**: Minimal state, compose 2-3 atoms
 - **Organisms**: Can have state, compose multiple molecules
-- **Screens**: Connect to stores, handle navigation, compose organisms
+- **Screens**: Live in `app/` directory via Expo Router, connect to stores, handle navigation, compose organisms
 
 ## File & Component Naming
 

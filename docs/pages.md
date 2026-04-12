@@ -28,10 +28,9 @@ Transaction feed page. First page user sees when opening the app.
 - Top: Summary Card (monthly net balance + progress bar + Income / Expenses)
 - List / Calendar view toggle
 - Transaction list grouped by date
-- Tap a record → navigate to Transaction Detail
-- **Swipe right**: item shifts right, green bg + Edit icon + "Edit" text (icon above text)
+- **Swipe right**: item shifts right, green bg + Edit icon + "Edit" text (icon above text) → navigate to Transaction Detail
 - **Swipe left**: item shifts left, red bg + Delete icon + "Delete" text (icon above text)
-- **Empty State** (no transactions): Summary Card shows $0.00, transaction area shows unDraw illustration (finance-guy-avatar, branded `#1A2E28`) + "No transactions yet" + "Track your income and expenses to start managing your finances" + "Get Started" button (navigates to Track page). Button only visible when transaction list is empty.
+- **Empty State** (no transactions): Summary Card shows $0.00, transaction area shows custom illustration icon + "No transactions yet" + "Track your income and expenses to start managing your finances" + "Get Started !" button (triggers RN Copilot onboarding guide). Button only visible when transaction list is empty.
 
 ---
 
@@ -62,7 +61,7 @@ Page type: Stack (not a tab page), no Header, no Tab Bar.
 - Section title "CATEGORY"
 - 5-column grid, square icons 56×56px, border-radius 16px
 - 9 Expense categories + 1 "Add" dashed button (custom category entry)
-- Income mode: 9 categories (Salary / Freelance / Investment / Transfer / Gift / Refund / Interest / Allowance / Other) + Add button, 5-column layout
+- Income mode: 8 categories (Salary / Freelance / Invest / Transfer / Gift / Refund / Allowance / Other) + Add button, 5-column layout
 - Selected state: bg becomes `#1A2E28`, icon becomes white
 - Amount and category selection order is free, not forced
 - Colors and icons: see Design System doc
