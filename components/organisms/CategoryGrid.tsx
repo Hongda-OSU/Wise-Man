@@ -105,7 +105,7 @@ const styles = StyleSheet.create({
     borderStyle: "dashed",
   },
   label: {
-    fontFamily: FONTS.regular,
+    fontFamily: FONTS.semiBold,
     fontSize: FONT_SIZES.micro,
     color: COLORS.textSecondary,
   },
