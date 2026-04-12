@@ -25,7 +25,7 @@ export default function ToggleBar({ active, onChange }: ToggleBarProps) {
 
       <TouchableOpacity
         className="flex-1 items-center justify-center rounded-lg py-2"
-        style={{ backgroundColor: active === 'income' ? COLORS.income : 'transparent' }}
+        style={{ backgroundColor: active === 'income' ? COLORS.forestGreen : 'transparent' }}
         onPress={() => onChange('income')}
         accessibilityRole="button"
         accessibilityState={{ selected: active === 'income' }}

@@ -47,7 +47,7 @@ Page type: Stack (not a tab page), no Header, no Tab Bar.
 - Expense / Income switch
 - Background: `#E6E3DC`
 - Expense active: `#1A2E28`
-- Income active: `#27AE72`
+- Income active: `#1A2E28`
 
 ### Amount Card (dark green card)
 - Background: `#1A2E28`, border-radius 20px

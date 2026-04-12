@@ -13,11 +13,11 @@ export default function TrackScreen() {
   const [type, setType] = useState<'expense' | 'income'>('expense');
 
   return (
-    <SafeAreaView className="flex-1" style={{ backgroundColor: COLORS.bgPrimary }} edges={['top', 'bottom']}>
+    <SafeAreaView className="flex-1 px-7" style={{ backgroundColor: COLORS.bgPrimary }} edges={['top', 'bottom']}>
       {/* Nav Bar */}
-      <View className="flex-row items-center justify-center px-4 py-3">
+      <View className="flex-row items-center py-6">
         <TouchableOpacity
-          className="absolute left-4"
+          className="flex-1"
           onPress={() => router.back()}
           accessibilityRole="button"
           accessibilityLabel="Go back"
@@ -25,10 +25,11 @@ export default function TrackScreen() {
           <ChevronLeft size={26} color={COLORS.textPrimary} />
         </TouchableOpacity>
         <Text style={styles.title}>{type === 'expense' ? 'Add Expense' : 'Add Income'}</Text>
+        <View className="flex-1" />
       </View>
 
       {/* Content */}
-      <View className="flex-1 px-4 pt-2">
+      <View className="flex-1 pt-2">
         <ToggleBar active={type} onChange={setType} />
       </View>
     </SafeAreaView>
@@ -38,8 +39,8 @@ export default function TrackScreen() {
 const styles = StyleSheet.create({
   title: {
     fontFamily: FONTS.semiBold,
-    fontSize: FONT_SIZES.body,
+    fontSize: FONT_SIZES.heading2,
     color: COLORS.textPrimary,
-    letterSpacing: -0.3,
+    letterSpacing: -0.8,
   },
 });
