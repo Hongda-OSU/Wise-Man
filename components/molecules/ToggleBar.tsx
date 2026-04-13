@@ -1,11 +1,12 @@
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 
+import type { TransactionType } from '@/types/transaction';
 import { COLORS } from '@/constants/colors';
 import { FONTS, FONT_SIZES } from '@/constants/fonts';
 
 interface ToggleBarProps {
-  active: 'expense' | 'income';
-  onChange: (value: 'expense' | 'income') => void;
+  active: TransactionType;
+  onChange: (value: TransactionType) => void;
 }
 
 export default function ToggleBar({ active, onChange }: ToggleBarProps) {

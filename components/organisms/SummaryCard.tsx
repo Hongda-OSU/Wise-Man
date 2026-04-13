@@ -1,11 +1,11 @@
-import { View, Text, StyleSheet } from 'react-native';
-import { Calendar } from 'lucide-react-native';
+import { View, Text, StyleSheet } from "react-native";
+import { Calendar } from "lucide-react-native";
 
-import { COLORS } from '@/constants/colors';
-import { FONTS, FONT_SIZES } from '@/constants/fonts';
-import { formatCurrency } from '@/utils/formatCurrency';
-import BalanceStat from '@/components/molecules/BalanceStat';
-import BalanceProgressBar from '@/components/molecules/BalanceProgressBar';
+import { COLORS } from "@/constants/colors";
+import { FONTS, FONT_SIZES } from "@/constants/fonts";
+import { formatCurrency } from "@/utils/formatCurrency";
+import BalanceStat from "@/components/molecules/BalanceStat";
+import BalanceProgressBar from "@/components/molecules/BalanceProgressBar";
 
 interface SummaryCardProps {
   month: string;
@@ -14,9 +14,17 @@ interface SummaryCardProps {
   expense: number;
 }
 
-export default function SummaryCard({ month, netBalance, income, expense }: SummaryCardProps) {
+export default function SummaryCard({
+  month,
+  netBalance,
+  income,
+  expense,
+}: SummaryCardProps) {
   return (
-    <View className="mx-5 mt-4 rounded-[20px] px-7 py-6 overflow-hidden" style={styles.card}>
+    <View
+      className="mx-5 mt-4 rounded-[20px] px-7 py-6 overflow-hidden"
+      style={styles.card}
+    >
       {/* Top row */}
       <View className="flex-row items-center justify-between mb-2">
         <View className="flex-row items-center gap-2">
@@ -27,10 +35,16 @@ export default function SummaryCard({ month, netBalance, income, expense }: Summ
       </View>
 
       {/* Net balance amount */}
-      <Text className="mb-4" style={styles.amount}>${formatCurrency(netBalance)}</Text>
+      <Text className="mb-4" style={styles.amount}>
+        ${formatCurrency(netBalance)}
+      </Text>
 
       {/* Progress bar */}
-      <BalanceProgressBar income={income} netBalance={netBalance} expense={expense} />
+      <BalanceProgressBar
+        income={income}
+        netBalance={netBalance}
+        expense={expense}
+      />
 
       {/* Income / Expense row */}
       <View className="flex-row justify-between">

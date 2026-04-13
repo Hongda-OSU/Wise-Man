@@ -18,20 +18,22 @@ import DetailsSection from "@/components/organisms/DetailsSection";
 import { COLORS } from "@/constants/colors";
 import { FONTS, FONT_SIZES } from "@/constants/fonts";
 import { EXPENSE_CATEGORIES, INCOME_CATEGORIES } from "@/constants/categories";
+import { TRANSACTION_TYPES } from "@/types/transaction";
+import type { TransactionType } from "@/types/transaction";
 
 export default function TrackScreen() {
   const router = useRouter();
   const scrollViewRef = useRef<ScrollView>(null);
-  const [type, setType] = useState<"expense" | "income">("expense");
+  const [type, setType] = useState<TransactionType>(TRANSACTION_TYPES.expense);
   const [amount, setAmount] = useState("");
   const [categoryId, setCategoryId] = useState<string | null>(null);
   const [note, setNote] = useState("");
 
   const categories =
-    type === "expense" ? EXPENSE_CATEGORIES : INCOME_CATEGORIES;
+    type === TRANSACTION_TYPES.expense ? EXPENSE_CATEGORIES : INCOME_CATEGORIES;
   const selectedCategory = categories.find((c) => c.id === categoryId) ?? null;
 
-  const handleTypeChange = (value: "expense" | "income") => {
+  const handleTypeChange = (value: TransactionType) => {
     Keyboard.dismiss();
     setType(value);
     setCategoryId(null);
@@ -57,7 +59,7 @@ export default function TrackScreen() {
           <ChevronLeft size={26} color={COLORS.textPrimary} />
         </TouchableOpacity>
         <Text style={styles.title}>
-          {type === "expense" ? "Add Expense" : "Add Income"}
+          {type === TRANSACTION_TYPES.expense ? "Add Expense" : "Add Income"}
         </Text>
         <View className="flex-1" />
       </View>
@@ -106,7 +108,7 @@ export default function TrackScreen() {
           accessibilityRole="button"
         >
           <Text style={styles.confirmText}>
-            {type === "expense" ? "Add Expense" : "Add Income"}
+            {type === TRANSACTION_TYPES.expense ? "Add Expense" : "Add Income"}
           </Text>
         </TouchableOpacity>
       </ScrollView>

@@ -1,19 +1,21 @@
-import { View, Text, StyleSheet } from 'react-native';
-import { ArrowUp, ArrowDown } from 'lucide-react-native';
+import { View, Text, StyleSheet } from "react-native";
+import { ArrowUp, ArrowDown } from "lucide-react-native";
 
-import { COLORS } from '@/constants/colors';
-import { FONTS, FONT_SIZES } from '@/constants/fonts';
-import { formatCurrency } from '@/utils/formatCurrency';
+import { COLORS } from "@/constants/colors";
+import { FONTS, FONT_SIZES } from "@/constants/fonts";
+import { formatCurrency } from "@/utils/formatCurrency";
+import { TRANSACTION_TYPES } from "@/types/transaction";
+import type { TransactionType } from "@/types/transaction";
 
 interface BalanceStatProps {
-  type: 'income' | 'expense';
+  type: TransactionType;
   amount: number;
 }
 
 export default function BalanceStat({ type, amount }: BalanceStatProps) {
-  const isIncome = type === 'income';
+  const isIncome = type === TRANSACTION_TYPES.income;
   const color = isIncome ? COLORS.income : COLORS.expense;
-  const label = isIncome ? 'Income' : 'Expense';
+  const label = isIncome ? "Income" : "Expense";
   const Icon = isIncome ? ArrowUp : ArrowDown;
 
   return (
