@@ -4,6 +4,7 @@ import { Calendar } from "lucide-react-native";
 import { COLORS } from "@/constants/colors";
 import { FONTS, FONT_SIZES } from "@/constants/fonts";
 import { formatCurrency } from "@/utils/formatCurrency";
+import { TRANSACTION_TYPES } from "@/types/transaction";
 import BalanceStat from "@/components/molecules/BalanceStat";
 import BalanceProgressBar from "@/components/molecules/BalanceProgressBar";
 
@@ -48,8 +49,8 @@ export default function SummaryCard({
 
       {/* Income / Expense row */}
       <View className="flex-row justify-between">
-        <BalanceStat type="income" amount={income} />
-        <BalanceStat type="expense" amount={expense} />
+        <BalanceStat type={TRANSACTION_TYPES.income} amount={income} />
+        <BalanceStat type={TRANSACTION_TYPES.expense} amount={expense} />
       </View>
     </View>
   );
