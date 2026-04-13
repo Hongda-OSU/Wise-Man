@@ -32,8 +32,12 @@ export default function TrackScreen() {
   const selectedCategory = categories.find((c) => c.id === categoryId) ?? null;
 
   const handleTypeChange = (value: "expense" | "income") => {
+    Keyboard.dismiss();
     setType(value);
     setCategoryId(null);
+    setAmount("");
+    setNote("");
+    scrollViewRef.current?.scrollTo({ y: 0, animated: true });
   };
 
   return (
