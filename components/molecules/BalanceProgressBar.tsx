@@ -1,6 +1,6 @@
-import { View } from 'react-native';
+import { View } from "react-native";
 
-import { COLORS } from '@/constants/colors';
+import { COLORS } from "@/constants/colors";
 
 interface BalanceProgressBarProps {
   income: number;
@@ -8,9 +8,16 @@ interface BalanceProgressBarProps {
   expense: number;
 }
 
-export default function BalanceProgressBar({ income, netBalance, expense }: BalanceProgressBarProps) {
+export default function BalanceProgressBar({
+  income,
+  netBalance,
+  expense,
+}: BalanceProgressBarProps) {
   return (
-    <View className="h-2 rounded-full mb-4 overflow-hidden flex-row" style={{ backgroundColor: 'rgba(255,255,255,0.15)' }}>
+    <View
+      className="h-2 rounded-full mb-4 overflow-hidden flex-row"
+      style={{ backgroundColor: "rgba(255,255,255,0.15)" }}
+    >
       <View
         className="h-full"
         style={{

@@ -17,7 +17,8 @@ export const FONT_SIZES = {
   display: 38,
   heading1: 20,
   heading2: 17,
-  body: 15,
+  body: 16,
+  subBody: 15,
   caption: 13,
   micro: 11,
 } as const;

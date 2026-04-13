@@ -26,7 +26,8 @@
 | Display  | 38px | 800    | Summary Card big amount  |
 | Heading1 | 20px | 700    | Page titles              |
 | Heading2 | 17px | 600    | Section titles           |
-| Body     | 15px | 500    | Transaction names, body  |
+| Body     | 16px | 600    | Nav bar titles           |
+| SubBody  | 15px | 500    | Transaction names, body  |
 | Caption  | 13px | 400    | Dates, category labels   |
 | Micro    | 11px | 400    | Helper text, low opacity |
 

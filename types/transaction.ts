@@ -1,7 +1,14 @@
+export const TRANSACTION_TYPES = {
+  expense: "expense",
+  income: "income",
+} as const;
+
+export type TransactionType = "expense" | "income";
+
 export interface Transaction {
   id: string;
   amount: number;
-  type: 'expense' | 'income';
+  type: TransactionType;
   categoryId: string;
   accountId: string;
   date: string; // ISO 8601

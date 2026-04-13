@@ -1,25 +1,18 @@
-import { View, TouchableOpacity, Text, StyleSheet, useWindowDimensions } from 'react-native';
-import { useRouter, usePathname } from 'expo-router';
-import { House, BriefcaseBusiness, DollarSign, CalendarClock, ChartNoAxesColumn } from 'lucide-react-native';
-import Svg, { Path } from 'react-native-svg';
+import {
+  View,
+  TouchableOpacity,
+  Text,
+  StyleSheet,
+  useWindowDimensions,
+} from "react-native";
+import { useRouter, usePathname } from "expo-router";
+import { DollarSign } from "lucide-react-native";
+import Svg, { Path } from "react-native-svg";
 
-import { COLORS } from '@/constants/colors';
-import { FONTS, FONT_SIZES } from '@/constants/fonts';
-import TabButton from '@/components/molecules/TabButton';
-
-interface TabItem {
-  name: string;
-  label: string;
-  icon: React.ComponentType<{ size: number; color: string }>;
-  route: string;
-}
-
-const TABS: TabItem[] = [
-  { name: 'index', label: 'Home', icon: House, route: '/' },
-  { name: 'portfolio', label: 'Portfolio', icon: BriefcaseBusiness, route: '/portfolio' },
-  { name: 'events', label: 'Events', icon: CalendarClock, route: '/events' },
-  { name: 'analysis', label: 'Analysis', icon: ChartNoAxesColumn, route: '/analysis' },
-];
+import { COLORS } from "@/constants/colors";
+import { FONTS, FONT_SIZES } from "@/constants/fonts";
+import { TABS } from "@/constants/tabs";
+import TabButton from "@/components/molecules/TabButton";
 
 export default function TabBar() {
   const router = useRouter();
@@ -38,12 +31,7 @@ export default function TabBar() {
         viewBox={`0 0 ${width} 100`}
         style={StyleSheet.absoluteFill}
       >
-        <Path
-          d={path}
-          fill="white"
-          stroke="#E5E3DC"
-          strokeWidth="0.5"
-        />
+        <Path d={path} fill="white" stroke="#E5E3DC" strokeWidth="0.5" />
       </Svg>
 
       <View className="flex-row items-center px-4 pb-3 pt-6 h-full">
@@ -61,13 +49,13 @@ export default function TabBar() {
           <TouchableOpacity
             className="w-14 h-14 rounded-full bg-[#1A2E28] items-center justify-center -mt-8"
             style={styles.trackShadow}
-            onPress={() => router.push('/track')}
+            onPress={() => router.push("/track")}
             accessibilityRole="button"
             accessibilityLabel="Track transaction"
           >
             <DollarSign size={26} color={COLORS.white} />
           </TouchableOpacity>
-          <Text style={{ fontFamily: FONTS.semiBold, fontSize: FONT_SIZES.micro, color: '#999' }}>Track</Text>
+          <Text style={styles.trackLabel}>Track</Text>
         </View>
 
         {TABS.slice(2).map((tab) => (
@@ -91,5 +79,10 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.4,
     shadowRadius: 8,
     elevation: 6,
+  },
+  trackLabel: {
+    fontFamily: FONTS.semiBold,
+    fontSize: FONT_SIZES.micro,
+    color: COLORS.textSecondary,
   },
 });

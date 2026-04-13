@@ -170,7 +170,7 @@ const styles = StyleSheet.create({
   },
   monthLabel: {
     fontFamily: FONTS.semiBold,
-    fontSize: FONT_SIZES.body,
+    fontSize: FONT_SIZES.subBody,
     color: COLORS.textPrimary,
     letterSpacing: -0.5,
   },

@@ -1,10 +1,9 @@
-import { View, Text, StyleSheet } from 'react-native';
-import { useRouter } from 'expo-router';
-import Svg, { Path } from 'react-native-svg';
+import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
+import { useRouter } from "expo-router";
+import Svg, { Path } from "react-native-svg";
 
-import { COLORS } from '@/constants/colors';
-import { FONTS, FONT_SIZES } from '@/constants/fonts';
-import Button from '@/components/atoms/Button';
+import { COLORS } from "@/constants/colors";
+import { FONTS, FONT_SIZES } from "@/constants/fonts";
 
 function EmptyStateIcon() {
   return (
@@ -50,12 +49,21 @@ export default function HomeEmptyView() {
         <EmptyStateIcon />
       </View>
 
-      <Text className="mb-6" style={styles.title}>No transactions yet</Text>
+      <Text className="mb-6" style={styles.title}>
+        No transactions yet
+      </Text>
       <Text className="text-center mb-12 leading-5" style={styles.subtitle}>
-        Track your income and expenses{'\n'}to start managing your finances
+        Track your income and expenses{"\n"}to start managing your finances
       </Text>
 
-      <Button label="Get Started !" onPress={() => router.push('/track')} />
+      <TouchableOpacity
+        className="items-center py-4 px-12 rounded-2xl"
+        style={{ backgroundColor: COLORS.forestGreen }}
+        onPress={() => router.push("/track")}
+        accessibilityRole="button"
+      >
+        <Text style={styles.buttonLabel}>Get Started !</Text>
+      </TouchableOpacity>
     </View>
   );
 }
@@ -75,5 +83,10 @@ const styles = StyleSheet.create({
     fontSize: FONT_SIZES.caption,
     color: COLORS.textSecondary,
     letterSpacing: 0.65,
+  },
+  buttonLabel: {
+    fontFamily: FONTS.semiBold,
+    fontSize: FONT_SIZES.subBody,
+    color: COLORS.white,
   },
 });
