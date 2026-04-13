@@ -1,9 +1,9 @@
 export const TRANSACTION_TYPES = {
-  expense: 'expense',
-  income: 'income',
+  expense: "expense",
+  income: "income",
 } as const;
 
-export type TransactionType = 'expense' | 'income';
+export type TransactionType = "expense" | "income";
 
 export interface Transaction {
   id: string;
