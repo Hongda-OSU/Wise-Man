@@ -37,7 +37,7 @@ const styles = StyleSheet.create({
   },
   amount: {
     fontFamily: FONTS.moneyBold,
-    fontSize: 16,
+    fontSize: FONT_SIZES.body,
     letterSpacing: -0.8,
   },
 });
