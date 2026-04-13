@@ -38,6 +38,7 @@ export default function NoteCard({
           placeholder="What's this transaction for?"
           placeholderTextColor={COLORS.textSecondary}
           multiline
+          scrollEnabled={false}
           style={styles.input}
         />
       </View>
