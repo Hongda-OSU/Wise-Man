@@ -6,42 +6,13 @@ import {
   useWindowDimensions,
 } from "react-native";
 import { useRouter, usePathname } from "expo-router";
-import {
-  House,
-  BriefcaseBusiness,
-  DollarSign,
-  CalendarClock,
-  ChartNoAxesColumn,
-} from "lucide-react-native";
+import { DollarSign } from "lucide-react-native";
 import Svg, { Path } from "react-native-svg";
 
 import { COLORS } from "@/constants/colors";
 import { FONTS, FONT_SIZES } from "@/constants/fonts";
+import { TABS } from "@/constants/tabs";
 import TabButton from "@/components/molecules/TabButton";
-
-interface TabItem {
-  name: string;
-  label: string;
-  icon: React.ComponentType<{ size: number; color: string }>;
-  route: string;
-}
-
-const TABS: TabItem[] = [
-  { name: "index", label: "Home", icon: House, route: "/" },
-  {
-    name: "portfolio",
-    label: "Portfolio",
-    icon: BriefcaseBusiness,
-    route: "/portfolio",
-  },
-  { name: "events", label: "Events", icon: CalendarClock, route: "/events" },
-  {
-    name: "analysis",
-    label: "Analysis",
-    icon: ChartNoAxesColumn,
-    route: "/analysis",
-  },
-];
 
 export default function TabBar() {
   const router = useRouter();
