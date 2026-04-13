@@ -7,7 +7,7 @@ export default function TabLayout() {
   return (
     <Tabs
       tabBar={() => (
-        <View style={{ position: 'absolute', bottom: 0, left: 0, right: 0, backgroundColor: 'transparent' }}>
+        <View className="absolute bottom-0 left-0 right-0 bg-transparent">
           <TabBar />
         </View>
       )}
