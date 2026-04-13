@@ -1,13 +1,13 @@
-import { Tabs } from "expo-router";
-import { View } from "react-native";
+import { Tabs } from 'expo-router';
+import { View, StyleSheet } from 'react-native';
 
-import TabBar from "@/components/templates/TabBar";
+import TabBar from '@/components/templates/TabBar';
 
 export default function TabLayout() {
   return (
     <Tabs
       tabBar={() => (
-        <View className="absolute bottom-0 left-0 right-0 bg-transparent">
+        <View style={styles.tabBarContainer}>
           <TabBar />
         </View>
       )}
@@ -20,3 +20,13 @@ export default function TabLayout() {
     </Tabs>
   );
 }
+
+const styles = StyleSheet.create({
+  tabBarContainer: {
+    position: 'absolute',
+    bottom: 0,
+    left: 0,
+    right: 0,
+    backgroundColor: 'transparent',
+  },
+});
