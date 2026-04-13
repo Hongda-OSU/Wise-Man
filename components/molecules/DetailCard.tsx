@@ -1,6 +1,7 @@
-import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
+import { View, Text, TouchableOpacity, Keyboard, StyleSheet } from "react-native";
 import { ChevronRight } from "lucide-react-native";
 
+import { useKeyboardVisible } from "@/hooks/useKeyboardVisible";
 import { COLORS } from "@/constants/colors";
 import { FONTS, FONT_SIZES } from "@/constants/fonts";
 
@@ -21,10 +22,20 @@ export default function DetailCard({
   value,
   onPress,
 }: DetailCardProps) {
+  const isKeyboardVisible = useKeyboardVisible();
+
+  const handlePress = () => {
+    if (isKeyboardVisible) {
+      Keyboard.dismiss();
+      return;
+    }
+    onPress?.();
+  };
+
   return (
     <TouchableOpacity
       className="flex-1 bg-white rounded-2xl p-4"
-      onPress={onPress}
+      onPress={handlePress}
       accessibilityRole="button"
     >
       <View className="flex-row items-center justify-between mb-3">

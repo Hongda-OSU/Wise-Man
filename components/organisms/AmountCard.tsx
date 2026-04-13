@@ -4,10 +4,12 @@ import {
   Text,
   TextInput,
   TouchableOpacity,
+  Keyboard,
   StyleSheet,
 } from "react-native";
 import { Star } from "lucide-react-native";
 
+import { useKeyboardVisible } from "@/hooks/useKeyboardVisible";
 import { COLORS } from "@/constants/colors";
 import { FONTS, FONT_SIZES } from "@/constants/fonts";
 import type { CategoryConfig } from "@/constants/categories";
@@ -25,6 +27,7 @@ export default function AmountCard({
   onAmountChange,
 }: AmountCardProps) {
   const inputRef = useRef<TextInput>(null);
+  const isKeyboardVisible = useKeyboardVisible();
 
   const displayAmount = formatAmountDisplay(amount);
 
@@ -54,7 +57,13 @@ export default function AmountCard({
   return (
     <TouchableOpacity
       activeOpacity={1}
-      onPress={() => inputRef.current?.focus()}
+      onPress={() => {
+        if (isKeyboardVisible) {
+          Keyboard.dismiss();
+          return;
+        }
+        inputRef.current?.focus();
+      }}
       className="rounded-[20px] overflow-hidden items-center p-6"
       style={styles.card}
     >
