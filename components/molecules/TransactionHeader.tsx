@@ -1,18 +1,20 @@
 import { View, Text, StyleSheet } from 'react-native';
 import { List, CalendarDays } from 'lucide-react-native';
 
+import { HOME_VIEW_MODES } from '@/types/ui';
+import type { HomeViewMode } from '@/types/ui';
 import { COLORS } from '@/constants/colors';
 import { FONTS, FONT_SIZES } from '@/constants/fonts';
 import SegmentedControl from '@/components/atoms/SegmentedControl';
 
 interface TransactionHeaderProps {
-  view: 'list' | 'calendar';
-  onViewChange: (view: 'list' | 'calendar') => void;
+  view: HomeViewMode;
+  onViewChange: (view: HomeViewMode) => void;
 }
 
 const VIEW_SEGMENTS = [
-  { key: 'list', icon: List },
-  { key: 'calendar', icon: CalendarDays },
+  { key: HOME_VIEW_MODES.list, icon: List },
+  { key: HOME_VIEW_MODES.calendar, icon: CalendarDays },
 ];
 
 export default function TransactionHeader({ view, onViewChange }: TransactionHeaderProps) {
@@ -22,7 +24,7 @@ export default function TransactionHeader({ view, onViewChange }: TransactionHea
       <SegmentedControl
         segments={VIEW_SEGMENTS}
         activeKey={view}
-        onPress={(key) => onViewChange(key as 'list' | 'calendar')}
+        onPress={(key) => onViewChange(key as HomeViewMode)}
       />
     </View>
   );

@@ -1,29 +1,35 @@
-import { useState, useMemo } from 'react';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import { useState, useMemo } from "react";
+import { SafeAreaView } from "react-native-safe-area-context";
 
-import AppHeader from '@/components/templates/AppHeader';
-import HomeHeader from '@/components/organisms/HomeHeader';
-import TransactionList from '@/components/organisms/TransactionList';
-import CalendarView from '@/components/organisms/CalendarView';
-import { COLORS } from '@/constants/colors';
-import { MOCK_TRANSACTIONS } from '@/mocks/transactions';
+import AppHeader from "@/components/templates/AppHeader";
+import HomeHeader from "@/components/organisms/HomeHeader";
+import TransactionList from "@/components/organisms/TransactionList";
+import CalendarView from "@/components/organisms/CalendarView";
+import { COLORS } from "@/constants/colors";
+import { MOCK_TRANSACTIONS } from "@/mocks/transactions";
+import { HOME_VIEW_MODES } from "@/types/ui";
+import type { HomeViewMode } from "@/types/ui";
 
 export default function HomeScreen() {
-  const [view, setView] = useState<'list' | 'calendar'>('list');
+  const [view, setView] = useState<HomeViewMode>(HOME_VIEW_MODES.list);
 
   const { income, expense, netBalance } = useMemo(() => {
     const allTransactions = MOCK_TRANSACTIONS.flatMap((s) => s.data);
-    const income = allTransactions.filter((t) => t.type === 'income').reduce((sum, t) => sum + t.amount, 0);
-    const expense = allTransactions.filter((t) => t.type === 'expense').reduce((sum, t) => sum + t.amount, 0);
+    const income = allTransactions
+      .filter((t) => t.type === "income")
+      .reduce((sum, t) => sum + t.amount, 0);
+    const expense = allTransactions
+      .filter((t) => t.type === "expense")
+      .reduce((sum, t) => sum + t.amount, 0);
     return { income, expense, netBalance: income - expense };
   }, []);
 
   const handleEdit = (id: string) => {
-    console.log('Edit transaction:', id);
+    console.log("Edit transaction:", id);
   };
 
   const handleDelete = (id: string) => {
-    console.log('Delete transaction:', id);
+    console.log("Delete transaction:", id);
   };
 
   const header = (
@@ -38,9 +44,13 @@ export default function HomeScreen() {
   );
 
   return (
-    <SafeAreaView className="flex-1" style={{ backgroundColor: COLORS.bgPrimary }} edges={['top']}>
+    <SafeAreaView
+      className="flex-1"
+      style={{ backgroundColor: COLORS.bgPrimary }}
+      edges={["top"]}
+    >
       <AppHeader />
-      {view === 'list' ? (
+      {view === HOME_VIEW_MODES.list ? (
         <TransactionList
           sections={MOCK_TRANSACTIONS}
           onEdit={handleEdit}
