@@ -15,7 +15,8 @@
     },
     "ios": {
       "supportsTablet": true,
-      "backgroundColor": "#F0EFE9"
+      "backgroundColor": "#F0EFE9",
+      "bundleIdentifier": "com.anonymous.Wise-Man"
     },
     "android": {
       "adaptiveIcon": {
@@ -27,7 +28,7 @@
     },
     "web": {
       "favicon": "./assets/favicon.png",
-       "bundler": "metro"
+      "bundler": "metro"
     },
     "plugins": [
       "expo-router",
