@@ -1,16 +1,17 @@
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet } from "react-native";
 // TODO: migrate to ReanimatedSwipeable — requires dev client (eas build)
 // eslint-disable-next-line deprecation/deprecation
-import Swipeable from 'react-native-gesture-handler/Swipeable';
-import { Pencil, Trash2 } from 'lucide-react-native';
+import Swipeable from "react-native-gesture-handler/Swipeable";
+import { Pencil, Trash2 } from "lucide-react-native";
 
-import { COLORS } from '@/constants/colors';
-import { FONTS, FONT_SIZES } from '@/constants/fonts';
-import { getCategoryConfig } from '@/constants/categories';
-import { formatCurrency } from '@/utils/formatCurrency';
-import CategoryIcon from '@/components/atoms/CategoryIcon';
-import SwipeAction from '@/components/atoms/SwipeAction';
-import type { Transaction } from '@/types/transaction';
+import { COLORS } from "@/constants/colors";
+import { FONTS, FONT_SIZES } from "@/constants/fonts";
+import { getCategoryConfig } from "@/constants/categories";
+import { formatCurrency } from "@/utils/formatCurrency";
+import { TRANSACTION_TYPES } from "@/types/transaction";
+import CategoryIcon from "@/components/atoms/CategoryIcon";
+import SwipeAction from "@/components/atoms/SwipeAction";
+import type { Transaction } from "@/types/transaction";
 
 interface TransactionItemProps {
   transaction: Transaction;
@@ -20,9 +21,9 @@ interface TransactionItemProps {
 
 export default function TransactionItem({ transaction, onEdit, onDelete }: TransactionItemProps) {
   const category = getCategoryConfig(transaction.categoryId, transaction.type);
-  const isIncome = transaction.type === 'income';
+  const isIncome = transaction.type === TRANSACTION_TYPES.income;
   const amountColor = isIncome ? COLORS.income : COLORS.textPrimary;
-  const amountPrefix = isIncome ? '+' : '-';
+  const amountPrefix = isIncome ? "+" : "-";
 
   return (
     <Swipeable
@@ -31,7 +32,7 @@ export default function TransactionItem({ transaction, onEdit, onDelete }: Trans
           icon={Pencil}
           label="Edit"
           backgroundColor={COLORS.forestGreen}
-          className="rounded-2xl mr-2"
+          style={styles.editAction}
           onPress={() => onEdit(transaction.id)}
         />
       )}
@@ -40,14 +41,14 @@ export default function TransactionItem({ transaction, onEdit, onDelete }: Trans
           icon={Trash2}
           label="Delete"
           backgroundColor={COLORS.expense}
-          className="rounded-2xl ml-2"
+          style={styles.deleteAction}
           onPress={() => onDelete(transaction.id)}
         />
       )}
     >
-      <View className="flex-row items-center bg-white rounded-2xl py-3 px-4 gap-3">
+      <View style={styles.row}>
         <CategoryIcon category={category} size={44} borderRadius={13} />
-        <View className="flex-1">
+        <View style={styles.info}>
           <Text style={styles.name}>{transaction.note ?? category.label}</Text>
           <Text style={styles.category}>{category.label}</Text>
         </View>
@@ -60,6 +61,26 @@ export default function TransactionItem({ transaction, onEdit, onDelete }: Trans
 }
 
 const styles = StyleSheet.create({
+  editAction: {
+    borderRadius: 16,
+    marginRight: 8,
+  },
+  deleteAction: {
+    borderRadius: 16,
+    marginLeft: 8,
+  },
+  row: {
+    flexDirection: "row",
+    alignItems: "center",
+    backgroundColor: COLORS.white,
+    borderRadius: 16,
+    paddingVertical: 12,
+    paddingHorizontal: 16,
+    gap: 12,
+  },
+  info: {
+    flex: 1,
+  },
   name: {
     fontFamily: FONTS.semiBold,
     fontSize: FONT_SIZES.subBody,

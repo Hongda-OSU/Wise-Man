@@ -1,36 +1,47 @@
-import { Text, TouchableOpacity, StyleSheet } from 'react-native';
-import type { ComponentType } from 'react';
+import { Text, TouchableOpacity, StyleSheet, ViewStyle } from "react-native";
+import type { ComponentType } from "react";
 
-import { COLORS } from '@/constants/colors';
-import { FONTS, FONT_SIZES } from '@/constants/fonts';
+import { COLORS } from "@/constants/colors";
+import { FONTS, FONT_SIZES } from "@/constants/fonts";
 
 interface SwipeActionProps {
   icon: ComponentType<{ size: number; color: string }>;
   label: string;
   backgroundColor: string;
-  className?: string;
+  style?: ViewStyle;
   onPress: () => void;
 }
 
-export default function SwipeAction({ icon: Icon, label, backgroundColor, className, onPress }: SwipeActionProps) {
+export default function SwipeAction({
+  icon: Icon,
+  label,
+  backgroundColor,
+  style,
+  onPress,
+}: SwipeActionProps) {
   return (
     <TouchableOpacity
-      className={`items-center justify-center ${className ?? ''}`}
-      style={{ backgroundColor, width: 72 }}
+      style={[styles.container, { backgroundColor }, style]}
       onPress={onPress}
       accessibilityRole="button"
       accessibilityLabel={label}
     >
       <Icon size={18} color={COLORS.white} />
-      <Text className="mt-1" style={styles.label}>{label}</Text>
+      <Text style={styles.label}>{label}</Text>
     </TouchableOpacity>
   );
 }
 
 const styles = StyleSheet.create({
+  container: {
+    alignItems: "center",
+    justifyContent: "center",
+    width: 72,
+  },
   label: {
     fontFamily: FONTS.semiBold,
     fontSize: FONT_SIZES.micro,
     color: COLORS.white,
+    marginTop: 4,
   },
 });
