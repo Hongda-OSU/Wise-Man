@@ -1,30 +1,48 @@
-import '../global.css';
+import "../global.css";
 
-import { Stack } from 'expo-router';
-import { View, ActivityIndicator } from 'react-native';
-import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import { Stack } from "expo-router";
+import { View, ActivityIndicator, StyleSheet } from "react-native";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
 
-import { useAppFonts } from '@/hooks/useAppFonts';
+import { useAppFonts } from "@/hooks/useAppFonts";
+import { COLORS } from "@/constants/colors";
 
 export default function RootLayout() {
   const [fontsLoaded] = useAppFonts();
 
   if (!fontsLoaded) {
     return (
-      <GestureHandlerRootView className="flex-1">
-        <View className="flex-1 items-center justify-center bg-[#F0EFE9]">
-          <ActivityIndicator color="#1A2E28" />
+      <GestureHandlerRootView style={styles.root}>
+        <View style={styles.loading}>
+          <ActivityIndicator color={COLORS.forestGreen} />
         </View>
       </GestureHandlerRootView>
     );
   }
 
   return (
-    <GestureHandlerRootView className="flex-1">
-      <Stack screenOptions={{ headerShown: false, contentStyle: { backgroundColor: '#F0EFE9' } }}>
+    <GestureHandlerRootView style={styles.root}>
+      <Stack
+        screenOptions={{
+          headerShown: false,
+          contentStyle: { backgroundColor: COLORS.bgPrimary },
+        }}
+      >
         <Stack.Screen name="(tabs)" />
         <Stack.Screen name="track" />
       </Stack>
     </GestureHandlerRootView>
   );
 }
+
+const styles = StyleSheet.create({
+  root: {
+    flex: 1,
+  },
+  loading: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: COLORS.bgPrimary,
+  },
+});
