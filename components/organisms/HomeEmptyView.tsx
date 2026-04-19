@@ -44,21 +44,18 @@ export default function HomeEmptyView() {
   const router = useRouter();
 
   return (
-    <View className="flex-1 items-center justify-start px-10 pt-8">
-      <View className="mb-1">
+    <View style={styles.container}>
+      <View style={styles.iconWrapper}>
         <EmptyStateIcon />
       </View>
 
-      <Text className="mb-6" style={styles.title}>
-        No transactions yet
-      </Text>
-      <Text className="text-center mb-12 leading-5" style={styles.subtitle}>
+      <Text style={styles.title}>No transactions yet</Text>
+      <Text style={styles.subtitle}>
         Track your income and expenses{"\n"}to start managing your finances
       </Text>
 
       <TouchableOpacity
-        className="items-center py-4 px-12 rounded-2xl"
-        style={{ backgroundColor: COLORS.forestGreen }}
+        style={styles.button}
         onPress={() => router.push("/track")}
         accessibilityRole="button"
       >
@@ -69,6 +66,23 @@ export default function HomeEmptyView() {
 }
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "flex-start",
+    paddingHorizontal: 40,
+    paddingTop: 32,
+  },
+  iconWrapper: {
+    marginBottom: 4,
+  },
+  button: {
+    alignItems: "center",
+    paddingVertical: 16,
+    paddingHorizontal: 48,
+    borderRadius: 16,
+    backgroundColor: COLORS.forestGreen,
+  },
   title: {
     fontFamily: FONTS.serif,
     fontSize: FONT_SIZES.heading2,
@@ -77,12 +91,16 @@ const styles = StyleSheet.create({
     textShadowColor: COLORS.textPrimary,
     textShadowOffset: { width: 0.4, height: 0.4 },
     textShadowRadius: 0.1,
+    marginBottom: 24,
   },
   subtitle: {
     fontFamily: FONTS.serif,
     fontSize: FONT_SIZES.caption,
     color: COLORS.textSecondary,
     letterSpacing: 0.65,
+    textAlign: "center",
+    lineHeight: 20,
+    marginBottom: 48,
   },
   buttonLabel: {
     fontFamily: FONTS.semiBold,

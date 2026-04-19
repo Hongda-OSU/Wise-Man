@@ -17,42 +17,30 @@ export default function CategoryGrid({
   onSelect,
 }: CategoryGridProps) {
   return (
-    <View className="px-1">
+    <View style={styles.container}>
       <Text style={styles.sectionTitle}>CATEGORY</Text>
-      <View className="flex-row flex-wrap" style={{ rowGap: 16 }}>
+      <View style={styles.grid}>
         {categories.map((cat) => {
           const isSelected = cat.id === selectedId;
           return (
             <TouchableOpacity
               key={cat.id}
-              className="items-center"
               style={styles.cell}
               onPress={() => onSelect(cat.id)}
               accessibilityRole="button"
               accessibilityState={{ selected: isSelected }}
             >
               <View
-                className="items-center justify-center mb-2"
                 style={[
                   styles.icon,
                   { backgroundColor: isSelected ? COLORS.forestGreen : cat.bg },
                 ]}
               >
-                <cat.icon
-                  size={26}
-                  color={isSelected ? COLORS.white : cat.color}
-                />
+                <cat.icon size={26} color={isSelected ? COLORS.white : cat.color} />
               </View>
               <Text
                 numberOfLines={1}
-                style={[
-                  styles.label,
-                  {
-                    color: isSelected
-                      ? COLORS.forestGreen
-                      : COLORS.textSecondary,
-                  },
-                ]}
+                style={[styles.label, { color: isSelected ? COLORS.forestGreen : COLORS.textSecondary }]}
               >
                 {cat.label}
               </Text>
@@ -61,11 +49,8 @@ export default function CategoryGrid({
         })}
 
         {/* Add button */}
-        <TouchableOpacity className="items-center" style={styles.cell}>
-          <View
-            className="items-center justify-center mb-2"
-            style={styles.addIcon}
-          >
+        <TouchableOpacity style={styles.cell}>
+          <View style={styles.addIcon}>
             <Plus size={22} color={COLORS.textSecondary} />
           </View>
           <Text style={styles.label}>Add</Text>
@@ -78,6 +63,14 @@ export default function CategoryGrid({
 const CELL_SIZE = 56;
 
 const styles = StyleSheet.create({
+  container: {
+    paddingHorizontal: 4,
+  },
+  grid: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    rowGap: 16,
+  },
   sectionTitle: {
     fontFamily: FONTS.semiBold,
     fontSize: FONT_SIZES.micro,
@@ -95,6 +88,9 @@ const styles = StyleSheet.create({
     borderRadius: 16,
     borderWidth: 1.5,
     borderColor: "rgba(255,255,255,0.5)",
+    alignItems: "center",
+    justifyContent: "center",
+    marginBottom: 8,
   },
   addIcon: {
     width: CELL_SIZE,
@@ -103,6 +99,9 @@ const styles = StyleSheet.create({
     borderWidth: 1.5,
     borderColor: COLORS.textSecondary,
     borderStyle: "dashed",
+    alignItems: "center",
+    justifyContent: "center",
+    marginBottom: 8,
   },
   label: {
     fontFamily: FONTS.semiBold,

@@ -24,7 +24,7 @@ export default function TabBar() {
   const path = `M 0 100 L 0 20 L ${mid - notchHalf} 20 C ${mid - notchHalf / 2} 20 ${mid - notchHalf / 2} 2 ${mid} 2 C ${mid + notchHalf / 2} 2 ${mid + notchHalf / 2} 20 ${mid + notchHalf} 20 L ${width} 20 L ${width} 100 Z`;
 
   return (
-    <View className="h-[100px] bg-transparent">
+    <View style={styles.container}>
       <Svg
         width={width}
         height={100}
@@ -34,7 +34,7 @@ export default function TabBar() {
         <Path d={path} fill="white" stroke="#E5E3DC" strokeWidth="0.5" />
       </Svg>
 
-      <View className="flex-row items-center px-4 pb-3 pt-6 h-full">
+      <View style={styles.row}>
         {TABS.slice(0, 2).map((tab) => (
           <TabButton
             key={tab.name}
@@ -45,10 +45,9 @@ export default function TabBar() {
           />
         ))}
 
-        <View className="flex-1 items-center justify-center gap-1">
+        <View style={styles.trackCenter}>
           <TouchableOpacity
-            className="w-14 h-14 rounded-full bg-[#1A2E28] items-center justify-center -mt-8"
-            style={styles.trackShadow}
+            style={[styles.trackButton, styles.trackShadow]}
             onPress={() => router.push("/track")}
             accessibilityRole="button"
             accessibilityLabel="Track transaction"
@@ -73,6 +72,33 @@ export default function TabBar() {
 }
 
 const styles = StyleSheet.create({
+  container: {
+    height: 100,
+    backgroundColor: "transparent",
+  },
+  row: {
+    flexDirection: "row",
+    alignItems: "center",
+    paddingHorizontal: 16,
+    paddingBottom: 12,
+    paddingTop: 24,
+    height: "100%",
+  },
+  trackCenter: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
+    gap: 4,
+  },
+  trackButton: {
+    width: 56,
+    height: 56,
+    borderRadius: 28,
+    backgroundColor: COLORS.forestGreen,
+    alignItems: "center",
+    justifyContent: "center",
+    marginTop: -32,
+  },
   trackShadow: {
     shadowColor: COLORS.forestGreen,
     shadowOffset: { width: 0, height: 4 },

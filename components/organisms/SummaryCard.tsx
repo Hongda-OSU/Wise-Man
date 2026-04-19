@@ -22,13 +22,10 @@ export default function SummaryCard({
   expense,
 }: SummaryCardProps) {
   return (
-    <View
-      className="mx-5 mt-4 rounded-[20px] px-7 py-6 overflow-hidden"
-      style={styles.card}
-    >
+    <View style={styles.card}>
       {/* Top row */}
-      <View className="flex-row items-center justify-between mb-2">
-        <View className="flex-row items-center gap-2">
+      <View style={styles.topRow}>
+        <View style={styles.monthRow}>
           <Calendar size={14} color={COLORS.textSecondary} />
           <Text style={styles.meta}>{month}</Text>
         </View>
@@ -36,19 +33,13 @@ export default function SummaryCard({
       </View>
 
       {/* Net balance amount */}
-      <Text className="mb-4" style={styles.amount}>
-        ${formatCurrency(netBalance)}
-      </Text>
+      <Text style={styles.amount}>${formatCurrency(netBalance)}</Text>
 
       {/* Progress bar */}
-      <BalanceProgressBar
-        income={income}
-        netBalance={netBalance}
-        expense={expense}
-      />
+      <BalanceProgressBar income={income} netBalance={netBalance} expense={expense} />
 
       {/* Income / Expense row */}
-      <View className="flex-row justify-between">
+      <View style={styles.statsRow}>
         <BalanceStat type={TRANSACTION_TYPES.income} amount={income} />
         <BalanceStat type={TRANSACTION_TYPES.expense} amount={expense} />
       </View>
@@ -59,11 +50,32 @@ export default function SummaryCard({
 const styles = StyleSheet.create({
   card: {
     backgroundColor: COLORS.forestGreen,
+    borderRadius: 20,
+    marginHorizontal: 20,
+    marginTop: 16,
+    paddingHorizontal: 28,
+    paddingVertical: 24,
+    overflow: "hidden",
     shadowColor: COLORS.forestGreen,
     shadowOffset: { width: 0, height: 8 },
     shadowOpacity: 0.3,
     shadowRadius: 16,
     elevation: 8,
+  },
+  topRow: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    marginBottom: 8,
+  },
+  monthRow: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 8,
+  },
+  statsRow: {
+    flexDirection: "row",
+    justifyContent: "space-between",
   },
   meta: {
     fontFamily: FONTS.regular,
@@ -76,5 +88,6 @@ const styles = StyleSheet.create({
     fontSize: FONT_SIZES.display,
     color: COLORS.white,
     letterSpacing: -2,
+    marginBottom: 16,
   },
 });

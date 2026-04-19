@@ -1,15 +1,15 @@
-import { useState, useMemo } from 'react';
-import { View, Text, ScrollView, TouchableOpacity, StyleSheet } from 'react-native';
-import { ChevronLeft, ChevronRight } from 'lucide-react-native';
+import { useState, useMemo } from "react";
+import { View, Text, ScrollView, TouchableOpacity, StyleSheet } from "react-native";
+import { ChevronLeft, ChevronRight } from "lucide-react-native";
 
-import { COLORS } from '@/constants/colors';
-import { FONTS, FONT_SIZES } from '@/constants/fonts';
-import CalendarDayCell from '@/components/molecules/CalendarDayCell';
-import TransactionItem from '@/components/molecules/TransactionItem';
-import { toDateString } from '@/utils/dateUtils';
-import type { TransactionSection } from '@/types/transaction';
+import { COLORS } from "@/constants/colors";
+import { FONTS, FONT_SIZES } from "@/constants/fonts";
+import CalendarDayCell from "@/components/molecules/CalendarDayCell";
+import TransactionItem from "@/components/molecules/TransactionItem";
+import { toDateString } from "@/utils/dateUtils";
+import type { TransactionSection } from "@/types/transaction";
 
-const WEEKDAYS = ['S', 'M', 'T', 'W', 'T', 'F', 'S'];
+const WEEKDAYS = ["S", "M", "T", "W", "T", "F", "S"];
 const CELL_H = 50;
 
 interface DayData {
@@ -37,7 +37,7 @@ function chunkIntoRows(days: (number | null)[]): (number | null)[][] {
 export default function CalendarView({ sections, onEdit, onDelete, listHeader }: CalendarViewProps) {
   const [currentMonth, setCurrentMonth] = useState(() => {
     if (sections.length > 0) {
-      const d = new Date(sections[0].data[0].date + 'T00:00:00');
+      const d = new Date(sections[0].data[0].date + "T00:00:00");
       return new Date(d.getFullYear(), d.getMonth(), 1);
     }
     const now = new Date();
@@ -53,7 +53,7 @@ export default function CalendarView({ sections, onEdit, onDelete, listHeader }:
     for (const section of sections) {
       for (const tx of section.data) {
         const existing = map.get(tx.date) ?? { income: 0, expense: 0 };
-        if (tx.type === 'income') existing.income += tx.amount;
+        if (tx.type === "income") existing.income += tx.amount;
         else existing.expense += tx.amount;
         map.set(tx.date, existing);
       }
@@ -81,7 +81,7 @@ export default function CalendarView({ sections, onEdit, onDelete, listHeader }:
     return sections.find((s) => s.data.some((t) => t.date === selectedDate))?.title ?? null;
   }, [selectedDate, sections]);
 
-  const monthLabel = currentMonth.toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
+  const monthLabel = currentMonth.toLocaleDateString("en-US", { month: "long", year: "numeric" });
   const year = currentMonth.getFullYear();
   const month = currentMonth.getMonth();
 
@@ -94,13 +94,12 @@ export default function CalendarView({ sections, onEdit, onDelete, listHeader }:
   }
 
   return (
-    <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={{ paddingBottom: 120 }}>
+    <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={styles.scrollContent}>
       {listHeader}
 
-      {/* Month navigation */}
-      <View className="flex-row items-center justify-between px-8 mt-4 mb-4">
+      <View style={styles.monthNav}>
         <Text style={styles.monthLabel}>{monthLabel}</Text>
-        <View className="flex-row gap-3 mr-2.5">
+        <View style={styles.navButtons}>
           <TouchableOpacity onPress={prevMonth} style={styles.navBtn} accessibilityRole="button" accessibilityLabel="Previous month">
             <ChevronLeft size={18} color={COLORS.textPrimary} />
           </TouchableOpacity>
@@ -110,26 +109,22 @@ export default function CalendarView({ sections, onEdit, onDelete, listHeader }:
         </View>
       </View>
 
-      {/* Weekday headers */}
-      <View className="flex-row justify-between px-7 mb-2">
+      <View style={styles.weekdayRow}>
         {WEEKDAYS.map((day, i) => (
           <Text key={i} style={styles.weekday}>{day}</Text>
         ))}
       </View>
 
-      {/* Calendar rows */}
-      <View className="px-7 gap-1.5 mb-6">
+      <View style={styles.calendarGrid}>
         {calendarRows.map((row, rowIndex) => (
-          <View key={rowIndex} className="flex-row justify-between">
+          <View key={rowIndex} style={styles.calendarRow}>
             {row.map((day, colIndex) => {
               if (day === null) {
                 return <View key={colIndex} style={{ width: 44, height: CELL_H }} />;
               }
-
               const dateStr = toDateString(year, month, day);
               const data = dayDataMap.get(dateStr);
               const isSelected = selectedDate === dateStr;
-
               return (
                 <CalendarDayCell
                   key={dateStr}
@@ -146,11 +141,10 @@ export default function CalendarView({ sections, onEdit, onDelete, listHeader }:
         ))}
       </View>
 
-      {/* Selected day transactions */}
       {selectedSectionTitle && (
-        <Text className="mt-5 mb-2 px-7" style={styles.sectionHeader}>{selectedSectionTitle}</Text>
+        <Text style={styles.sectionHeader}>{selectedSectionTitle}</Text>
       )}
-      <View className="gap-2 px-7">
+      <View style={styles.transactionList}>
         {selectedTransactions.map((tx) => (
           <TransactionItem key={tx.id} transaction={tx} onEdit={onEdit} onDelete={onDelete} />
         ))}
@@ -160,13 +154,29 @@ export default function CalendarView({ sections, onEdit, onDelete, listHeader }:
 }
 
 const styles = StyleSheet.create({
+  scrollContent: {
+    paddingBottom: 120,
+  },
+  monthNav: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    paddingHorizontal: 32,
+    marginTop: 16,
+    marginBottom: 16,
+  },
+  navButtons: {
+    flexDirection: "row",
+    gap: 12,
+    marginRight: 10,
+  },
   navBtn: {
     width: 32,
     height: 32,
     borderRadius: 8,
     backgroundColor: COLORS.white,
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
   },
   monthLabel: {
     fontFamily: FONTS.semiBold,
@@ -174,17 +184,39 @@ const styles = StyleSheet.create({
     color: COLORS.textPrimary,
     letterSpacing: -0.5,
   },
+  weekdayRow: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    paddingHorizontal: 28,
+    marginBottom: 8,
+  },
   weekday: {
     width: 44,
-    textAlign: 'center',
+    textAlign: "center",
     fontFamily: FONTS.medium,
     fontSize: FONT_SIZES.caption,
     color: COLORS.textSecondary,
+  },
+  calendarGrid: {
+    paddingHorizontal: 28,
+    gap: 6,
+    marginBottom: 24,
+  },
+  calendarRow: {
+    flexDirection: "row",
+    justifyContent: "space-between",
   },
   sectionHeader: {
     fontFamily: FONTS.medium,
     fontSize: FONT_SIZES.caption,
     color: COLORS.textSecondary,
     letterSpacing: -0.65,
+    marginTop: 20,
+    marginBottom: 8,
+    paddingHorizontal: 28,
+  },
+  transactionList: {
+    gap: 8,
+    paddingHorizontal: 28,
   },
 });

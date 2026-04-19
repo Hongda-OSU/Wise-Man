@@ -23,9 +23,9 @@ export default function DetailsSection({
   });
 
   return (
-    <View className="gap-4 px-1">
+    <View style={styles.container}>
       <Text style={styles.sectionTitle}>DETAILS</Text>
-      <View className="flex-row gap-5">
+      <View style={styles.row}>
         <DetailCard
           icon={DETAIL_ACCOUNT.icon}
           iconBg={DETAIL_ACCOUNT.iconBg}
@@ -47,6 +47,14 @@ export default function DetailsSection({
 }
 
 const styles = StyleSheet.create({
+  container: {
+    gap: 16,
+    paddingHorizontal: 4,
+  },
+  row: {
+    flexDirection: "row",
+    gap: 20,
+  },
   sectionTitle: {
     fontFamily: FONTS.semiBold,
     fontSize: FONT_SIZES.micro,

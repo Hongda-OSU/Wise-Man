@@ -1,12 +1,5 @@
 import { useRef } from "react";
-import {
-  View,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  Keyboard,
-  StyleSheet,
-} from "react-native";
+import { View, Text, TextInput, TouchableOpacity, Keyboard, StyleSheet } from "react-native";
 import { Star } from "lucide-react-native";
 
 import { useKeyboardVisible } from "@/hooks/useKeyboardVisible";
@@ -21,11 +14,7 @@ interface AmountCardProps {
   onAmountChange: (value: string) => void;
 }
 
-export default function AmountCard({
-  selectedCategory,
-  amount,
-  onAmountChange,
-}: AmountCardProps) {
+export default function AmountCard({ selectedCategory, amount, onAmountChange }: AmountCardProps) {
   const inputRef = useRef<TextInput>(null);
   const isKeyboardVisible = useKeyboardVisible();
 
@@ -49,8 +38,7 @@ export default function AmountCard({
     const cleaned = text.replace(/[^0-9.]/g, "");
     const parts = cleaned.split(".");
     if (parts.length > 2) return;
-    const sanitized =
-      parts.length === 2 ? parts[0] + "." + parts[1].slice(0, 2) : cleaned;
+    const sanitized = parts.length === 2 ? parts[0] + "." + parts[1].slice(0, 2) : cleaned;
     onAmountChange(sanitized);
   };
 
@@ -64,34 +52,23 @@ export default function AmountCard({
         }
         inputRef.current?.focus();
       }}
-      className="rounded-[20px] overflow-hidden items-center p-6"
       style={styles.card}
     >
-      {/* Decorative circles */}
       <View style={styles.circleTopLeft} />
       <View style={styles.circleBottomRight} />
 
-      {/* Category pill */}
-      <View
-        className="flex-row items-center gap-2 px-3 py-1 rounded-full mb-4 mt-1"
-        style={styles.pill}
-      >
+      <View style={styles.pill}>
         {selectedCategory ? selectedPill : placeholderPill}
       </View>
 
-      {/* Amount */}
-      <View className="mb-5 w-full items-center justify-center h-[70px]">
+      <View style={styles.amountContainer}>
         <Text style={styles.amount} adjustsFontSizeToFit numberOfLines={1}>
           {displayAmount}
         </Text>
       </View>
 
-      {/* Hint */}
-      <Text className="mb-4" style={styles.hint}>
-        TAP TO ENTER AMOUNT
-      </Text>
+      <Text style={styles.hint}>TAP TO ENTER AMOUNT</Text>
 
-      {/* Hidden input */}
       <TextInput
         ref={inputRef}
         value={amount}
@@ -107,6 +84,10 @@ export default function AmountCard({
 const styles = StyleSheet.create({
   card: {
     backgroundColor: COLORS.forestGreen,
+    borderRadius: 20,
+    overflow: "hidden",
+    alignItems: "center",
+    padding: 24,
     shadowColor: COLORS.forestGreen,
     shadowOffset: { width: 0, height: 8 },
     shadowOpacity: 0.25,
@@ -132,6 +113,14 @@ const styles = StyleSheet.create({
     right: -55,
   },
   pill: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 8,
+    paddingHorizontal: 12,
+    paddingVertical: 4,
+    borderRadius: 999,
+    marginBottom: 16,
+    marginTop: 4,
     backgroundColor: "rgba(255,255,255,0.14)",
   },
   pillLabel: {
@@ -144,6 +133,13 @@ const styles = StyleSheet.create({
     fontSize: FONT_SIZES.micro,
     color: COLORS.textSecondary,
   },
+  amountContainer: {
+    marginBottom: 20,
+    width: "100%",
+    alignItems: "center",
+    justifyContent: "center",
+    height: 70,
+  },
   amount: {
     fontFamily: FONTS.moneyExtraBold,
     fontSize: 50,
@@ -155,6 +151,7 @@ const styles = StyleSheet.create({
     fontSize: FONT_SIZES.micro,
     color: COLORS.textSecondary,
     letterSpacing: 1.2,
+    marginBottom: 16,
   },
   hiddenInput: {
     position: "absolute",
