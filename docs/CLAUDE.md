@@ -10,7 +10,7 @@ Data stored locally on device (SQLite).
 - Router: Expo Router
 - Database: SQLite (expo-sqlite) + Drizzle ORM
 - State: Zustand
-- Styling: NativeWind (Tailwind CSS)
+- Styling: StyleSheet (React Native)
 - Icons: lucide-react-native (SVG only, no emoji)
 - Fonts: DM Sans (UI), Instrument Serif (app name), Manrope (numbers)
 

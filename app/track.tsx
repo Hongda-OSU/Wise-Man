@@ -1,12 +1,5 @@
 import { useRef, useState } from "react";
-import {
-  View,
-  Text,
-  TouchableOpacity,
-  ScrollView,
-  StyleSheet,
-  Keyboard,
-} from "react-native";
+import { View, Text, TouchableOpacity, ScrollView, StyleSheet, Keyboard } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useRouter } from "expo-router";
 import { ChevronLeft } from "lucide-react-native";
@@ -29,8 +22,7 @@ export default function TrackScreen() {
   const [categoryId, setCategoryId] = useState<string | null>(null);
   const [note, setNote] = useState("");
 
-  const categories =
-    type === TRANSACTION_TYPES.expense ? EXPENSE_CATEGORIES : INCOME_CATEGORIES;
+  const categories = type === TRANSACTION_TYPES.expense ? EXPENSE_CATEGORIES : INCOME_CATEGORIES;
   const selectedCategory = categories.find((c) => c.id === categoryId) ?? null;
 
   const handleTypeChange = (value: TransactionType) => {
@@ -43,15 +35,11 @@ export default function TrackScreen() {
   };
 
   return (
-    <SafeAreaView
-      className="flex-1 px-7"
-      style={{ backgroundColor: COLORS.bgPrimary }}
-      edges={["top", "bottom"]}
-    >
+    <SafeAreaView style={styles.screen} edges={["top", "bottom"]}>
       {/* Nav Bar */}
-      <View className="flex-row items-center py-6">
+      <View style={styles.navBar}>
         <TouchableOpacity
-          className="flex-1"
+          style={styles.backButton}
           onPress={() => router.back()}
           accessibilityRole="button"
           accessibilityLabel="Go back"
@@ -61,7 +49,7 @@ export default function TrackScreen() {
         <Text style={styles.title}>
           {type === TRANSACTION_TYPES.expense ? "Add Expense" : "Add Income"}
         </Text>
-        <View className="flex-1" />
+        <View style={styles.navSpacer} />
       </View>
 
       {/* Toggle */}
@@ -70,12 +58,12 @@ export default function TrackScreen() {
       {/* Content */}
       <ScrollView
         ref={scrollViewRef}
-        className="flex-1"
+        style={styles.scroll}
         keyboardDismissMode="on-drag"
         keyboardShouldPersistTaps="handled"
         showsVerticalScrollIndicator={false}
         automaticallyAdjustKeyboardInsets
-        contentContainerStyle={{ gap: 24, paddingTop: 24, paddingBottom: 24 }}
+        contentContainerStyle={styles.scrollContent}
       >
         <AmountCard
           selectedCategory={selectedCategory}
@@ -94,19 +82,12 @@ export default function TrackScreen() {
           note={note}
           onChangeNote={setNote}
           onNoteFocus={() =>
-            setTimeout(
-              () => scrollViewRef.current?.scrollToEnd({ animated: true }),
-              300,
-            )
+            setTimeout(() => scrollViewRef.current?.scrollToEnd({ animated: true }), 300)
           }
         />
 
         {/* Confirm Button */}
-        <TouchableOpacity
-          className="items-center justify-center px-7 py-4 mt-3 mb-3 rounded-xl"
-          style={styles.confirmBtn}
-          accessibilityRole="button"
-        >
+        <TouchableOpacity style={styles.confirmBtn} accessibilityRole="button">
           <Text style={styles.confirmText}>
             {type === TRANSACTION_TYPES.expense ? "Add Expense" : "Add Income"}
           </Text>
@@ -117,13 +98,44 @@ export default function TrackScreen() {
 }
 
 const styles = StyleSheet.create({
+  screen: {
+    flex: 1,
+    paddingHorizontal: 28,
+    backgroundColor: COLORS.bgPrimary,
+  },
+  navBar: {
+    flexDirection: "row",
+    alignItems: "center",
+    paddingVertical: 24,
+  },
+  backButton: {
+    flex: 1,
+  },
+  navSpacer: {
+    flex: 1,
+  },
   title: {
     fontFamily: FONTS.semiBold,
     fontSize: FONT_SIZES.heading2,
     color: COLORS.textPrimary,
     letterSpacing: -0.8,
   },
+  scroll: {
+    flex: 1,
+  },
+  scrollContent: {
+    gap: 24,
+    paddingTop: 24,
+    paddingBottom: 24,
+  },
   confirmBtn: {
+    alignItems: "center",
+    justifyContent: "center",
+    paddingHorizontal: 28,
+    paddingVertical: 16,
+    marginTop: 12,
+    marginBottom: 12,
+    borderRadius: 12,
     backgroundColor: COLORS.forestGreen,
   },
   confirmText: {

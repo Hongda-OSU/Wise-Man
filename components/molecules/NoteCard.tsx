@@ -11,19 +11,12 @@ interface NoteCardProps {
   onFocus?: () => void;
 }
 
-export default function NoteCard({
-  note,
-  onChangeNote,
-  onFocus,
-}: NoteCardProps) {
+export default function NoteCard({ note, onChangeNote, onFocus }: NoteCardProps) {
   return (
-    <View className="bg-white rounded-2xl p-4">
-      <View className="flex-row items-center justify-between mb-4">
-        <View className="flex-row items-center gap-2">
-          <View
-            className="items-center justify-center"
-            style={[styles.iconBox, { backgroundColor: DETAIL_NOTE.iconBg }]}
-          >
+    <View style={styles.card}>
+      <View style={styles.header}>
+        <View style={styles.titleRow}>
+          <View style={[styles.iconBox, { backgroundColor: DETAIL_NOTE.iconBg }]}>
             <DETAIL_NOTE.icon size={14} color={DETAIL_NOTE.iconColor} />
           </View>
           <Text style={styles.label}>{DETAIL_NOTE.label}</Text>
@@ -47,10 +40,28 @@ export default function NoteCard({
 }
 
 const styles = StyleSheet.create({
+  card: {
+    backgroundColor: COLORS.white,
+    borderRadius: 16,
+    padding: 16,
+  },
+  header: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    marginBottom: 16,
+  },
+  titleRow: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 8,
+  },
   iconBox: {
     width: 28,
     height: 28,
     borderRadius: 9,
+    alignItems: "center",
+    justifyContent: "center",
   },
   label: {
     fontFamily: FONTS.medium,

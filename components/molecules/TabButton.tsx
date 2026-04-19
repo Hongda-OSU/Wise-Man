@@ -1,7 +1,7 @@
-import { TouchableOpacity, Text, StyleSheet } from 'react-native';
+import { TouchableOpacity, Text, StyleSheet } from "react-native";
 
-import { COLORS } from '@/constants/colors';
-import { FONTS, FONT_SIZES } from '@/constants/fonts';
+import { COLORS } from "@/constants/colors";
+import { FONTS, FONT_SIZES } from "@/constants/fonts";
 
 interface TabButtonProps {
   label: string;
@@ -11,9 +11,9 @@ interface TabButtonProps {
 }
 
 export default function TabButton({ label, icon: Icon, active, onPress }: TabButtonProps) {
-  const color = active ? COLORS.forestGreen : '#999';
+  const color = active ? COLORS.forestGreen : COLORS.textSecondary;
   return (
-    <TouchableOpacity className="flex-1 items-center justify-center gap-1" onPress={onPress} accessibilityRole="button">
+    <TouchableOpacity style={styles.container} onPress={onPress} accessibilityRole="button">
       <Icon size={22} color={color} />
       <Text style={[styles.label, { color }]}>{label}</Text>
     </TouchableOpacity>
@@ -21,6 +21,12 @@ export default function TabButton({ label, icon: Icon, active, onPress }: TabBut
 }
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
+    gap: 4,
+  },
   label: {
     fontFamily: FONTS.semiBold,
     fontSize: FONT_SIZES.micro,

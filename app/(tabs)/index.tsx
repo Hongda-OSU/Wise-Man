@@ -1,4 +1,5 @@
 import { useState, useMemo } from "react";
+import { StyleSheet } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 import AppHeader from "@/components/templates/AppHeader";
@@ -44,11 +45,7 @@ export default function HomeScreen() {
   );
 
   return (
-    <SafeAreaView
-      className="flex-1"
-      style={{ backgroundColor: COLORS.bgPrimary }}
-      edges={["top"]}
-    >
+    <SafeAreaView style={styles.container} edges={["top"]}>
       <AppHeader />
       {view === HOME_VIEW_MODES.list ? (
         <TransactionList
@@ -68,3 +65,10 @@ export default function HomeScreen() {
     </SafeAreaView>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: COLORS.bgPrimary,
+  },
+});

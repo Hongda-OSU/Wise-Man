@@ -1,9 +1,20 @@
-import { View, Text } from 'react-native';
+import { View, Text, StyleSheet } from "react-native";
+
+import { COLORS } from "@/constants/colors";
 
 export default function PortfolioScreen() {
   return (
-    <View className="flex-1 bg-[#F0EFE9] items-center justify-center">
+    <View style={styles.container}>
       <Text>Portfolio</Text>
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: COLORS.bgPrimary,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+});

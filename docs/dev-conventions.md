@@ -163,20 +163,22 @@ export const INCOME_CATEGORIES = [
 ] as const;
 ```
 
-## Styling Conventions (NativeWind + StyleSheet)
+## Styling Conventions (StyleSheet only)
 
-### Use NativeWind `className` for layout
-```tsx
-// ✅ Good — layout, spacing, flex
-<View className="flex-row items-center justify-between px-6 mt-4 gap-3">
-  <Text className="mt-4 mb-2 px-6">Section Title</Text>
-</View>
-```
+No NativeWind / Tailwind. All styles go through `StyleSheet.create` or inline `style` props.
 
-### Use StyleSheet for font styles and fixed sizes
+### Use StyleSheet for all static styles
 ```tsx
-// ✅ Good — font styles, fixed sizes, border-radius
+// ✅ Good — layout, spacing, font styles, fixed sizes
 const styles = StyleSheet.create({
+  row: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    paddingHorizontal: SPACING[6],
+    marginTop: SPACING[4],
+    gap: SPACING[3],
+  },
   title: {
     fontFamily: FONTS.semiBold,
     fontSize: FONT_SIZES.body,
@@ -199,12 +201,10 @@ const styles = StyleSheet.create({
 ```
 
 ### Rules
-- `className` — layout only: flex, padding, margin, gap, rounded, bg (static)
-- `StyleSheet` — font styles (`fontFamily`, `fontSize`, `color`, `letterSpacing`) and fixed sizes/border-radius
-- Inline `style` — dynamic values computed from props or state
-- Use `COLORS` constants in StyleSheet; use Tailwind arbitrary values `[#hex]` in className only when no constant exists
-- Never hardcode colors directly — always reference `COLORS` constants or Design System
-- `textShadow` and custom `fontFamily` cannot be expressed in NativeWind — always use StyleSheet
+- `StyleSheet` — all static styles: layout, spacing, flex, font, color, size, border-radius
+- Inline `style` — dynamic values computed from props or state only
+- Never hardcode colors directly — always reference `COLORS` constants
+- Never hardcode spacing directly — always reference `SPACING` constants
 
 ## State Management (Zustand)
 

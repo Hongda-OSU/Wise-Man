@@ -33,15 +33,13 @@ function AppIcon() {
 
 export default function AppHeader() {
   return (
-    <View className="flex-row items-center justify-between px-7 pt-4 pb-4">
-      {/* Left: App icon + name */}
-      <View className="flex-row items-center gap-3">
+    <View style={styles.container}>
+      <View style={styles.left}>
         <AppIcon />
         <Text style={styles.appName}>Wise Man</Text>
       </View>
 
-      {/* Right: Search + Profile */}
-      <View className="flex-row items-center gap-6">
+      <View style={styles.right}>
         <TouchableOpacity accessibilityRole="button" accessibilityLabel="Search">
           <Search size={22} color={COLORS.textPrimary} />
         </TouchableOpacity>
@@ -54,6 +52,24 @@ export default function AppHeader() {
 }
 
 const styles = StyleSheet.create({
+  container: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    paddingHorizontal: 28,
+    paddingTop: 16,
+    paddingBottom: 16,
+  },
+  left: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 12,
+  },
+  right: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 24,
+  },
   appName: {
     fontFamily: FONTS.serif,
     fontSize: 18,
