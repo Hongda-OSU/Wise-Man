@@ -19,8 +19,8 @@ export default function BalanceStat({ type, amount }: BalanceStatProps) {
   const Icon = isIncome ? ArrowUp : ArrowDown;
 
   return (
-    <View className="gap-1">
-      <View className="flex-row items-center gap-1">
+    <View style={styles.container}>
+      <View style={styles.row}>
         <Icon size={12} color={color} />
         <Text style={styles.label}>{label}</Text>
       </View>
@@ -30,6 +30,14 @@ export default function BalanceStat({ type, amount }: BalanceStatProps) {
 }
 
 const styles = StyleSheet.create({
+  container: {
+    gap: 4,
+  },
+  row: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 4,
+  },
   label: {
     fontFamily: FONTS.medium,
     fontSize: FONT_SIZES.caption,

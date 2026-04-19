@@ -33,16 +33,9 @@ export default function DetailCard({
   };
 
   return (
-    <TouchableOpacity
-      className="flex-1 bg-white rounded-2xl p-4"
-      onPress={handlePress}
-      accessibilityRole="button"
-    >
-      <View className="flex-row items-center justify-between mb-3">
-        <View
-          className="items-center justify-center"
-          style={[styles.iconBox, { backgroundColor: iconBg }]}
-        >
+    <TouchableOpacity style={styles.card} onPress={handlePress} accessibilityRole="button">
+      <View style={styles.header}>
+        <View style={[styles.iconBox, { backgroundColor: iconBg }]}>
           <Icon size={14} color={iconColor} />
         </View>
         <ChevronRight size={16} color={COLORS.textSecondary} />
@@ -54,10 +47,24 @@ export default function DetailCard({
 }
 
 const styles = StyleSheet.create({
+  card: {
+    flex: 1,
+    backgroundColor: COLORS.white,
+    borderRadius: 16,
+    padding: 16,
+  },
+  header: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    marginBottom: 12,
+  },
   iconBox: {
     width: 28,
     height: 28,
     borderRadius: 9,
+    alignItems: "center",
+    justifyContent: "center",
   },
   label: {
     fontFamily: FONTS.medium,

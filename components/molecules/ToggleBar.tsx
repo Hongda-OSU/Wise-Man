@@ -1,8 +1,9 @@
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 
-import type { TransactionType } from '@/types/transaction';
-import { COLORS } from '@/constants/colors';
-import { FONTS, FONT_SIZES } from '@/constants/fonts';
+import { TRANSACTION_TYPES } from "@/types/transaction";
+import type { TransactionType } from "@/types/transaction";
+import { COLORS } from "@/constants/colors";
+import { FONTS, FONT_SIZES } from "@/constants/fonts";
 
 interface ToggleBarProps {
   active: TransactionType;
@@ -11,27 +12,47 @@ interface ToggleBarProps {
 
 export default function ToggleBar({ active, onChange }: ToggleBarProps) {
   return (
-    <View className="flex-row rounded-xl p-1" style={styles.track}>
+    <View style={styles.track}>
       <TouchableOpacity
-        className="flex-1 items-center justify-center rounded-lg py-3"
-        style={{ backgroundColor: active === 'expense' ? COLORS.forestGreen : 'transparent' }}
-        onPress={() => onChange('expense')}
+        style={[
+          styles.option,
+          {
+            backgroundColor:
+              active === TRANSACTION_TYPES.expense ? COLORS.forestGreen : "transparent",
+          },
+        ]}
+        onPress={() => onChange(TRANSACTION_TYPES.expense)}
         accessibilityRole="button"
-        accessibilityState={{ selected: active === 'expense' }}
+        accessibilityState={{ selected: active === TRANSACTION_TYPES.expense }}
       >
-        <Text style={[styles.label, { color: active === 'expense' ? COLORS.white : COLORS.textSecondary }]}>
+        <Text
+          style={[
+            styles.label,
+            { color: active === TRANSACTION_TYPES.expense ? COLORS.white : COLORS.textSecondary },
+          ]}
+        >
           Expense
         </Text>
       </TouchableOpacity>
 
       <TouchableOpacity
-        className="flex-1 items-center justify-center rounded-lg py-2"
-        style={{ backgroundColor: active === 'income' ? COLORS.forestGreen : 'transparent' }}
-        onPress={() => onChange('income')}
+        style={[
+          styles.option,
+          {
+            backgroundColor:
+              active === TRANSACTION_TYPES.income ? COLORS.forestGreen : "transparent",
+          },
+        ]}
+        onPress={() => onChange(TRANSACTION_TYPES.income)}
         accessibilityRole="button"
-        accessibilityState={{ selected: active === 'income' }}
+        accessibilityState={{ selected: active === TRANSACTION_TYPES.income }}
       >
-        <Text style={[styles.label, { color: active === 'income' ? COLORS.white : COLORS.textSecondary }]}>
+        <Text
+          style={[
+            styles.label,
+            { color: active === TRANSACTION_TYPES.income ? COLORS.white : COLORS.textSecondary },
+          ]}
+        >
           Income
         </Text>
       </TouchableOpacity>
@@ -41,7 +62,17 @@ export default function ToggleBar({ active, onChange }: ToggleBarProps) {
 
 const styles = StyleSheet.create({
   track: {
+    flexDirection: "row",
+    borderRadius: 12,
+    padding: 4,
     backgroundColor: COLORS.toggleBg,
+  },
+  option: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
+    borderRadius: 8,
+    paddingVertical: 12,
   },
   label: {
     fontFamily: FONTS.semiBold,
