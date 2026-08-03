@@ -36,7 +36,7 @@ SQLite. Portfolio, Events, and Analysis are out of scope until that works end to
 
 | Layer     | Choice                               |
 | --------- | ------------------------------------ |
-| Framework | Expo SDK 54 + React Native 0.81      |
+| Framework | Expo SDK 57 + React Native 0.86      |
 | Language  | TypeScript                           |
 | Routing   | Expo Router                          |
 | Database  | expo-sqlite + Drizzle ORM            |
