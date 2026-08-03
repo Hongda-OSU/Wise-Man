@@ -1,9 +1,9 @@
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
-import { Search, User } from 'lucide-react-native';
-import Svg, { G, Path, Rect, ClipPath, Defs } from 'react-native-svg';
+import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
+import { Search, User } from "lucide-react-native";
+import Svg, { G, Path, Rect, ClipPath, Defs } from "react-native-svg";
 
-import { COLORS } from '@/constants/colors';
-import { FONTS } from '@/constants/fonts';
+import { COLORS } from "@/constants/colors";
+import { FONTS } from "@/constants/fonts";
 
 function AppIcon() {
   return (

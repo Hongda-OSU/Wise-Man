@@ -15,12 +15,7 @@ interface SummaryCardProps {
   expense: number;
 }
 
-export default function SummaryCard({
-  month,
-  netBalance,
-  income,
-  expense,
-}: SummaryCardProps) {
+export default function SummaryCard({ month, netBalance, income, expense }: SummaryCardProps) {
   return (
     <View style={styles.card}>
       {/* Top row */}

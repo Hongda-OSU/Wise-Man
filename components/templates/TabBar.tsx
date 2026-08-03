@@ -1,10 +1,4 @@
-import {
-  View,
-  TouchableOpacity,
-  Text,
-  StyleSheet,
-  useWindowDimensions,
-} from "react-native";
+import { View, TouchableOpacity, Text, StyleSheet, useWindowDimensions } from "react-native";
 import { useRouter, usePathname } from "expo-router";
 import { DollarSign } from "lucide-react-native";
 import Svg, { Path } from "react-native-svg";
@@ -25,12 +19,7 @@ export default function TabBar() {
 
   return (
     <View style={styles.container}>
-      <Svg
-        width={width}
-        height={100}
-        viewBox={`0 0 ${width} 100`}
-        style={StyleSheet.absoluteFill}
-      >
+      <Svg width={width} height={100} viewBox={`0 0 ${width} 100`} style={StyleSheet.absoluteFill}>
         <Path d={path} fill="white" stroke="#E5E3DC" strokeWidth="0.5" />
       </Svg>
 

@@ -11,11 +11,7 @@ interface CategoryGridProps {
   onSelect: (id: string) => void;
 }
 
-export default function CategoryGrid({
-  categories,
-  selectedId,
-  onSelect,
-}: CategoryGridProps) {
+export default function CategoryGrid({ categories, selectedId, onSelect }: CategoryGridProps) {
   return (
     <View style={styles.container}>
       <Text style={styles.sectionTitle}>CATEGORY</Text>
@@ -31,16 +27,16 @@ export default function CategoryGrid({
               accessibilityState={{ selected: isSelected }}
             >
               <View
-                style={[
-                  styles.icon,
-                  { backgroundColor: isSelected ? COLORS.forestGreen : cat.bg },
-                ]}
+                style={[styles.icon, { backgroundColor: isSelected ? COLORS.forestGreen : cat.bg }]}
               >
                 <cat.icon size={26} color={isSelected ? COLORS.white : cat.color} />
               </View>
               <Text
                 numberOfLines={1}
-                style={[styles.label, { color: isSelected ? COLORS.forestGreen : COLORS.textSecondary }]}
+                style={[
+                  styles.label,
+                  { color: isSelected ? COLORS.forestGreen : COLORS.textSecondary },
+                ]}
               >
                 {cat.label}
               </Text>

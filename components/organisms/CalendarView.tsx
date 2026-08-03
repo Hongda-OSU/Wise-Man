@@ -34,7 +34,12 @@ function chunkIntoRows(days: (number | null)[]): (number | null)[][] {
   return rows;
 }
 
-export default function CalendarView({ sections, onEdit, onDelete, listHeader }: CalendarViewProps) {
+export default function CalendarView({
+  sections,
+  onEdit,
+  onDelete,
+  listHeader,
+}: CalendarViewProps) {
   const [currentMonth, setCurrentMonth] = useState(() => {
     if (sections.length > 0) {
       const d = new Date(sections[0].data[0].date + "T00:00:00");
@@ -100,10 +105,20 @@ export default function CalendarView({ sections, onEdit, onDelete, listHeader }:
       <View style={styles.monthNav}>
         <Text style={styles.monthLabel}>{monthLabel}</Text>
         <View style={styles.navButtons}>
-          <TouchableOpacity onPress={prevMonth} style={styles.navBtn} accessibilityRole="button" accessibilityLabel="Previous month">
+          <TouchableOpacity
+            onPress={prevMonth}
+            style={styles.navBtn}
+            accessibilityRole="button"
+            accessibilityLabel="Previous month"
+          >
             <ChevronLeft size={18} color={COLORS.textPrimary} />
           </TouchableOpacity>
-          <TouchableOpacity onPress={nextMonth} style={styles.navBtn} accessibilityRole="button" accessibilityLabel="Next month">
+          <TouchableOpacity
+            onPress={nextMonth}
+            style={styles.navBtn}
+            accessibilityRole="button"
+            accessibilityLabel="Next month"
+          >
             <ChevronRight size={18} color={COLORS.textPrimary} />
           </TouchableOpacity>
         </View>
@@ -111,7 +126,9 @@ export default function CalendarView({ sections, onEdit, onDelete, listHeader }:
 
       <View style={styles.weekdayRow}>
         {WEEKDAYS.map((day, i) => (
-          <Text key={i} style={styles.weekday}>{day}</Text>
+          <Text key={i} style={styles.weekday}>
+            {day}
+          </Text>
         ))}
       </View>
 
@@ -141,9 +158,7 @@ export default function CalendarView({ sections, onEdit, onDelete, listHeader }:
         ))}
       </View>
 
-      {selectedSectionTitle && (
-        <Text style={styles.sectionHeader}>{selectedSectionTitle}</Text>
-      )}
+      {selectedSectionTitle && <Text style={styles.sectionHeader}>{selectedSectionTitle}</Text>}
       <View style={styles.transactionList}>
         {selectedTransactions.map((tx) => (
           <TransactionItem key={tx.id} transaction={tx} onEdit={onEdit} onDelete={onDelete} />

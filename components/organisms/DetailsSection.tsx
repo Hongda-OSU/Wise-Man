@@ -12,11 +12,7 @@ interface DetailsSectionProps {
   onNoteFocus?: () => void;
 }
 
-export default function DetailsSection({
-  note,
-  onChangeNote,
-  onNoteFocus,
-}: DetailsSectionProps) {
+export default function DetailsSection({ note, onChangeNote, onNoteFocus }: DetailsSectionProps) {
   const today = new Date().toLocaleDateString("en-US", {
     month: "short",
     day: "numeric",

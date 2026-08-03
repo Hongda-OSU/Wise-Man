@@ -21,12 +21,7 @@ export default function HomeHeader({
 }: HomeHeaderProps) {
   return (
     <>
-      <SummaryCard
-        month={month}
-        netBalance={netBalance}
-        income={income}
-        expense={expense}
-      />
+      <SummaryCard month={month} netBalance={netBalance} income={income} expense={expense} />
       <TransactionHeader view={view} onViewChange={onViewChange} />
     </>
   );

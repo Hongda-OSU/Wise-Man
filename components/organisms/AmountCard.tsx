@@ -57,9 +57,7 @@ export default function AmountCard({ selectedCategory, amount, onAmountChange }:
       <View style={styles.circleTopLeft} />
       <View style={styles.circleBottomRight} />
 
-      <View style={styles.pill}>
-        {selectedCategory ? selectedPill : placeholderPill}
-      </View>
+      <View style={styles.pill}>{selectedCategory ? selectedPill : placeholderPill}</View>
 
       <View style={styles.amountContainer}>
         <Text style={styles.amount} adjustsFontSizeToFit numberOfLines={1}>

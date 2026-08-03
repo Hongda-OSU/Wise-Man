@@ -1,9 +1,4 @@
-import {
-  House,
-  BriefcaseBusiness,
-  CalendarClock,
-  ChartNoAxesColumn,
-} from "lucide-react-native";
+import { House, BriefcaseBusiness, CalendarClock, ChartNoAxesColumn } from "lucide-react-native";
 
 export interface TabItem {
   name: string;

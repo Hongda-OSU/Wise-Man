@@ -1,14 +1,14 @@
 export function formatCurrency(amount: number): string {
-  return amount.toLocaleString('en-US', {
+  return amount.toLocaleString("en-US", {
     minimumFractionDigits: 2,
     maximumFractionDigits: 2,
   });
 }
 
 export function formatAmountDisplay(raw: string): string {
-  if (!raw) return '$0.00';
-  const [intPart, decPart] = raw.split('.');
-  const formatted = parseInt(intPart || '0', 10).toLocaleString('en-US');
+  if (!raw) return "$0.00";
+  const [intPart, decPart] = raw.split(".");
+  const formatted = parseInt(intPart || "0", 10).toLocaleString("en-US");
   if (decPart === undefined) return `$${formatted}.00`;
   if (decPart.length === 0) return `$${formatted}.00`;
   if (decPart.length === 1) return `$${formatted}.${decPart}0`;
