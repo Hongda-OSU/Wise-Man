@@ -3,7 +3,7 @@ import { Calendar } from "lucide-react-native";
 
 import { COLORS } from "@/constants/colors";
 import { FONTS, FONT_SIZES } from "@/constants/fonts";
-import { formatCurrency } from "@/utils/formatCurrency";
+import { formatAmount } from "@/utils/formatAmount";
 import { TRANSACTION_TYPES } from "@/types/transaction";
 import BalanceStat from "@/components/molecules/BalanceStat";
 import BalanceProgressBar from "@/components/molecules/BalanceProgressBar";
@@ -28,7 +28,7 @@ export default function SummaryCard({ month, netBalance, income, expense }: Summ
       </View>
 
       {/* Net balance amount */}
-      <Text style={styles.amount}>${formatCurrency(netBalance)}</Text>
+      <Text style={styles.amount}>${formatAmount(netBalance)}</Text>
 
       {/* Progress bar */}
       <BalanceProgressBar income={income} netBalance={netBalance} expense={expense} />

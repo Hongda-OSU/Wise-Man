@@ -5,7 +5,7 @@ import { Pencil, Trash2 } from "lucide-react-native";
 import { COLORS } from "@/constants/colors";
 import { FONTS, FONT_SIZES } from "@/constants/fonts";
 import { getCategoryConfig } from "@/constants/categories";
-import { formatCurrency } from "@/utils/formatCurrency";
+import { formatAmount } from "@/utils/formatAmount";
 import { TRANSACTION_TYPES } from "@/types/transaction";
 import CategoryIcon from "@/components/atoms/CategoryIcon";
 import SwipeAction from "@/components/atoms/SwipeAction";
@@ -62,7 +62,7 @@ export default function TransactionItem({ transaction, onEdit, onDelete }: Trans
           <Text style={styles.category}>{category.label}</Text>
         </View>
         <Text style={[styles.amount, { color: amountColor }]}>
-          {amountPrefix}${formatCurrency(transaction.amount)}
+          {amountPrefix}${formatAmount(transaction.amount)}
         </Text>
       </View>
     </ReanimatedSwipeable>

@@ -3,7 +3,7 @@ import { ArrowUp, ArrowDown } from "lucide-react-native";
 
 import { COLORS } from "@/constants/colors";
 import { FONTS, FONT_SIZES } from "@/constants/fonts";
-import { formatCurrency } from "@/utils/formatCurrency";
+import { formatAmount } from "@/utils/formatAmount";
 import { TRANSACTION_TYPES } from "@/types/transaction";
 import type { TransactionType } from "@/types/transaction";
 
@@ -24,7 +24,7 @@ export default function BalanceStat({ type, amount }: BalanceStatProps) {
         <Icon size={12} color={color} />
         <Text style={styles.label}>{label}</Text>
       </View>
-      <Text style={[styles.amount, { color }]}>${formatCurrency(amount)}</Text>
+      <Text style={[styles.amount, { color }]}>${formatAmount(amount)}</Text>
     </View>
   );
 }

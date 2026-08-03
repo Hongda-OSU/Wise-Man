@@ -6,7 +6,7 @@ import { useDismissKeyboardFirst } from "@/hooks/useDismissKeyboardFirst";
 import { COLORS } from "@/constants/colors";
 import { FONTS, FONT_SIZES } from "@/constants/fonts";
 import type { CategoryConfig } from "@/constants/categories";
-import { formatAmountDisplay } from "@/utils/formatCurrency";
+import { formatAmountInput } from "@/utils/formatAmount";
 
 interface AmountCardProps {
   selectedCategory: CategoryConfig | null;
@@ -18,7 +18,7 @@ export default function AmountCard({ selectedCategory, amount, onAmountChange }:
   const inputRef = useRef<TextInput>(null);
   const dismissFirst = useDismissKeyboardFirst();
 
-  const displayAmount = formatAmountDisplay(amount);
+  const displayAmount = formatAmountInput(amount);
 
   const selectedPill = selectedCategory && (
     <>
