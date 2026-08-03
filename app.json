@@ -9,7 +9,6 @@
     "userInterfaceStyle": "light",
     "ios": {
       "supportsTablet": true,
-      "backgroundColor": "#F0EFE9",
       "bundleIdentifier": "com.hongda.wiseman"
     },
     "android": {
