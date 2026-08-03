@@ -47,7 +47,7 @@ SQLite. Portfolio, Events, and Analysis are out of scope until that works end to
 
 ## Getting Started
 
-Requires Node 20+, Xcode (iOS) or Android Studio (Android).
+Requires Node 20+, and Xcode (iOS) or Android Studio (Android).
 
 ```bash
 npm install
@@ -59,6 +59,26 @@ npm start         # Metro only, if the app is already installed
 Expo Go will not work — `expo-sqlite` and Reanimated 4 need a native dev build, which is
 what `npm run ios` produces. The first build takes a few minutes; after that, JS changes
 hot-reload.
+
+### iOS: install the platform, not just Xcode
+
+Xcode ships the SDK but downloads the iOS platform and simulator runtime separately, and
+an Xcode update leaves the old runtime behind. When they do not match, the build fails
+with `xcodebuild exited with error code 70` and `iOS <version> is not installed`, even
+though the simulator is running and `simctl` lists it.
+
+```bash
+xcrun simctl list runtimes            # what is installed
+xcodebuild -showsdks | grep iOS       # what Xcode expects
+```
+
+If the runtime version is behind the SDK version, install the matching one — a several-GB
+download:
+
+```bash
+sudo xcodebuild -runFirstLaunch
+xcodebuild -downloadPlatform iOS
+```
 
 ## Project Structure
 
