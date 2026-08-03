@@ -66,15 +66,14 @@ AI authorship trailers (`Co-Authored-By`) are fine.
 
 ```sh
 git status && git diff    # confirm exactly what is being staged
-npx tsc --noEmit          # the only automated gate this project has
+npm run lint
+npx tsc --noEmit
+npm run format            # or format:check to see the damage first
 ```
 
-Then run the app and look at the change. There is no lint script and no test suite, so
-the simulator is the real check. TypeScript passing means very little here — layout,
+Then run the app and look at the change. There is no test suite, so the simulator is the
+real check — and the three commands above prove almost nothing about behaviour. Layout,
 gestures, and every native module fail at runtime, not at compile time.
-
-Formatting comes from `.prettierrc` via your editor. Prettier is not a dependency, so
-there is nothing to run.
 
 ### When a rebuild is needed
 
