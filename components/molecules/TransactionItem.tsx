@@ -1,6 +1,5 @@
 import { View, Text, StyleSheet } from "react-native";
-// TODO: migrate to ReanimatedSwipeable — this one is deprecated and drops out in RNGH 3
-import Swipeable from "react-native-gesture-handler/Swipeable";
+import ReanimatedSwipeable from "react-native-gesture-handler/ReanimatedSwipeable";
 import { Pencil, Trash2 } from "lucide-react-native";
 
 import { COLORS } from "@/constants/colors";
@@ -11,6 +10,16 @@ import { TRANSACTION_TYPES } from "@/types/transaction";
 import CategoryIcon from "@/components/atoms/CategoryIcon";
 import SwipeAction from "@/components/atoms/SwipeAction";
 import type { Transaction } from "@/types/transaction";
+
+// ReanimatedSwipeable defaults to damping 1000 against a critical value of ~75, which is
+// heavily overdamped and crawls back into place. This is critically damped instead: no
+// overshoot, but it settles at roughly the speed the old Swipeable did.
+const SWIPE_SPRING = {
+  mass: 1,
+  damping: 40,
+  stiffness: 400,
+  overshootClamping: true,
+};
 
 interface TransactionItemProps {
   transaction: Transaction;
@@ -25,7 +34,8 @@ export default function TransactionItem({ transaction, onEdit, onDelete }: Trans
   const amountPrefix = isIncome ? "+" : "-";
 
   return (
-    <Swipeable
+    <ReanimatedSwipeable
+      animationOptions={SWIPE_SPRING}
       renderLeftActions={() => (
         <SwipeAction
           icon={Pencil}
@@ -55,7 +65,7 @@ export default function TransactionItem({ transaction, onEdit, onDelete }: Trans
           {amountPrefix}${formatCurrency(transaction.amount)}
         </Text>
       </View>
-    </Swipeable>
+    </ReanimatedSwipeable>
   );
 }
 
