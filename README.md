@@ -56,9 +56,16 @@ npm run android   # Android
 npm start         # Metro only, if the app is already installed
 ```
 
-Expo Go will not work — `expo-sqlite` and Reanimated 4 need a native dev build, which is
-what `npm run ios` produces. The first build takes a few minutes; after that, JS changes
-hot-reload.
+The first build takes a few minutes; after that, JS changes hot-reload.
+
+Most of the app does run in Expo Go, since every native module it uses ships in the Expo
+Go runtime. The exception is the swipe-to-edit and swipe-to-delete actions on the
+transaction list: `ReanimatedSwipeable` needs the native build. Treat `npm run ios` as
+the supported way to run this project and Expo Go as a convenience with a known hole.
+
+`expo start` assumes Expo Go whenever `expo-dev-client` is absent, which it is here, so
+it will try to open Expo Go when you press `i`. Press `s` to switch it to the development
+build, or just use `npm run ios`.
 
 ### iOS: install the platform, not just Xcode
 
