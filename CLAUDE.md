@@ -17,7 +17,7 @@ Expo Router · expo-sqlite + Drizzle ORM · Zustand · StyleSheet · lucide-reac
 - Icons: `lucide-react-native` SVG only, never emoji
 - Styles: `StyleSheet.create`; inline only for dynamic values
 - Shared types and unions go in `types/`, not inline
-- Commits: Conventional Commits, imperative, ≤72 chars, straight to `main`. No AI authorship trailers.
+- Commits: Conventional Commits, imperative, ≤72 chars, straight to `main`
 - Check `git status` and `git diff` before every commit
 
 ## State
