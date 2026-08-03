@@ -1,21 +1,28 @@
+import { useEffect } from "react";
 import { Stack } from "expo-router";
-import { View, ActivityIndicator, StyleSheet } from "react-native";
+import { StyleSheet } from "react-native";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
+import * as SplashScreen from "expo-splash-screen";
 
 import { useAppFonts } from "@/hooks/useAppFonts";
 import { COLORS } from "@/constants/colors";
 
-export default function RootLayout() {
-  const [fontsLoaded] = useAppFonts();
+SplashScreen.preventAutoHideAsync();
 
-  if (!fontsLoaded) {
-    return (
-      <GestureHandlerRootView style={styles.root}>
-        <View style={styles.loading}>
-          <ActivityIndicator color={COLORS.forestGreen} />
-        </View>
-      </GestureHandlerRootView>
-    );
+export default function RootLayout() {
+  const [fontsLoaded, fontError] = useAppFonts();
+  const ready = fontsLoaded || fontError !== null;
+
+  useEffect(() => {
+    if (ready) {
+      SplashScreen.hideAsync();
+    }
+  }, [ready]);
+
+  // Hold the native splash rather than flashing a spinner over it. A font that fails to
+  // load still counts as ready: the app renders in the system font instead of hanging.
+  if (!ready) {
+    return null;
   }
 
   return (
@@ -36,11 +43,5 @@ export default function RootLayout() {
 const styles = StyleSheet.create({
   root: {
     flex: 1,
-  },
-  loading: {
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
-    backgroundColor: COLORS.bgPrimary,
   },
 });
