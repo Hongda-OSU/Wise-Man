@@ -3,4 +3,4 @@ export const HOME_VIEW_MODES = {
   calendar: "calendar",
 } as const;
 
-export type HomeViewMode = "list" | "calendar";
+export type HomeViewMode = (typeof HOME_VIEW_MODES)[keyof typeof HOME_VIEW_MODES];

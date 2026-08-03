@@ -3,7 +3,7 @@ export const TRANSACTION_TYPES = {
   income: "income",
 } as const;
 
-export type TransactionType = "expense" | "income";
+export type TransactionType = (typeof TRANSACTION_TYPES)[keyof typeof TRANSACTION_TYPES];
 
 export interface Transaction {
   id: string;
