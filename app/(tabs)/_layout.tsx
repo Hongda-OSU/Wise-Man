@@ -1,7 +1,7 @@
 import { Tabs } from "expo-router";
 import { View, StyleSheet } from "react-native";
 
-import TabBar from "@/components/templates/TabBar";
+import TabBar from "@/components/organisms/TabBar";
 
 export default function TabLayout() {
   return (

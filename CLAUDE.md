@@ -8,7 +8,7 @@ Expo Router · expo-sqlite + Drizzle ORM · Zustand · StyleSheet · lucide-reac
 
 ## Structure
 
-`app/` routes · `components/` atoms → molecules → organisms → templates · `constants/` design tokens · `db/` schema · `stores/` Zustand
+`app/` routes and layouts · `components/` atoms → molecules → organisms, imports flow one way only · `constants/` design tokens · `db/` schema · `stores/` Zustand
 
 ## Rules
 

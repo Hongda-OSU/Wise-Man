@@ -2,8 +2,9 @@ import { useState, useMemo } from "react";
 import { StyleSheet } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
-import AppHeader from "@/components/templates/AppHeader";
-import HomeHeader from "@/components/organisms/HomeHeader";
+import AppHeader from "@/components/organisms/AppHeader";
+import SummaryCard from "@/components/organisms/SummaryCard";
+import TransactionListHeader from "@/components/molecules/TransactionListHeader";
 import TransactionList from "@/components/organisms/TransactionList";
 import CalendarView from "@/components/organisms/CalendarView";
 import { COLORS } from "@/constants/colors";
@@ -34,14 +35,10 @@ export default function HomeScreen() {
   };
 
   const header = (
-    <HomeHeader
-      view={view}
-      onViewChange={setView}
-      month="March 2026"
-      income={income}
-      expense={expense}
-      netBalance={netBalance}
-    />
+    <>
+      <SummaryCard month="March 2026" netBalance={netBalance} income={income} expense={expense} />
+      <TransactionListHeader view={view} onViewChange={setView} />
+    </>
   );
 
   return (

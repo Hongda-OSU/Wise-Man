@@ -40,7 +40,7 @@ function EmptyStateIcon() {
   );
 }
 
-export default function HomeEmptyView() {
+export default function TransactionsEmptyState() {
   const router = useRouter();
 
   return (

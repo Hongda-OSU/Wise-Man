@@ -4,7 +4,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { useRouter } from "expo-router";
 import { ChevronLeft } from "lucide-react-native";
 
-import ToggleBar from "@/components/molecules/ToggleBar";
+import TransactionTypeToggle from "@/components/molecules/TransactionTypeToggle";
 import AmountCard from "@/components/organisms/AmountCard";
 import CategoryGrid from "@/components/organisms/CategoryGrid";
 import DetailsSection from "@/components/organisms/DetailsSection";
@@ -53,7 +53,7 @@ export default function TrackScreen() {
       </View>
 
       {/* Toggle */}
-      <ToggleBar active={type} onChange={handleTypeChange} />
+      <TransactionTypeToggle active={type} onChange={handleTypeChange} />
 
       {/* Content */}
       <ScrollView

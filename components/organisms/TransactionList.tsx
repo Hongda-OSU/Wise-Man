@@ -3,7 +3,7 @@ import { SectionList, View, Text, StyleSheet } from "react-native";
 import { COLORS } from "@/constants/colors";
 import { FONTS, FONT_SIZES } from "@/constants/fonts";
 import TransactionItem from "@/components/molecules/TransactionItem";
-import HomeEmptyView from "@/components/organisms/HomeEmptyView";
+import TransactionsEmptyState from "@/components/molecules/TransactionsEmptyState";
 import type { TransactionSection } from "@/types/transaction";
 
 interface TransactionListProps {
@@ -27,7 +27,7 @@ export default function TransactionList({
       contentContainerStyle={{ paddingBottom: 120 }}
       stickySectionHeadersEnabled={false}
       ListHeaderComponent={listHeader ? <>{listHeader}</> : undefined}
-      ListEmptyComponent={<HomeEmptyView />}
+      ListEmptyComponent={<TransactionsEmptyState />}
       renderSectionHeader={({ section }) => (
         <Text style={styles.sectionHeader}>{section.title}</Text>
       )}

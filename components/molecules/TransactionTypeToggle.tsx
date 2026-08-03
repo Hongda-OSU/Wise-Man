@@ -5,12 +5,12 @@ import type { TransactionType } from "@/types/transaction";
 import { COLORS } from "@/constants/colors";
 import { FONTS, FONT_SIZES } from "@/constants/fonts";
 
-interface ToggleBarProps {
+interface TransactionTypeToggleProps {
   active: TransactionType;
   onChange: (value: TransactionType) => void;
 }
 
-export default function ToggleBar({ active, onChange }: ToggleBarProps) {
+export default function TransactionTypeToggle({ active, onChange }: TransactionTypeToggleProps) {
   return (
     <View style={styles.track}>
       <TouchableOpacity

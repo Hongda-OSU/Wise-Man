@@ -6,7 +6,7 @@ import type { HomeViewMode } from "@/types/ui";
 import { COLORS } from "@/constants/colors";
 import { FONTS, FONT_SIZES } from "@/constants/fonts";
 
-interface TransactionHeaderProps {
+interface TransactionListHeaderProps {
   view: HomeViewMode;
   onViewChange: (view: HomeViewMode) => void;
 }
@@ -16,7 +16,7 @@ const VIEW_SEGMENTS = [
   { key: HOME_VIEW_MODES.calendar, icon: CalendarDays },
 ];
 
-export default function TransactionHeader({ view, onViewChange }: TransactionHeaderProps) {
+export default function TransactionListHeader({ view, onViewChange }: TransactionListHeaderProps) {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>TRANSACTIONS</Text>
