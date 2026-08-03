@@ -2,6 +2,7 @@
 const { defineConfig } = require("eslint/config");
 const expoConfig = require("eslint-config-expo/flat");
 const prettierConfig = require("eslint-config-prettier/flat");
+const { createTypeScriptImportResolver } = require("eslint-import-resolver-typescript");
 
 module.exports = defineConfig([
   expoConfig,
@@ -9,6 +10,14 @@ module.exports = defineConfig([
   prettierConfig,
   {
     ignores: ["ios/*", ".expo/*"],
+  },
+  {
+    // eslint-config-expo only carries the resolver as a nested dependency, which
+    // eslint-plugin-import cannot load by name from here: every @/ import came back
+    // unresolved. Wiring the resolver explicitly through the flat-config API fixes it.
+    settings: {
+      "import/resolver-next": [createTypeScriptImportResolver()],
+    },
   },
   {
     // Design tokens belong in constants/. Two colours had already drifted a digit
