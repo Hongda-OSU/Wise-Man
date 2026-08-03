@@ -6,7 +6,6 @@
     "start": "expo start",
     "android": "expo run:android",
     "ios": "expo run:ios",
-    "web": "expo start --web",
     "lint": "expo lint",
     "format": "prettier --write .",
     "format:check": "prettier --check ."
@@ -40,7 +39,7 @@
   "devDependencies": {
     "@types/react": "~19.2.10",
     "drizzle-kit": "^0.31.10",
-    "eslint": "^9.0.0",
+    "eslint": "^9.39.5",
     "eslint-config-expo": "~57.0.1",
     "eslint-config-prettier": "^10.1.8",
     "prettier": "^3.9.6",
@@ -48,6 +47,6 @@
   },
   "private": true,
   "engines": {
-    "node": ">=20"
+    "node": "^20.19.4 || ^22.13.0 || ^24.3.0 || >= 25.0.0"
   }
 }

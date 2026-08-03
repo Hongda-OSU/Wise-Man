@@ -47,7 +47,7 @@ SQLite. Portfolio, Events, and Analysis are out of scope until that works end to
 
 ## Getting Started
 
-Requires Node 20+, and Xcode (iOS) or Android Studio (Android).
+Requires Node 20.19.4 or newer, and Xcode (iOS) or Android Studio (Android).
 
 ```bash
 npm install
@@ -55,6 +55,9 @@ npm run ios       # build and launch on the iOS simulator
 npm run android   # Android
 npm start         # Metro only, if the app is already installed
 ```
+
+There is no web target. `react-native-web` is not installed and `expo-sqlite` is limited
+in the browser, so iOS and Android are the only platforms.
 
 The first build takes a few minutes; after that, JS changes hot-reload.
 
