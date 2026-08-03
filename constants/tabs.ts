@@ -1,6 +1,6 @@
 import { House, BriefcaseBusiness, CalendarClock, ChartNoAxesColumn } from "lucide-react-native";
 
-export interface TabItem {
+interface TabItem {
   name: string;
   label: string;
   icon: React.ComponentType<{ size: number; color: string }>;

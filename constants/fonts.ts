@@ -3,7 +3,6 @@ export const FONTS = {
   regular: "DMSans_400Regular",
   medium: "DMSans_500Medium",
   semiBold: "DMSans_600SemiBold",
-  bold: "DMSans_700Bold",
 
   // Money amounts
   moneyBold: "Manrope_700Bold",
@@ -15,7 +14,6 @@ export const FONTS = {
 
 export const FONT_SIZES = {
   display: 38,
-  heading1: 20,
   heading2: 17,
   body: 16,
   subBody: 15,

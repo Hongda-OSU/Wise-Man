@@ -14,8 +14,8 @@ export const COLORS = {
   // Semantic
   income: "#27AE72",
   expense: "#E04F3E",
-  warning: "#F0A500",
 
   // UI
   white: "#FFFFFF",
+  divider: "#D5D3CC",
 } as const;

@@ -20,7 +20,7 @@ export default function TabBar() {
   return (
     <View style={styles.container}>
       <Svg width={width} height={100} viewBox={`0 0 ${width} 100`} style={StyleSheet.absoluteFill}>
-        <Path d={path} fill="white" stroke="#E5E3DC" strokeWidth="0.5" />
+        <Path d={path} fill="white" stroke={COLORS.toggleBg} strokeWidth="0.5" />
       </Svg>
 
       <View style={styles.row}>

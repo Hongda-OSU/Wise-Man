@@ -1,6 +1,6 @@
 import { CreditCard, CalendarDays, SquarePen } from "lucide-react-native";
 
-export interface DetailCardConfig {
+interface DetailCardConfig {
   icon: React.ComponentType<{ size: number; color: string }>;
   iconBg: string;
   iconColor: string;
