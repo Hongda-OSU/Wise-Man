@@ -11,16 +11,6 @@ import CategoryIcon from "@/components/atoms/CategoryIcon";
 import SwipeAction from "@/components/atoms/SwipeAction";
 import type { Transaction } from "@/types/transaction";
 
-// ReanimatedSwipeable defaults to damping 1000 against a critical value of ~75, which is
-// heavily overdamped and crawls back into place. This is critically damped instead: no
-// overshoot, but it settles at roughly the speed the old Swipeable did.
-const SWIPE_SPRING = {
-  mass: 1,
-  damping: 40,
-  stiffness: 400,
-  overshootClamping: true,
-};
-
 interface TransactionItemProps {
   transaction: Transaction;
   onEdit: (id: string) => void;
@@ -35,7 +25,6 @@ export default function TransactionItem({ transaction, onEdit, onDelete }: Trans
 
   return (
     <ReanimatedSwipeable
-      animationOptions={SWIPE_SPRING}
       renderLeftActions={() => (
         <SwipeAction
           icon={Pencil}
