@@ -67,6 +67,7 @@ export default function AmountCard({ selectedCategory, amount, onAmountChange }:
         onChangeText={handleChangeText}
         keyboardType="decimal-pad"
         maxLength={13}
+        caretHidden
         style={styles.hiddenInput}
       />
     </TouchableOpacity>
@@ -145,10 +146,16 @@ const styles = StyleSheet.create({
     letterSpacing: 1.2,
     marginBottom: 16,
   },
+  // Invisible, but not via opacity: UIKit refuses first responder to an alpha-0 view, so
+  // focus() silently did nothing and the keyboard never came up. Transparent text on a
+  // transparent background in a 1pt box is just as unseen and still focusable.
   hiddenInput: {
     position: "absolute",
-    opacity: 0,
+    top: 0,
+    left: 0,
     width: 1,
     height: 1,
+    color: "transparent",
+    backgroundColor: "transparent",
   },
 });
