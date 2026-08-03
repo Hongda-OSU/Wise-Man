@@ -1,6 +1,5 @@
 import { View, Text, StyleSheet } from "react-native";
-// TODO: migrate to ReanimatedSwipeable — requires dev client (eas build)
-// eslint-disable-next-line deprecation/deprecation
+// TODO: migrate to ReanimatedSwipeable — this one is deprecated and drops out in RNGH 3
 import Swipeable from "react-native-gesture-handler/Swipeable";
 import { Pencil, Trash2 } from "lucide-react-native";
 
