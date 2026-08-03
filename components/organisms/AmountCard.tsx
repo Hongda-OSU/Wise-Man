@@ -1,8 +1,8 @@
 import { useRef } from "react";
-import { View, Text, TextInput, TouchableOpacity, Keyboard, StyleSheet } from "react-native";
+import { View, Text, TextInput, TouchableOpacity, StyleSheet } from "react-native";
 import { Star } from "lucide-react-native";
 
-import { useKeyboardVisible } from "@/hooks/useKeyboardVisible";
+import { useDismissKeyboardFirst } from "@/hooks/useDismissKeyboardFirst";
 import { COLORS } from "@/constants/colors";
 import { FONTS, FONT_SIZES } from "@/constants/fonts";
 import type { CategoryConfig } from "@/constants/categories";
@@ -16,7 +16,7 @@ interface AmountCardProps {
 
 export default function AmountCard({ selectedCategory, amount, onAmountChange }: AmountCardProps) {
   const inputRef = useRef<TextInput>(null);
-  const isKeyboardVisible = useKeyboardVisible();
+  const dismissFirst = useDismissKeyboardFirst();
 
   const displayAmount = formatAmountDisplay(amount);
 
@@ -45,13 +45,7 @@ export default function AmountCard({ selectedCategory, amount, onAmountChange }:
   return (
     <TouchableOpacity
       activeOpacity={1}
-      onPress={() => {
-        if (isKeyboardVisible) {
-          Keyboard.dismiss();
-          return;
-        }
-        inputRef.current?.focus();
-      }}
+      onPress={() => dismissFirst(() => inputRef.current?.focus())}
       style={styles.card}
     >
       <View style={styles.circleTopLeft} />

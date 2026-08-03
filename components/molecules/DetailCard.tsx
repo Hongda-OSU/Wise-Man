@@ -1,7 +1,7 @@
-import { View, Text, TouchableOpacity, Keyboard, StyleSheet } from "react-native";
+import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 import { ChevronRight } from "lucide-react-native";
 
-import { useKeyboardVisible } from "@/hooks/useKeyboardVisible";
+import { useDismissKeyboardFirst } from "@/hooks/useDismissKeyboardFirst";
 import { COLORS } from "@/constants/colors";
 import { FONTS, FONT_SIZES } from "@/constants/fonts";
 
@@ -22,15 +22,9 @@ export default function DetailCard({
   value,
   onPress,
 }: DetailCardProps) {
-  const isKeyboardVisible = useKeyboardVisible();
+  const dismissFirst = useDismissKeyboardFirst();
 
-  const handlePress = () => {
-    if (isKeyboardVisible) {
-      Keyboard.dismiss();
-      return;
-    }
-    onPress?.();
-  };
+  const handlePress = () => dismissFirst(onPress);
 
   return (
     <TouchableOpacity style={styles.card} onPress={handlePress} accessibilityRole="button">
