@@ -19,7 +19,3 @@ Expo Router · expo-sqlite + Drizzle ORM · Zustand · StyleSheet · lucide-reac
 - Shared types and unions go in `types/`, not inline
 - Commits: Conventional Commits, imperative, ≤72 chars, straight to `main`
 - Check `git status` and `git diff` before every commit
-
-## State
-
-UI-only prototype running on mock data. No database layer yet — see README.
