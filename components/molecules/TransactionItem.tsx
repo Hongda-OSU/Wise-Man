@@ -29,7 +29,8 @@ export default function TransactionItem({ transaction, onEdit, onDelete }: Trans
         <SwipeAction
           icon={Pencil}
           label="Edit"
-          backgroundColor={COLORS.forestGreen}
+          backgroundColor={COLORS.accent}
+          contentColor={COLORS.onAccent}
           style={styles.editAction}
           onPress={() => onEdit(transaction.id)}
         />
@@ -39,6 +40,7 @@ export default function TransactionItem({ transaction, onEdit, onDelete }: Trans
           icon={Trash2}
           label="Delete"
           backgroundColor={COLORS.expense}
+          contentColor={COLORS.textPrimary}
           style={styles.deleteAction}
           onPress={() => onDelete(transaction.id)}
         />
@@ -70,7 +72,7 @@ const styles = StyleSheet.create({
   row: {
     flexDirection: "row",
     alignItems: "center",
-    backgroundColor: COLORS.white,
+    backgroundColor: COLORS.surface,
     borderRadius: 16,
     paddingVertical: 12,
     paddingHorizontal: 16,

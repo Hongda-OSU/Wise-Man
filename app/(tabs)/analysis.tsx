@@ -13,7 +13,7 @@ export default function AnalysisScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: COLORS.bgPrimary,
+    backgroundColor: COLORS.background,
     alignItems: "center",
     justifyContent: "center",
   },

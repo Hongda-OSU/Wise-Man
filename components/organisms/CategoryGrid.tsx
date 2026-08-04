@@ -26,16 +26,14 @@ export default function CategoryGrid({ categories, selectedId, onSelect }: Categ
               accessibilityRole="button"
               accessibilityState={{ selected: isSelected }}
             >
-              <View
-                style={[styles.icon, { backgroundColor: isSelected ? COLORS.forestGreen : cat.bg }]}
-              >
-                <cat.icon size={26} color={isSelected ? COLORS.white : cat.color} />
+              <View style={[styles.icon, { backgroundColor: isSelected ? COLORS.accent : cat.bg }]}>
+                <cat.icon size={26} color={isSelected ? COLORS.onAccent : cat.color} />
               </View>
               <Text
                 numberOfLines={1}
                 style={[
                   styles.label,
-                  { color: isSelected ? COLORS.forestGreen : COLORS.textSecondary },
+                  { color: isSelected ? COLORS.textPrimary : COLORS.textSecondary },
                 ]}
               >
                 {cat.label}
@@ -83,7 +81,7 @@ const styles = StyleSheet.create({
     height: CELL_SIZE,
     borderRadius: 16,
     borderWidth: 1.5,
-    borderColor: "rgba(255,255,255,0.5)",
+    borderColor: "COLORS.overlayMuted",
     alignItems: "center",
     justifyContent: "center",
     marginBottom: 8,

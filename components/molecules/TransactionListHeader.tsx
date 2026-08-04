@@ -26,7 +26,7 @@ export default function TransactionListHeader({ view, onViewChange }: Transactio
             key={key}
             style={[
               styles.segment,
-              { backgroundColor: view === key ? COLORS.white : "transparent" },
+              { backgroundColor: view === key ? COLORS.elevated : "transparent" },
             ]}
             onPress={() => onViewChange(key as HomeViewMode)}
             accessibilityRole="button"
@@ -59,7 +59,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     borderRadius: 12,
     padding: 4,
-    backgroundColor: COLORS.toggleBg,
+    backgroundColor: COLORS.surface,
   },
   segment: {
     width: 48,

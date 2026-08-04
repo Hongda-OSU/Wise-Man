@@ -22,14 +22,14 @@ export default function AmountCard({ selectedCategory, amount, onAmountChange }:
 
   const selectedPill = selectedCategory && (
     <>
-      <selectedCategory.icon size={12} color={COLORS.white} />
+      <selectedCategory.icon size={12} color={COLORS.textPrimary} />
       <Text style={styles.pillLabel}>{selectedCategory.label}</Text>
     </>
   );
 
   const placeholderPill = (
     <>
-      <Star size={12} color="rgba(255,255,255,0.55)" />
+      <Star size={12} color={COLORS.overlayStrong} />
       <Text style={styles.pillPlaceholder}>Select a category</Text>
     </>
   );
@@ -76,12 +76,12 @@ export default function AmountCard({ selectedCategory, amount, onAmountChange }:
 
 const styles = StyleSheet.create({
   card: {
-    backgroundColor: COLORS.forestGreen,
+    backgroundColor: COLORS.surfaceBrand,
     borderRadius: 20,
     overflow: "hidden",
     alignItems: "center",
     padding: 24,
-    shadowColor: COLORS.forestGreen,
+    shadowColor: COLORS.shadow,
     shadowOffset: { width: 0, height: 8 },
     shadowOpacity: 0.25,
     shadowRadius: 16,
@@ -92,7 +92,7 @@ const styles = StyleSheet.create({
     width: 120,
     height: 120,
     borderRadius: 60,
-    backgroundColor: "rgba(255,255,255,0.04)",
+    backgroundColor: COLORS.overlaySoft,
     top: -40,
     left: -30,
   },
@@ -101,7 +101,7 @@ const styles = StyleSheet.create({
     width: 200,
     height: 200,
     borderRadius: 100,
-    backgroundColor: "rgba(255,255,255,0.04)",
+    backgroundColor: COLORS.overlaySoft,
     bottom: -70,
     right: -55,
   },
@@ -114,12 +114,12 @@ const styles = StyleSheet.create({
     borderRadius: 999,
     marginBottom: 16,
     marginTop: 4,
-    backgroundColor: "rgba(255,255,255,0.14)",
+    backgroundColor: COLORS.overlayMuted,
   },
   pillLabel: {
     fontFamily: FONTS.medium,
     fontSize: FONT_SIZES.micro,
-    color: COLORS.white,
+    color: COLORS.textPrimary,
   },
   pillPlaceholder: {
     fontFamily: FONTS.medium,
@@ -136,7 +136,7 @@ const styles = StyleSheet.create({
   amount: {
     fontFamily: FONTS.moneyExtraBold,
     fontSize: 50,
-    color: COLORS.white,
+    color: COLORS.textPrimary,
     letterSpacing: -2,
   },
   hint: {
@@ -146,9 +146,7 @@ const styles = StyleSheet.create({
     letterSpacing: 1.2,
     marginBottom: 16,
   },
-  // Invisible, but not via opacity: UIKit refuses first responder to an alpha-0 view, so
-  // focus() silently did nothing and the keyboard never came up. Transparent text on a
-  // transparent background in a 1pt box is just as unseen and still focusable.
+  // Invisible without opacity 0, which UIKit can refuse first responder on.
   hiddenInput: {
     position: "absolute",
     top: 0,

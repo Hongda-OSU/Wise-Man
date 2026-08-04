@@ -17,8 +17,7 @@ export default function TransactionTypeToggle({ active, onChange }: TransactionT
         style={[
           styles.option,
           {
-            backgroundColor:
-              active === TRANSACTION_TYPES.expense ? COLORS.forestGreen : "transparent",
+            backgroundColor: active === TRANSACTION_TYPES.expense ? COLORS.accent : "transparent",
           },
         ]}
         onPress={() => onChange(TRANSACTION_TYPES.expense)}
@@ -28,7 +27,9 @@ export default function TransactionTypeToggle({ active, onChange }: TransactionT
         <Text
           style={[
             styles.label,
-            { color: active === TRANSACTION_TYPES.expense ? COLORS.white : COLORS.textSecondary },
+            {
+              color: active === TRANSACTION_TYPES.expense ? COLORS.onAccent : COLORS.textSecondary,
+            },
           ]}
         >
           Expense
@@ -39,8 +40,7 @@ export default function TransactionTypeToggle({ active, onChange }: TransactionT
         style={[
           styles.option,
           {
-            backgroundColor:
-              active === TRANSACTION_TYPES.income ? COLORS.forestGreen : "transparent",
+            backgroundColor: active === TRANSACTION_TYPES.income ? COLORS.accent : "transparent",
           },
         ]}
         onPress={() => onChange(TRANSACTION_TYPES.income)}
@@ -50,7 +50,7 @@ export default function TransactionTypeToggle({ active, onChange }: TransactionT
         <Text
           style={[
             styles.label,
-            { color: active === TRANSACTION_TYPES.income ? COLORS.white : COLORS.textSecondary },
+            { color: active === TRANSACTION_TYPES.income ? COLORS.onAccent : COLORS.textSecondary },
           ]}
         >
           Income
@@ -65,7 +65,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     borderRadius: 12,
     padding: 4,
-    backgroundColor: COLORS.toggleBg,
+    backgroundColor: COLORS.surface,
   },
   option: {
     flex: 1,

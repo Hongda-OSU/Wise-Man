@@ -101,7 +101,7 @@ const styles = StyleSheet.create({
   screen: {
     flex: 1,
     paddingHorizontal: 28,
-    backgroundColor: COLORS.bgPrimary,
+    backgroundColor: COLORS.background,
   },
   navBar: {
     flexDirection: "row",
@@ -136,12 +136,12 @@ const styles = StyleSheet.create({
     marginTop: 12,
     marginBottom: 12,
     borderRadius: 12,
-    backgroundColor: COLORS.forestGreen,
+    backgroundColor: COLORS.accent,
   },
   confirmText: {
     fontFamily: FONTS.semiBold,
     fontSize: FONT_SIZES.body,
-    color: COLORS.white,
+    color: COLORS.onAccent,
     letterSpacing: -0.3,
   },
 });

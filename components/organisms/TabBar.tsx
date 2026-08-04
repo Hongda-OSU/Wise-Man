@@ -20,7 +20,7 @@ export default function TabBar() {
   return (
     <View style={styles.container}>
       <Svg width={width} height={100} viewBox={`0 0 ${width} 100`} style={StyleSheet.absoluteFill}>
-        <Path d={path} fill="white" stroke={COLORS.toggleBg} strokeWidth="0.5" />
+        <Path d={path} fill={COLORS.surface} stroke={COLORS.border} strokeWidth="0.5" />
       </Svg>
 
       <View style={styles.row}>
@@ -41,7 +41,7 @@ export default function TabBar() {
             accessibilityRole="button"
             accessibilityLabel="Track transaction"
           >
-            <DollarSign size={26} color={COLORS.white} />
+            <DollarSign size={26} color={COLORS.onAccent} />
           </TouchableOpacity>
           <Text style={styles.trackLabel}>Track</Text>
         </View>
@@ -83,13 +83,13 @@ const styles = StyleSheet.create({
     width: 56,
     height: 56,
     borderRadius: 28,
-    backgroundColor: COLORS.forestGreen,
+    backgroundColor: COLORS.accent,
     alignItems: "center",
     justifyContent: "center",
     marginTop: -32,
   },
   trackShadow: {
-    shadowColor: COLORS.forestGreen,
+    shadowColor: COLORS.shadow,
     shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.4,
     shadowRadius: 8,

@@ -48,10 +48,10 @@ const styles = StyleSheet.create({
     borderRadius: 10,
   },
   cellDefault: {
-    backgroundColor: COLORS.white,
+    backgroundColor: COLORS.surface,
   },
   cellSelected: {
-    backgroundColor: COLORS.forestGreen,
+    backgroundColor: COLORS.accent,
   },
   dayNumber: {
     fontFamily: FONTS.medium,
@@ -59,7 +59,7 @@ const styles = StyleSheet.create({
     color: COLORS.textPrimary,
   },
   dayNumberSelected: {
-    color: COLORS.white,
+    color: COLORS.onAccent,
   },
   amountIncome: {
     fontFamily: FONTS.regular,

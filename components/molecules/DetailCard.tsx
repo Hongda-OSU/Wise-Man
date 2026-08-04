@@ -43,7 +43,7 @@ export default function DetailCard({
 const styles = StyleSheet.create({
   card: {
     flex: 1,
-    backgroundColor: COLORS.white,
+    backgroundColor: COLORS.surface,
     borderRadius: 16,
     padding: 16,
   },

@@ -48,7 +48,7 @@ const styles = StyleSheet.create({
     marginBottom: 16,
     overflow: "hidden",
     flexDirection: "row",
-    backgroundColor: "rgba(255,255,255,0.15)",
+    backgroundColor: "COLORS.overlayMuted",
   },
   bar: {
     height: "100%",

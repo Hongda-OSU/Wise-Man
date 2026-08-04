@@ -11,7 +11,7 @@ interface TabButtonProps {
 }
 
 export default function TabButton({ label, icon: Icon, active, onPress }: TabButtonProps) {
-  const color = active ? COLORS.forestGreen : COLORS.textSecondary;
+  const color = active ? COLORS.textPrimary : COLORS.textSecondary;
   return (
     <TouchableOpacity style={styles.container} onPress={onPress} accessibilityRole="button">
       <Icon size={22} color={color} />

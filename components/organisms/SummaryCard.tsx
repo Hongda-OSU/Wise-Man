@@ -44,14 +44,14 @@ export default function SummaryCard({ month, netBalance, income, expense }: Summ
 
 const styles = StyleSheet.create({
   card: {
-    backgroundColor: COLORS.forestGreen,
+    backgroundColor: COLORS.surfaceBrand,
     borderRadius: 20,
     marginHorizontal: 20,
     marginTop: 16,
     paddingHorizontal: 28,
     paddingVertical: 24,
     overflow: "hidden",
-    shadowColor: COLORS.forestGreen,
+    shadowColor: COLORS.shadow,
     shadowOffset: { width: 0, height: 8 },
     shadowOpacity: 0.3,
     shadowRadius: 16,
@@ -81,7 +81,7 @@ const styles = StyleSheet.create({
   amount: {
     fontFamily: FONTS.moneyBold,
     fontSize: FONT_SIZES.display,
-    color: COLORS.white,
+    color: COLORS.textPrimary,
     letterSpacing: -2,
     marginBottom: 16,
   },

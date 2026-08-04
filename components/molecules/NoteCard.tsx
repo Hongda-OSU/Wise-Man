@@ -41,7 +41,7 @@ export default function NoteCard({ note, onChangeNote, onFocus }: NoteCardProps)
 
 const styles = StyleSheet.create({
   card: {
-    backgroundColor: COLORS.white,
+    backgroundColor: COLORS.surface,
     borderRadius: 16,
     padding: 16,
   },
@@ -70,7 +70,7 @@ const styles = StyleSheet.create({
     letterSpacing: 0.5,
   },
   inputArea: {
-    backgroundColor: COLORS.bgPrimary,
+    backgroundColor: COLORS.elevated,
     borderRadius: 12,
     padding: 12,
   },
