@@ -1,7 +1,7 @@
 import { View, TouchableOpacity, StyleSheet } from "react-native";
 import { useRouter, usePathname } from "expo-router";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { DollarSign } from "lucide-react-native";
+import { Plus } from "lucide-react-native";
 import { BlurView } from "expo-blur";
 import { GlassView, isLiquidGlassAvailable } from "expo-glass-effect";
 
@@ -44,7 +44,7 @@ export default function TabBar() {
             accessibilityRole="button"
             accessibilityLabel="Track transaction"
           >
-            <DollarSign size={24} color={COLORS.onAccent} />
+            <Plus size={20} color={COLORS.onAccent} strokeWidth={2.5} />
           </TouchableOpacity>
         </View>
 
@@ -83,9 +83,9 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   trackButton: {
-    width: 46,
-    height: 46,
-    borderRadius: 23,
+    width: 40,
+    height: 40,
+    borderRadius: 20,
     backgroundColor: COLORS.accent,
     alignItems: "center",
     justifyContent: "center",
