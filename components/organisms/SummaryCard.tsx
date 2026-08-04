@@ -79,7 +79,7 @@ const styles = StyleSheet.create({
     letterSpacing: -0.65,
   },
   amount: {
-    fontFamily: FONTS.moneyBold,
+    fontFamily: FONTS.displayBold,
     fontSize: FONT_SIZES.display,
     color: COLORS.textPrimary,
     letterSpacing: -2,

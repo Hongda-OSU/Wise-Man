@@ -134,7 +134,7 @@ const styles = StyleSheet.create({
     height: 70,
   },
   amount: {
-    fontFamily: FONTS.moneyExtraBold,
+    fontFamily: FONTS.displayExtraBold,
     fontSize: 50,
     color: COLORS.textPrimary,
     letterSpacing: -2,

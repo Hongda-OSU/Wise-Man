@@ -94,7 +94,7 @@ const styles = StyleSheet.create({
     marginTop: 2,
   },
   amount: {
-    fontFamily: FONTS.moneyBold,
+    fontFamily: FONTS.displayBold,
     fontSize: FONT_SIZES.subBody,
     letterSpacing: -0.5,
   },

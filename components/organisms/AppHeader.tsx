@@ -45,7 +45,7 @@ const styles = StyleSheet.create({
   // The monogram tile is gone: at 36pt its letterforms were unreadable, and it
   // repeated the wordmark sitting right beside it.
   appName: {
-    fontFamily: FONTS.serif,
+    fontFamily: FONTS.displayExtraBold,
     fontSize: 22,
     color: COLORS.textPrimary,
     letterSpacing: 0.2,

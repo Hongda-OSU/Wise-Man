@@ -12,7 +12,6 @@
   },
   "dependencies": {
     "@expo-google-fonts/dm-sans": "^0.4.2",
-    "@expo-google-fonts/instrument-serif": "^0.4.1",
     "@expo-google-fonts/manrope": "^0.4.2",
     "babel-preset-expo": "~57.0.0",
     "drizzle-orm": "^0.45.2",

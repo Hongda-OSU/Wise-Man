@@ -4,12 +4,9 @@ export const FONTS = {
   medium: "DMSans_500Medium",
   semiBold: "DMSans_600SemiBold",
 
-  // Money amounts
-  moneyBold: "Manrope_700Bold",
-  moneyExtraBold: "Manrope_800ExtraBold",
-
-  // App name
-  serif: "InstrumentSerif_400Regular",
+  // Display: money amounts and the wordmark
+  displayBold: "Manrope_700Bold",
+  displayExtraBold: "Manrope_800ExtraBold",
 } as const;
 
 export const FONT_SIZES = {

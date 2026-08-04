@@ -44,7 +44,7 @@ const styles = StyleSheet.create({
     color: COLORS.textSecondary,
   },
   amount: {
-    fontFamily: FONTS.moneyBold,
+    fontFamily: FONTS.displayBold,
     fontSize: FONT_SIZES.body,
     letterSpacing: -0.8,
   },

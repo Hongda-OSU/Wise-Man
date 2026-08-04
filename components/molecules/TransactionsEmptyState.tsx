@@ -84,7 +84,7 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.accent,
   },
   title: {
-    fontFamily: FONTS.serif,
+    fontFamily: FONTS.semiBold,
     fontSize: FONT_SIZES.heading2,
     color: COLORS.textPrimary,
     letterSpacing: 0.17,
@@ -94,7 +94,7 @@ const styles = StyleSheet.create({
     marginBottom: 24,
   },
   subtitle: {
-    fontFamily: FONTS.serif,
+    fontFamily: FONTS.semiBold,
     fontSize: FONT_SIZES.caption,
     color: COLORS.textSecondary,
     letterSpacing: 0.65,
