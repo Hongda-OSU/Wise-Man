@@ -15,9 +15,15 @@ export const COLORS = {
   // For text and icons sitting on `accent`.
   onAccent: "#0E0F10",
 
-  // Primary action. Near-white rather than the brand green, which on a neutral
-  // dark ground would collide with `income`.
+  // Selection and confirmation across the app: near-white, so it never competes
+  // with the income/expense pair for meaning.
   accent: "#F2F3F4",
+
+  // The one chromatic action, reserved for the create affordance in the tab bar.
+  // Banknote green: desaturated and yellow-leaning, which keeps it clear of the
+  // cyan-leaning mint used for `income`.
+  action: "#85BB65",
+  onAction: "#0E0F10",
 
   // Semantic
   income: "#2ECC80",

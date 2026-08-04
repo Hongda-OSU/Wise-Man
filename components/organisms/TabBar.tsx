@@ -44,7 +44,7 @@ export default function TabBar() {
             accessibilityRole="button"
             accessibilityLabel="Track transaction"
           >
-            <Plus size={20} color={COLORS.onAccent} strokeWidth={2.5} />
+            <Plus size={20} color={COLORS.onAction} strokeWidth={2.5} />
           </TouchableOpacity>
         </View>
 
@@ -86,7 +86,7 @@ const styles = StyleSheet.create({
     width: 40,
     height: 40,
     borderRadius: 20,
-    backgroundColor: COLORS.accent,
+    backgroundColor: COLORS.action,
     alignItems: "center",
     justifyContent: "center",
   },
