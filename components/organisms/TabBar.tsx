@@ -1,29 +1,20 @@
-import { View, TouchableOpacity, Text, StyleSheet, useWindowDimensions } from "react-native";
+import { View, TouchableOpacity, StyleSheet } from "react-native";
 import { useRouter, usePathname } from "expo-router";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { DollarSign } from "lucide-react-native";
-import Svg, { Path } from "react-native-svg";
 
 import { COLORS } from "@/constants/colors";
-import { FONTS, FONT_SIZES } from "@/constants/fonts";
 import { TABS } from "@/constants/tabs";
 import TabButton from "@/components/molecules/TabButton";
 
 export default function TabBar() {
   const router = useRouter();
   const pathname = usePathname();
-  const { width } = useWindowDimensions();
-
-  const mid = width / 2;
-  const notchHalf = 66;
-  const path = `M 0 100 L 0 20 L ${mid - notchHalf} 20 C ${mid - notchHalf / 2} 20 ${mid - notchHalf / 2} 2 ${mid} 2 C ${mid + notchHalf / 2} 2 ${mid + notchHalf / 2} 20 ${mid + notchHalf} 20 L ${width} 20 L ${width} 100 Z`;
+  const insets = useSafeAreaInsets();
 
   return (
-    <View style={styles.container}>
-      <Svg width={width} height={100} viewBox={`0 0 ${width} 100`} style={StyleSheet.absoluteFill}>
-        <Path d={path} fill={COLORS.surface} stroke={COLORS.border} strokeWidth="0.5" />
-      </Svg>
-
-      <View style={styles.row}>
+    <View style={[styles.wrapper, { paddingBottom: Math.max(insets.bottom, 12) }]}>
+      <View style={styles.bar}>
         {TABS.slice(0, 2).map((tab) => (
           <TabButton
             key={tab.name}
@@ -34,16 +25,15 @@ export default function TabBar() {
           />
         ))}
 
-        <View style={styles.trackCenter}>
+        <View style={styles.trackSlot}>
           <TouchableOpacity
-            style={[styles.trackButton, styles.trackShadow]}
+            style={styles.trackButton}
             onPress={() => router.push("/track")}
             accessibilityRole="button"
             accessibilityLabel="Track transaction"
           >
-            <DollarSign size={26} color={COLORS.onAccent} />
+            <DollarSign size={24} color={COLORS.onAccent} />
           </TouchableOpacity>
-          <Text style={styles.trackLabel}>Track</Text>
         </View>
 
         {TABS.slice(2).map((tab) => (
@@ -61,43 +51,37 @@ export default function TabBar() {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    height: 100,
-    backgroundColor: "transparent",
+  wrapper: {
+    paddingHorizontal: 12,
   },
-  row: {
+  // A floating capsule rather than a full-width bar with a notch, so the centre action
+  // sits inside the bar instead of breaking out of it.
+  bar: {
     flexDirection: "row",
     alignItems: "center",
-    paddingHorizontal: 16,
-    paddingBottom: 12,
-    paddingTop: 24,
-    height: "100%",
+    backgroundColor: COLORS.surface,
+    borderRadius: 34,
+    borderWidth: StyleSheet.hairlineWidth,
+    borderColor: COLORS.border,
+    paddingHorizontal: 6,
+    paddingVertical: 8,
+    shadowColor: COLORS.shadow,
+    shadowOffset: { width: 0, height: 6 },
+    shadowOpacity: 0.35,
+    shadowRadius: 14,
+    elevation: 10,
   },
-  trackCenter: {
+  trackSlot: {
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
-    gap: 4,
   },
   trackButton: {
-    width: 56,
-    height: 56,
-    borderRadius: 28,
+    width: 50,
+    height: 50,
+    borderRadius: 25,
     backgroundColor: COLORS.accent,
     alignItems: "center",
     justifyContent: "center",
-    marginTop: -32,
-  },
-  trackShadow: {
-    shadowColor: COLORS.shadow,
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.4,
-    shadowRadius: 8,
-    elevation: 6,
-  },
-  trackLabel: {
-    fontFamily: FONTS.semiBold,
-    fontSize: FONT_SIZES.micro,
-    color: COLORS.textSecondary,
   },
 });
