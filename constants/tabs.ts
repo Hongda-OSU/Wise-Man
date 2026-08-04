@@ -1,4 +1,4 @@
-import { House, BriefcaseBusiness, CalendarClock, ChartNoAxesColumn } from "lucide-react-native";
+import { House, Wallet, Repeat, ChartPie } from "lucide-react-native";
 
 interface TabItem {
   name: string;
@@ -12,14 +12,14 @@ export const TABS: TabItem[] = [
   {
     name: "portfolio",
     label: "Portfolio",
-    icon: BriefcaseBusiness,
+    icon: Wallet,
     route: "/portfolio",
   },
-  { name: "events", label: "Events", icon: CalendarClock, route: "/events" },
+  { name: "events", label: "Events", icon: Repeat, route: "/events" },
   {
     name: "analysis",
     label: "Analysis",
-    icon: ChartNoAxesColumn,
+    icon: ChartPie,
     route: "/analysis",
   },
 ];
