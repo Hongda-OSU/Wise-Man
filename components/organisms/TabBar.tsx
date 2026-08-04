@@ -2,10 +2,22 @@ import { View, TouchableOpacity, StyleSheet } from "react-native";
 import { useRouter, usePathname } from "expo-router";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { DollarSign } from "lucide-react-native";
+import { BlurView } from "expo-blur";
+import { GlassView, isLiquidGlassAvailable } from "expo-glass-effect";
 
 import { COLORS } from "@/constants/colors";
 import { TABS } from "@/constants/tabs";
 import TabButton from "@/components/molecules/TabButton";
+
+// Liquid Glass is iOS 26 and up. Everything else gets a blur, which is the same idea
+// with less depth, and Android falls back again to a translucent fill inside BlurView.
+const Bar = isLiquidGlassAvailable()
+  ? (props: { children: React.ReactNode }) => (
+      <GlassView glassEffectStyle="regular" colorScheme="dark" style={styles.bar} {...props} />
+    )
+  : (props: { children: React.ReactNode }) => (
+      <BlurView intensity={40} tint="dark" style={styles.bar} {...props} />
+    );
 
 export default function TabBar() {
   const router = useRouter();
@@ -14,7 +26,7 @@ export default function TabBar() {
 
   return (
     <View style={[styles.wrapper, { paddingBottom: Math.max(insets.bottom, 12) }]}>
-      <View style={styles.bar}>
+      <Bar>
         {TABS.slice(0, 2).map((tab) => (
           <TabButton
             key={tab.name}
@@ -45,7 +57,7 @@ export default function TabBar() {
             onPress={() => router.push(tab.route as any)}
           />
         ))}
-      </View>
+      </Bar>
     </View>
   );
 }
@@ -59,17 +71,11 @@ const styles = StyleSheet.create({
   bar: {
     flexDirection: "row",
     alignItems: "center",
-    backgroundColor: COLORS.surface,
     borderRadius: 34,
-    borderWidth: StyleSheet.hairlineWidth,
-    borderColor: COLORS.border,
+    // Clips the blur to the capsule; without it BlurView paints its own square corners.
+    overflow: "hidden",
     paddingHorizontal: 6,
     paddingVertical: 8,
-    shadowColor: COLORS.shadow,
-    shadowOffset: { width: 0, height: 6 },
-    shadowOpacity: 0.35,
-    shadowRadius: 14,
-    elevation: 10,
   },
   trackSlot: {
     flex: 1,
