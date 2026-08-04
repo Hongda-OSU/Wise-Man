@@ -1,32 +1,32 @@
 // Dark only. There is no light theme and no theme switch.
+// Surfaces are deliberately neutral: the only colour in the interface is the
+// income/expense pair, which is what makes a finance app read as formal rather
+// than friendly.
 export const COLORS = {
   // Surfaces, from the page up. Anything stacked on a card uses `elevated`.
-  background: "#0F1512",
-  surface: "#18211D",
-  elevated: "#232E28",
-  // The brand green. Too close to the surfaces to carry an action, so it is reserved
-  // for hero cards that should read as branded rather than as plain containers.
-  surfaceBrand: "#1A2E28",
-  border: "#2A322E",
+  background: "#0E0F10",
+  surface: "#17191B",
+  elevated: "#202326",
+  border: "#2C2F33",
 
   // Text
-  textPrimary: "#F5F0E8",
-  textSecondary: "#9AA5A0",
+  textPrimary: "#F2F3F4",
+  textSecondary: "#8E9298",
   // For text and icons sitting on `accent`.
-  onAccent: "#0F1512",
+  onAccent: "#0E0F10",
 
-  // Primary action. The light theme put dark green on cream; dark mode inverts that
-  // pairing rather than brightening the green, which would collide with `income`.
-  accent: "#F5F0E8",
+  // Primary action. Near-white rather than the brand green, which on a neutral
+  // dark ground would collide with `income`.
+  accent: "#F2F3F4",
 
   // Semantic
   income: "#2ECC80",
-  expense: "#E85D4C",
+  expense: "#E5584A",
 
   // Translucent whites for detail on top of dark surfaces.
-  overlaySoft: "rgba(245,240,232,0.06)",
-  overlayMuted: "rgba(245,240,232,0.16)",
-  overlayStrong: "rgba(245,240,232,0.55)",
+  overlaySoft: "rgba(242,243,244,0.05)",
+  overlayMuted: "rgba(242,243,244,0.14)",
+  overlayStrong: "rgba(242,243,244,0.5)",
 
   shadow: "#000000",
 } as const;

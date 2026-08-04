@@ -44,7 +44,7 @@ export default function SummaryCard({ month, netBalance, income, expense }: Summ
 
 const styles = StyleSheet.create({
   card: {
-    backgroundColor: COLORS.surfaceBrand,
+    backgroundColor: COLORS.elevated,
     borderRadius: 20,
     marginHorizontal: 20,
     marginTop: 16,

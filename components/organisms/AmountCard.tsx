@@ -76,7 +76,7 @@ export default function AmountCard({ selectedCategory, amount, onAmountChange }:
 
 const styles = StyleSheet.create({
   card: {
-    backgroundColor: COLORS.surfaceBrand,
+    backgroundColor: COLORS.elevated,
     borderRadius: 20,
     overflow: "hidden",
     alignItems: "center",
