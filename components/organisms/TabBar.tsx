@@ -25,7 +25,7 @@ export default function TabBar() {
   const insets = useSafeAreaInsets();
 
   return (
-    <View style={[styles.wrapper, { paddingBottom: Math.max(insets.bottom, 12) }]}>
+    <View style={[styles.wrapper, { paddingBottom: Math.max(insets.bottom - 14, 8) }]}>
       <Bar>
         {TABS.slice(0, 2).map((tab) => (
           <TabButton
@@ -75,7 +75,7 @@ const styles = StyleSheet.create({
     // Clips the blur to the capsule; without it BlurView paints its own square corners.
     overflow: "hidden",
     paddingHorizontal: 6,
-    paddingVertical: 8,
+    paddingVertical: 4,
   },
   trackSlot: {
     flex: 1,
@@ -83,9 +83,9 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   trackButton: {
-    width: 50,
-    height: 50,
-    borderRadius: 25,
+    width: 46,
+    height: 46,
+    borderRadius: 23,
     backgroundColor: COLORS.accent,
     alignItems: "center",
     justifyContent: "center",
