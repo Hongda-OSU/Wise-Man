@@ -1,78 +1,137 @@
 import { View, Text, Image, TouchableOpacity, StyleSheet } from "react-native";
-import { Search } from "lucide-react-native";
+import { Search, User } from "lucide-react-native";
 
 import { COLORS } from "@/constants/colors";
-import { FONTS } from "@/constants/fonts";
+import { FONTS, FONT_SIZES } from "@/constants/fonts";
+import { formatAmount } from "@/utils/formatAmount";
 
-export default function AppHeader() {
+interface AppHeaderProps {
+  month: string;
+  netBalance: number;
+  income: number;
+  expense: number;
+}
+
+interface CellProps {
+  label: string;
+  value: string;
+  color?: string;
+}
+
+function Cell({ label, value, color = COLORS.textPrimary }: CellProps) {
   return (
-    <View style={styles.container}>
-      <Text style={styles.appName}>Wise Man</Text>
+    <View style={styles.cell}>
+      <Text style={styles.cellLabel}>{label}</Text>
+      <Text style={[styles.cellValue, { color }]}>{value}</Text>
+    </View>
+  );
+}
 
-      {/* Grouped rather than two loose glyphs, so the controls read as one cluster. */}
-      <View style={styles.actions}>
-        <TouchableOpacity
-          style={styles.action}
-          accessibilityRole="button"
-          accessibilityLabel="Search"
-        >
-          <Search size={20} color={COLORS.textPrimary} />
-        </TouchableOpacity>
+export default function AppHeader({ month, netBalance, income, expense }: AppHeaderProps) {
+  return (
+    <View>
+      <View style={styles.topRow}>
+        <View style={styles.brand}>
+          <Image source={require("../../assets/mark-mono.png")} style={styles.logo} />
+          <Text style={styles.wordmark}>Wise Man</Text>
+        </View>
+
+        {/* Grouped, the way the reference groups its controls, rather than two loose glyphs. */}
+        <View style={styles.actions}>
+          <TouchableOpacity
+            style={styles.action}
+            accessibilityRole="button"
+            accessibilityLabel="Search"
+          >
+            <Search size={19} color={COLORS.textPrimary} />
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.action}
+            accessibilityRole="button"
+            accessibilityLabel="Profile"
+          >
+            <User size={19} color={COLORS.textPrimary} />
+          </TouchableOpacity>
+        </View>
+      </View>
+
+      {/* A measured band of figures, divided by hairlines, in place of empty header space. */}
+      <View style={styles.band}>
+        <Cell label={month.toUpperCase()} value={`$${formatAmount(netBalance)}`} />
         <View style={styles.divider} />
-        <TouchableOpacity
-          style={styles.action}
-          accessibilityRole="button"
-          accessibilityLabel="Profile"
-        >
-          {/* Relative, not the @/ alias: that resolves for modules but not for
-              Metro's asset lookup. */}
-          <Image source={require("../../assets/splash-icon.png")} style={styles.avatar} />
-        </TouchableOpacity>
+        <Cell label="INCOME" value={`$${formatAmount(income)}`} color={COLORS.income} />
+        <View style={styles.divider} />
+        <Cell label="EXPENSE" value={`$${formatAmount(expense)}`} color={COLORS.expense} />
       </View>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
+  topRow: {
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
-    paddingHorizontal: 24,
-    paddingTop: 12,
-    paddingBottom: 16,
+    paddingHorizontal: 20,
+    paddingTop: 8,
+    paddingBottom: 14,
   },
-  // The monogram tile is gone: at 36pt its letterforms were unreadable, and it
-  // repeated the wordmark sitting right beside it.
-  appName: {
-    fontFamily: FONTS.displayExtraBold,
-    fontSize: 22,
+  brand: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 10,
+  },
+  logo: {
+    width: 26,
+    height: 26,
+    borderRadius: 13,
+  },
+  wordmark: {
+    fontFamily: FONTS.displayBold,
+    fontSize: 19,
     color: COLORS.textPrimary,
-    letterSpacing: 0.2,
+    letterSpacing: -0.3,
   },
   actions: {
     flexDirection: "row",
     alignItems: "center",
     backgroundColor: COLORS.surface,
-    borderRadius: 22,
-    paddingHorizontal: 6,
-    paddingVertical: 5,
-    gap: 4,
+    borderRadius: 20,
+    paddingHorizontal: 4,
+    paddingVertical: 4,
   },
   action: {
-    width: 34,
-    height: 34,
+    width: 32,
+    height: 32,
     alignItems: "center",
     justifyContent: "center",
   },
+  band: {
+    flexDirection: "row",
+    alignItems: "stretch",
+    borderTopWidth: StyleSheet.hairlineWidth,
+    borderBottomWidth: StyleSheet.hairlineWidth,
+    borderColor: COLORS.border,
+    paddingVertical: 10,
+  },
+  cell: {
+    flex: 1,
+    paddingHorizontal: 16,
+    gap: 3,
+  },
+  cellLabel: {
+    fontFamily: FONTS.medium,
+    fontSize: FONT_SIZES.micro,
+    color: COLORS.textSecondary,
+    letterSpacing: 0.6,
+  },
+  cellValue: {
+    fontFamily: FONTS.displayBold,
+    fontSize: FONT_SIZES.subBody,
+    letterSpacing: -0.3,
+  },
   divider: {
     width: StyleSheet.hairlineWidth,
-    height: 20,
     backgroundColor: COLORS.border,
-  },
-  avatar: {
-    width: 30,
-    height: 30,
-    borderRadius: 15,
   },
 });

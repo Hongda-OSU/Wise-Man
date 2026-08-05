@@ -43,7 +43,7 @@ export default function HomeScreen() {
 
   return (
     <SafeAreaView style={styles.container} edges={["top"]}>
-      <AppHeader />
+      <AppHeader month="March 2026" netBalance={netBalance} income={income} expense={expense} />
       {view === HOME_VIEW_MODES.list ? (
         <TransactionList
           sections={MOCK_TRANSACTIONS}
