@@ -7,7 +7,6 @@ import { FONTS, FONT_SIZES } from "@/constants/fonts";
 import { getCategoryConfig } from "@/constants/categories";
 import { formatAmount } from "@/utils/formatAmount";
 import { TRANSACTION_TYPES } from "@/types/transaction";
-import CategoryIcon from "@/components/atoms/CategoryIcon";
 import SwipeAction from "@/components/atoms/SwipeAction";
 import type { Transaction } from "@/types/transaction";
 
@@ -31,7 +30,6 @@ export default function TransactionItem({ transaction, onEdit, onDelete }: Trans
           label="Edit"
           backgroundColor={COLORS.accent}
           contentColor={COLORS.onAccent}
-          style={styles.editAction}
           onPress={() => onEdit(transaction.id)}
         />
       )}
@@ -41,17 +39,26 @@ export default function TransactionItem({ transaction, onEdit, onDelete }: Trans
           label="Delete"
           backgroundColor={COLORS.expense}
           contentColor={COLORS.textPrimary}
-          style={styles.deleteAction}
           onPress={() => onDelete(transaction.id)}
         />
       )}
     >
+      {/* A table row, not a card: opaque so it covers the swipe actions, and ruled
+          off from the next row by a single hairline. */}
       <View style={styles.row}>
-        <CategoryIcon category={category} size={44} borderRadius={13} />
-        <View style={styles.info}>
-          <Text style={styles.name}>{transaction.note ?? category.label}</Text>
-          <Text style={styles.category}>{category.label}</Text>
+        {/* Monochrome on purpose: income green and expense red are the only colour
+            this interface spends, and a column of category hues dilutes them. */}
+        <View style={styles.iconColumn}>
+          <category.icon size={18} color={COLORS.textSecondary} />
         </View>
+
+        <View style={styles.info}>
+          <Text style={styles.name} numberOfLines={1}>
+            {transaction.note ?? category.label}
+          </Text>
+          <Text style={styles.category}>{category.label.toUpperCase()}</Text>
+        </View>
+
         <Text style={[styles.amount, { color: amountColor }]}>
           {amountPrefix}${formatAmount(transaction.amount)}
         </Text>
@@ -61,22 +68,20 @@ export default function TransactionItem({ transaction, onEdit, onDelete }: Trans
 }
 
 const styles = StyleSheet.create({
-  editAction: {
-    borderRadius: 16,
-    marginRight: 8,
-  },
-  deleteAction: {
-    borderRadius: 16,
-    marginLeft: 8,
-  },
   row: {
     flexDirection: "row",
     alignItems: "center",
-    backgroundColor: COLORS.surface,
-    borderRadius: 16,
-    paddingVertical: 12,
-    paddingHorizontal: 16,
-    gap: 12,
+    backgroundColor: COLORS.background,
+    paddingHorizontal: 20,
+    paddingVertical: 13,
+    gap: 14,
+    borderBottomWidth: StyleSheet.hairlineWidth,
+    borderBottomColor: COLORS.border,
+  },
+  // Fixed width so every name in the list starts on the same vertical line.
+  iconColumn: {
+    width: 22,
+    alignItems: "center",
   },
   info: {
     flex: 1,
@@ -88,14 +93,17 @@ const styles = StyleSheet.create({
     letterSpacing: -0.3,
   },
   category: {
-    fontFamily: FONTS.regular,
-    fontSize: FONT_SIZES.caption,
+    fontFamily: FONTS.medium,
+    fontSize: FONT_SIZES.micro,
     color: COLORS.textSecondary,
-    marginTop: 2,
+    letterSpacing: 0.6,
+    marginTop: 3,
   },
   amount: {
     fontFamily: FONTS.displayBold,
     fontSize: FONT_SIZES.subBody,
     letterSpacing: -0.5,
+    // Digits share one advance width, so the column reads straight down.
+    fontVariant: ["tabular-nums"],
   },
 });

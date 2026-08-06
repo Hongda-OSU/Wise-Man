@@ -21,7 +21,6 @@ interface CalendarViewProps {
   sections: TransactionSection[];
   onEdit: (id: string) => void;
   onDelete: (id: string) => void;
-  listHeader?: React.ReactNode;
 }
 
 function chunkIntoRows(days: (number | null)[]): (number | null)[][] {
@@ -34,12 +33,7 @@ function chunkIntoRows(days: (number | null)[]): (number | null)[][] {
   return rows;
 }
 
-export default function CalendarView({
-  sections,
-  onEdit,
-  onDelete,
-  listHeader,
-}: CalendarViewProps) {
+export default function CalendarView({ sections, onEdit, onDelete }: CalendarViewProps) {
   const [currentMonth, setCurrentMonth] = useState(() => {
     if (sections.length > 0) {
       const d = new Date(sections[0].data[0].date + "T00:00:00");
@@ -100,8 +94,6 @@ export default function CalendarView({
 
   return (
     <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={styles.scrollContent}>
-      {listHeader}
-
       <View style={styles.monthNav}>
         <Text style={styles.monthLabel}>{monthLabel}</Text>
         <View style={styles.navButtons}>

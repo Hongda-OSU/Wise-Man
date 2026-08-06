@@ -43,25 +43,18 @@ export default function HomeScreen() {
     console.log("Delete transaction:", id);
   };
 
-  const header = <TransactionListHeader onOpenMenu={openMenu} />;
-
   return (
     <SafeAreaView style={styles.container} edges={["top"]}>
       <HomeHeader month="March 2026" netBalance={netBalance} income={income} expense={expense} />
+
+      {/* Outside the scroll container: the label and its menu stay put while the
+          content moves under them. */}
+      <TransactionListHeader onOpenMenu={openMenu} />
+
       {view === HOME_VIEW_MODES.list ? (
-        <TransactionList
-          sections={MOCK_TRANSACTIONS}
-          onEdit={handleEdit}
-          onDelete={handleDelete}
-          listHeader={header}
-        />
+        <TransactionList sections={MOCK_TRANSACTIONS} onEdit={handleEdit} onDelete={handleDelete} />
       ) : (
-        <CalendarView
-          sections={MOCK_TRANSACTIONS}
-          onEdit={handleEdit}
-          onDelete={handleDelete}
-          listHeader={header}
-        />
+        <CalendarView sections={MOCK_TRANSACTIONS} onEdit={handleEdit} onDelete={handleDelete} />
       )}
 
       <ViewMenu

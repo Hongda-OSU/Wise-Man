@@ -10,46 +10,46 @@ interface TransactionListProps {
   sections: TransactionSection[];
   onEdit: (id: string) => void;
   onDelete: (id: string) => void;
-  listHeader?: React.ReactNode;
 }
 
-export default function TransactionList({
-  sections,
-  onEdit,
-  onDelete,
-  listHeader,
-}: TransactionListProps) {
+export default function TransactionList({ sections, onEdit, onDelete }: TransactionListProps) {
   return (
     <SectionList
       sections={sections}
       keyExtractor={(item) => item.id}
       showsVerticalScrollIndicator={false}
-      contentContainerStyle={{ paddingBottom: 120 }}
+      contentContainerStyle={styles.content}
       stickySectionHeadersEnabled={false}
-      ListHeaderComponent={listHeader ? <>{listHeader}</> : undefined}
       ListEmptyComponent={<TransactionsEmptyState />}
+      // Each date is a ruled section head, in the same eyebrow the header band uses.
       renderSectionHeader={({ section }) => (
-        <Text style={styles.sectionHeader}>{section.title}</Text>
-      )}
-      renderItem={({ item, index, section }) => (
-        <View
-          style={{ marginBottom: index === section.data.length - 1 ? 0 : 8, paddingHorizontal: 20 }}
-        >
-          <TransactionItem transaction={item} onEdit={onEdit} onDelete={onDelete} />
+        <View style={styles.sectionHeader}>
+          <Text style={styles.sectionTitle}>{section.title.toUpperCase()}</Text>
         </View>
+      )}
+      renderItem={({ item }) => (
+        <TransactionItem transaction={item} onEdit={onEdit} onDelete={onDelete} />
       )}
     />
   );
 }
 
 const styles = StyleSheet.create({
+  content: {
+    paddingBottom: 120,
+  },
   sectionHeader: {
-    fontFamily: FONTS.medium,
-    fontSize: FONT_SIZES.caption,
-    color: COLORS.textSecondary,
-    letterSpacing: -0.65,
-    marginTop: 16,
-    marginBottom: 8,
+    backgroundColor: COLORS.surface,
     paddingHorizontal: 20,
+    paddingVertical: 7,
+    borderTopWidth: StyleSheet.hairlineWidth,
+    borderBottomWidth: StyleSheet.hairlineWidth,
+    borderColor: COLORS.border,
+  },
+  sectionTitle: {
+    fontFamily: FONTS.medium,
+    fontSize: FONT_SIZES.micro,
+    color: COLORS.textSecondary,
+    letterSpacing: 0.6,
   },
 });
