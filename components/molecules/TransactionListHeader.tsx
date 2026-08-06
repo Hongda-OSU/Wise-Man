@@ -27,7 +27,7 @@ export default function TransactionListHeader({ onOpenMenu }: TransactionListHea
         accessibilityRole="button"
         accessibilityLabel="Change view"
       >
-        <MoreHorizontal size={18} color={COLORS.textSecondary} />
+        <MoreHorizontal size={15} color={COLORS.textSecondary} />
       </TouchableOpacity>
     </View>
   );
@@ -39,17 +39,19 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "space-between",
     paddingLeft: 20,
-    // The button is 32 wide, so 4 puts the glyph's centre on the 20pt gutter.
+    // The button is 32 wide, so 4 puts the bare glyph's centre on the 20pt gutter.
     paddingRight: 4,
-    marginTop: 22,
+    marginTop: 14,
     marginBottom: 6,
   },
+  // Same eyebrow as the labels in the header band, so the two rows read as one system.
   title: {
-    fontFamily: FONTS.semiBold,
-    fontSize: FONT_SIZES.caption,
+    fontFamily: FONTS.medium,
+    fontSize: FONT_SIZES.micro,
     color: COLORS.textSecondary,
-    letterSpacing: 0.5,
+    letterSpacing: 0.6,
   },
+  // No chrome: 32pt keeps a tappable target around a glyph that carries itself.
   menuButton: {
     width: 32,
     height: 32,

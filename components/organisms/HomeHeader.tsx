@@ -55,13 +55,20 @@ export default function HomeHeader({ month, netBalance, income, expense }: HomeH
         </View>
       </View>
 
-      {/* A measured band of figures, divided by hairlines, in place of empty header space. */}
+      {/* A measured band of figures, divided by hairlines, in place of empty header space.
+          The net figure takes the full width above so it reads as the headline; income and
+          expense split the row beneath it. */}
       <View style={styles.band}>
-        <Cell label={month.toUpperCase()} value={`$${formatAmount(netBalance)}`} />
-        <View style={styles.divider} />
-        <Cell label="INCOME" value={`$${formatAmount(income)}`} color={COLORS.income} />
-        <View style={styles.divider} />
-        <Cell label="EXPENSE" value={`$${formatAmount(expense)}`} color={COLORS.expense} />
+        <View style={styles.netRow}>
+          <Text style={styles.cellLabel}>{month.toUpperCase()}</Text>
+          <Text style={styles.netValue}>${formatAmount(netBalance)}</Text>
+        </View>
+
+        <View style={styles.splitRow}>
+          <Cell label="INCOME" value={`$${formatAmount(income)}`} color={COLORS.income} />
+          <View style={styles.divider} />
+          <Cell label="EXPENSE" value={`$${formatAmount(expense)}`} color={COLORS.expense} />
+        </View>
       </View>
     </View>
   );
@@ -108,11 +115,27 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   band: {
-    flexDirection: "row",
-    alignItems: "stretch",
     borderTopWidth: StyleSheet.hairlineWidth,
     borderBottomWidth: StyleSheet.hairlineWidth,
     borderColor: COLORS.border,
+  },
+  netRow: {
+    paddingHorizontal: 20,
+    paddingTop: 12,
+    paddingBottom: 14,
+    gap: 3,
+  },
+  netValue: {
+    fontFamily: FONTS.displayExtraBold,
+    fontSize: 30,
+    color: COLORS.textPrimary,
+    letterSpacing: -1.2,
+  },
+  splitRow: {
+    flexDirection: "row",
+    alignItems: "stretch",
+    borderTopWidth: StyleSheet.hairlineWidth,
+    borderTopColor: COLORS.border,
     paddingVertical: 10,
   },
   cell: {
