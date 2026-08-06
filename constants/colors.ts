@@ -34,5 +34,8 @@ export const COLORS = {
   overlayMuted: "rgba(242,243,244,0.14)",
   overlayStrong: "rgba(242,243,244,0.5)",
 
+  // Dims the screen behind a menu or sheet.
+  scrim: "rgba(0,0,0,0.45)",
+
   shadow: "#000000",
 } as const;

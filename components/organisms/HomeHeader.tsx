@@ -5,7 +5,7 @@ import { COLORS } from "@/constants/colors";
 import { FONTS, FONT_SIZES } from "@/constants/fonts";
 import { formatAmount } from "@/utils/formatAmount";
 
-interface AppHeaderProps {
+interface HomeHeaderProps {
   month: string;
   netBalance: number;
   income: number;
@@ -27,7 +27,7 @@ function Cell({ label, value, color = COLORS.textPrimary }: CellProps) {
   );
 }
 
-export default function AppHeader({ month, netBalance, income, expense }: AppHeaderProps) {
+export default function HomeHeader({ month, netBalance, income, expense }: HomeHeaderProps) {
   return (
     <View>
       <View style={styles.topRow}>
@@ -97,8 +97,9 @@ const styles = StyleSheet.create({
     alignItems: "center",
     backgroundColor: COLORS.surface,
     borderRadius: 20,
-    paddingHorizontal: 4,
+    paddingHorizontal: 6,
     paddingVertical: 4,
+    gap: 10,
   },
   action: {
     width: 32,
@@ -116,7 +117,7 @@ const styles = StyleSheet.create({
   },
   cell: {
     flex: 1,
-    paddingHorizontal: 16,
+    paddingHorizontal: 20,
     gap: 3,
   },
   cellLabel: {

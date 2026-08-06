@@ -2,9 +2,9 @@ import { useState, useMemo } from "react";
 import { StyleSheet } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
-import AppHeader from "@/components/organisms/AppHeader";
-import SummaryCard from "@/components/organisms/SummaryCard";
+import HomeHeader from "@/components/organisms/HomeHeader";
 import TransactionListHeader from "@/components/molecules/TransactionListHeader";
+import ViewMenu from "@/components/molecules/ViewMenu";
 import TransactionList from "@/components/organisms/TransactionList";
 import CalendarView from "@/components/organisms/CalendarView";
 import { COLORS } from "@/constants/colors";
@@ -14,6 +14,15 @@ import type { HomeViewMode } from "@/types/ui";
 
 export default function HomeScreen() {
   const [view, setView] = useState<HomeViewMode>(HOME_VIEW_MODES.list);
+  // Kept apart from `menuOpen` so the panel holds its position through the
+  // closing fade instead of jumping to the top of the screen on the way out.
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [menuTop, setMenuTop] = useState(0);
+
+  const openMenu = (top: number) => {
+    setMenuTop(top);
+    setMenuOpen(true);
+  };
 
   const { income, expense, netBalance } = useMemo(() => {
     const allTransactions = MOCK_TRANSACTIONS.flatMap((s) => s.data);
@@ -34,16 +43,11 @@ export default function HomeScreen() {
     console.log("Delete transaction:", id);
   };
 
-  const header = (
-    <>
-      <SummaryCard month="March 2026" netBalance={netBalance} income={income} expense={expense} />
-      <TransactionListHeader view={view} onViewChange={setView} />
-    </>
-  );
+  const header = <TransactionListHeader onOpenMenu={openMenu} />;
 
   return (
     <SafeAreaView style={styles.container} edges={["top"]}>
-      <AppHeader month="March 2026" netBalance={netBalance} income={income} expense={expense} />
+      <HomeHeader month="March 2026" netBalance={netBalance} income={income} expense={expense} />
       {view === HOME_VIEW_MODES.list ? (
         <TransactionList
           sections={MOCK_TRANSACTIONS}
@@ -59,6 +63,14 @@ export default function HomeScreen() {
           listHeader={header}
         />
       )}
+
+      <ViewMenu
+        visible={menuOpen}
+        top={menuTop}
+        value={view}
+        onSelect={setView}
+        onClose={() => setMenuOpen(false)}
+      />
     </SafeAreaView>
   );
 }

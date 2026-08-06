@@ -1,40 +1,34 @@
+import { useRef } from "react";
 import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
-import { List, CalendarDays } from "lucide-react-native";
+import { MoreHorizontal } from "lucide-react-native";
 
-import { HOME_VIEW_MODES } from "@/types/ui";
-import type { HomeViewMode } from "@/types/ui";
 import { COLORS } from "@/constants/colors";
 import { FONTS, FONT_SIZES } from "@/constants/fonts";
 
 interface TransactionListHeaderProps {
-  view: HomeViewMode;
-  onViewChange: (view: HomeViewMode) => void;
+  /** Receives the window-space y the menu should hang from. */
+  onOpenMenu: (top: number) => void;
 }
 
-const VIEW_SEGMENTS = [
-  { key: HOME_VIEW_MODES.list, icon: List },
-  { key: HOME_VIEW_MODES.calendar, icon: CalendarDays },
-];
+export default function TransactionListHeader({ onOpenMenu }: TransactionListHeaderProps) {
+  const button = useRef<View>(null);
 
-export default function TransactionListHeader({ view, onViewChange }: TransactionListHeaderProps) {
+  const open = () => {
+    button.current?.measureInWindow((_x, y, _width, height) => onOpenMenu(y + height + 6));
+  };
+
   return (
     <View style={styles.container}>
       <Text style={styles.title}>TRANSACTIONS</Text>
-      <View style={styles.segmentTrack}>
-        {VIEW_SEGMENTS.map(({ key, icon: Icon }) => (
-          <TouchableOpacity
-            key={key}
-            style={[
-              styles.segment,
-              { backgroundColor: view === key ? COLORS.elevated : "transparent" },
-            ]}
-            onPress={() => onViewChange(key as HomeViewMode)}
-            accessibilityRole="button"
-          >
-            <Icon size={18} color={view === key ? COLORS.textPrimary : COLORS.textSecondary} />
-          </TouchableOpacity>
-        ))}
-      </View>
+      <TouchableOpacity
+        ref={button}
+        style={styles.menuButton}
+        onPress={open}
+        accessibilityRole="button"
+        accessibilityLabel="Change view"
+      >
+        <MoreHorizontal size={18} color={COLORS.textSecondary} />
+      </TouchableOpacity>
     </View>
   );
 }
@@ -44,8 +38,10 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
-    paddingHorizontal: 32,
-    marginTop: 28,
+    paddingLeft: 20,
+    // The button is 32 wide, so 4 puts the glyph's centre on the 20pt gutter.
+    paddingRight: 4,
+    marginTop: 22,
     marginBottom: 6,
   },
   title: {
@@ -54,18 +50,10 @@ const styles = StyleSheet.create({
     color: COLORS.textSecondary,
     letterSpacing: 0.5,
   },
-  segmentTrack: {
-    flexDirection: "row",
-    alignItems: "center",
-    borderRadius: 12,
-    padding: 4,
-    backgroundColor: COLORS.surface,
-  },
-  segment: {
-    width: 48,
+  menuButton: {
+    width: 32,
     height: 32,
     alignItems: "center",
     justifyContent: "center",
-    borderRadius: 8,
   },
 });

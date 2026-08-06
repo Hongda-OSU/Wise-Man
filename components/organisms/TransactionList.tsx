@@ -33,7 +33,7 @@ export default function TransactionList({
       )}
       renderItem={({ item, index, section }) => (
         <View
-          style={{ marginBottom: index === section.data.length - 1 ? 0 : 8, paddingHorizontal: 24 }}
+          style={{ marginBottom: index === section.data.length - 1 ? 0 : 8, paddingHorizontal: 20 }}
         >
           <TransactionItem transaction={item} onEdit={onEdit} onDelete={onDelete} />
         </View>
@@ -50,6 +50,6 @@ const styles = StyleSheet.create({
     letterSpacing: -0.65,
     marginTop: 16,
     marginBottom: 8,
-    paddingHorizontal: 32,
+    paddingHorizontal: 20,
   },
 });

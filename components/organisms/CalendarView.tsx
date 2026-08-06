@@ -176,7 +176,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
-    paddingHorizontal: 32,
+    paddingHorizontal: 20,
     marginTop: 16,
     marginBottom: 16,
   },
@@ -202,7 +202,7 @@ const styles = StyleSheet.create({
   weekdayRow: {
     flexDirection: "row",
     justifyContent: "space-between",
-    paddingHorizontal: 28,
+    paddingHorizontal: 20,
     marginBottom: 8,
   },
   weekday: {
@@ -213,7 +213,7 @@ const styles = StyleSheet.create({
     color: COLORS.textSecondary,
   },
   calendarGrid: {
-    paddingHorizontal: 28,
+    paddingHorizontal: 20,
     gap: 6,
     marginBottom: 24,
   },
@@ -228,10 +228,10 @@ const styles = StyleSheet.create({
     letterSpacing: -0.65,
     marginTop: 20,
     marginBottom: 8,
-    paddingHorizontal: 28,
+    paddingHorizontal: 20,
   },
   transactionList: {
     gap: 8,
-    paddingHorizontal: 28,
+    paddingHorizontal: 20,
   },
 });
