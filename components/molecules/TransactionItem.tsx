@@ -28,8 +28,8 @@ export default function TransactionItem({ transaction, onEdit, onDelete }: Trans
         <SwipeAction
           icon={Pencil}
           label="Edit"
-          backgroundColor={COLORS.accent}
-          contentColor={COLORS.onAccent}
+          contentColor={COLORS.textPrimary}
+          side="left"
           onPress={() => onEdit(transaction.id)}
         />
       )}
@@ -37,8 +37,8 @@ export default function TransactionItem({ transaction, onEdit, onDelete }: Trans
         <SwipeAction
           icon={Trash2}
           label="Delete"
-          backgroundColor={COLORS.expense}
-          contentColor={COLORS.textPrimary}
+          contentColor={COLORS.expense}
+          side="right"
           onPress={() => onDelete(transaction.id)}
         />
       )}

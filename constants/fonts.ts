@@ -16,4 +16,6 @@ export const FONT_SIZES = {
   subBody: 15,
   caption: 13,
   micro: 11,
+  // Fine print: swipe-action labels and anything else that must not compete.
+  fine: 10,
 } as const;
