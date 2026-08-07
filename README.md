@@ -3,6 +3,12 @@
 A local-first personal finance app for iOS and Android. Log income and expenses in
 seconds; everything stays in SQLite on the device.
 
+## Screens
+
+| Home                               | New transaction                      | Detail                                 |
+| ---------------------------------- | ------------------------------------ | -------------------------------------- |
+| ![Home](docs/screenshots/home.png) | ![Track](docs/screenshots/track.png) | ![Detail](docs/screenshots/detail.png) |
+
 ## Status
 
 v1 works end to end — create, edit, delete, and it survives a restart.
