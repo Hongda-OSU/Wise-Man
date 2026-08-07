@@ -5,22 +5,16 @@ import { useRouter } from "expo-router";
 
 import HomeHeader from "@/components/organisms/HomeHeader";
 import TransactionListHeader from "@/components/molecules/TransactionListHeader";
-import ViewMenu from "@/components/molecules/ViewMenu";
+import HomeMenu from "@/components/molecules/HomeMenu";
 import OptionSheet from "@/components/molecules/OptionSheet";
 import TransactionList from "@/components/organisms/TransactionList";
-import CalendarView from "@/components/organisms/CalendarView";
 import { COLORS } from "@/constants/colors";
 import { useTransactionStore } from "@/stores/transactions";
 import { formatMonthLabel, recentMonths } from "@/utils/dateUtils";
 import { groupByDay, sumByType } from "@/utils/groupTransactions";
-import { HOME_VIEW_MODES } from "@/types/ui";
-import type { HomeViewMode } from "@/types/ui";
 
 export default function HomeScreen() {
   const router = useRouter();
-  const [view, setView] = useState<HomeViewMode>(HOME_VIEW_MODES.list);
-  // Kept apart from `menuOpen` so the panel holds its position through the
-  // closing fade instead of jumping to the top of the screen on the way out.
   const [menuOpen, setMenuOpen] = useState(false);
   const [menuTop, setMenuTop] = useState(0);
   const [monthSheetOpen, setMonthSheetOpen] = useState(false);
@@ -41,23 +35,19 @@ export default function HomeScreen() {
   const monthOptions = useMemo(() => recentMonths(12), []);
   const { income, expense, netBalance } = useMemo(() => sumByType(items), [items]);
 
-  const openMenu = (top: number) => {
-    setMenuTop(top);
-    setMenuOpen(true);
-  };
-
-  const handleEdit = (id: string) => {
-    router.push(`/transaction/${id}`);
-  };
-
-  // Stripped from release builds. Reinstalling drops the database, and there is
-  // no point retyping a dozen transactions to look at a populated screen.
-  const devActions = __DEV__
+  // Stripped from release builds, which leaves the menu -- and the button that
+  // opens it -- with nothing in it, so neither is rendered.
+  const menuActions = __DEV__
     ? [
         { label: "Load sample data", onPress: seed },
         { label: "Clear all data", onPress: clear },
       ]
-    : undefined;
+    : [];
+
+  const openMenu = (top: number) => {
+    setMenuTop(top);
+    setMenuOpen(true);
+  };
 
   return (
     <SafeAreaView style={styles.container} edges={["top"]}>
@@ -69,29 +59,21 @@ export default function HomeScreen() {
         onPressMonth={() => setMonthSheetOpen(true)}
       />
 
-      {/* Outside the scroll container: the label and its menu stay put while the
-          content moves under them. */}
-      <TransactionListHeader onOpenMenu={openMenu} />
+      {/* Outside the scroll container: the label stays put while the content
+          moves under it. */}
+      <TransactionListHeader onOpenMenu={menuActions.length ? openMenu : undefined} />
 
-      {view === HOME_VIEW_MODES.list ? (
-        <TransactionList sections={sections} onEdit={handleEdit} onDelete={remove} />
-      ) : (
-        <CalendarView
-          sections={sections}
-          month={month}
-          onMonthChange={setMonth}
-          onEdit={handleEdit}
-          onDelete={remove}
-        />
-      )}
+      <TransactionList
+        sections={sections}
+        onEdit={(id) => router.push(`/transaction/${id}`)}
+        onDelete={remove}
+      />
 
-      <ViewMenu
+      <HomeMenu
         visible={menuOpen}
         top={menuTop}
-        value={view}
-        onSelect={setView}
+        actions={menuActions}
         onClose={() => setMenuOpen(false)}
-        extraActions={devActions}
       />
 
       <OptionSheet

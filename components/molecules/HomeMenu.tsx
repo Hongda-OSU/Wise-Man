@@ -1,64 +1,32 @@
 import { Modal, Pressable, View, Text, StyleSheet } from "react-native";
-import { List, CalendarDays, Check, Wrench } from "lucide-react-native";
+import { Wrench } from "lucide-react-native";
 
 import { COLORS } from "@/constants/colors";
 import { FONTS, FONT_SIZES } from "@/constants/fonts";
-import { HOME_VIEW_MODES } from "@/types/ui";
-import type { HomeViewMode } from "@/types/ui";
 
-interface ViewMenuProps {
+export interface MenuAction {
+  label: string;
+  onPress: () => void;
+}
+
+interface HomeMenuProps {
   visible: boolean;
   /** Window-space y the panel hangs from, measured off the button that opened it. */
   top: number;
-  value: HomeViewMode;
-  onSelect: (view: HomeViewMode) => void;
+  actions: MenuAction[];
   onClose: () => void;
-  /** Rendered under a rule below the view options. Development affordances. */
-  extraActions?: { label: string; onPress: () => void }[];
 }
 
-const OPTIONS = [
-  { key: HOME_VIEW_MODES.list, icon: List, label: "List" },
-  { key: HOME_VIEW_MODES.calendar, icon: CalendarDays, label: "Calendar" },
-] as const;
-
-export default function ViewMenu({
-  visible,
-  top,
-  value,
-  onSelect,
-  onClose,
-  extraActions = [],
-}: ViewMenuProps) {
+export default function HomeMenu({ visible, top, actions, onClose }: HomeMenuProps) {
   return (
     <Modal visible={visible} transparent animationType="fade" onRequestClose={onClose}>
       <Pressable style={styles.scrim} onPress={onClose} accessibilityLabel="Close menu" />
 
       <View style={[styles.panel, { top }]}>
-        {OPTIONS.map(({ key, icon: Icon, label }, index) => {
-          const selected = value === key;
-          return (
-            <Pressable
-              key={key}
-              style={[styles.row, index > 0 && styles.rowDivided]}
-              onPress={() => {
-                onSelect(key);
-                onClose();
-              }}
-              accessibilityRole="menuitem"
-              accessibilityState={{ selected }}
-            >
-              <Icon size={17} color={selected ? COLORS.textPrimary : COLORS.textSecondary} />
-              <Text style={[styles.label, selected && styles.labelSelected]}>{label}</Text>
-              {selected ? <Check size={16} color={COLORS.textPrimary} /> : null}
-            </Pressable>
-          );
-        })}
-
-        {extraActions.map(({ label, onPress }) => (
+        {actions.map(({ label, onPress }, index) => (
           <Pressable
             key={label}
-            style={[styles.row, styles.rowDivided]}
+            style={[styles.row, index > 0 && styles.rowDivided]}
             onPress={() => {
               onPress();
               onClose();
@@ -110,8 +78,5 @@ const styles = StyleSheet.create({
     fontFamily: FONTS.medium,
     fontSize: FONT_SIZES.subBody,
     color: COLORS.textSecondary,
-  },
-  labelSelected: {
-    color: COLORS.textPrimary,
   },
 });
