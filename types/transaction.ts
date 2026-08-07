@@ -7,14 +7,21 @@ export type TransactionType = (typeof TRANSACTION_TYPES)[keyof typeof TRANSACTIO
 
 export interface Transaction {
   id: string;
-  amount: number;
+  /** Integer cents. Never a fractional amount -- see db/schema.ts. */
+  amountCents: number;
   type: TransactionType;
   categoryId: string;
   accountId: string;
-  date: string; // ISO 8601
+  /** The calendar day it happened, as YYYY-MM-DD. */
+  date: string;
   note?: string;
-  createdAt: string;
+  /** Epoch milliseconds. */
+  createdAt: number;
+  updatedAt: number;
 }
+
+/** What the track screen collects; the id and timestamps are set on write. */
+export type NewTransaction = Omit<Transaction, "id" | "createdAt" | "updatedAt">;
 
 export interface TransactionSection {
   title: string; // e.g. "March 15, 2026"

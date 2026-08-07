@@ -52,8 +52,8 @@ export default function CalendarView({ sections, onEdit, onDelete }: CalendarVie
     for (const section of sections) {
       for (const tx of section.data) {
         const existing = map.get(tx.date) ?? { income: 0, expense: 0 };
-        if (tx.type === "income") existing.income += tx.amount;
-        else existing.expense += tx.amount;
+        if (tx.type === "income") existing.income += tx.amountCents;
+        else existing.expense += tx.amountCents;
         map.set(tx.date, existing);
       }
     }

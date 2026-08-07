@@ -5,6 +5,7 @@ import { FONTS, FONT_SIZES } from "@/constants/fonts";
 
 interface CalendarDayCellProps {
   day: number;
+  /** Integer cents. */
   income: number;
   expense: number;
   isSelected: boolean;
@@ -29,11 +30,12 @@ export default function CalendarDayCell({
       accessibilityLabel={accessibilityLabel}
     >
       <Text style={[styles.dayNumber, isSelected && styles.dayNumberSelected]}>{day}</Text>
+      {/* Whole dollars: cents would not fit in a 44pt cell and are noise at a glance. */}
       <Text style={income ? styles.amountIncome : styles.amountZero} numberOfLines={1}>
-        {income ? `+${Math.round(income)}` : "$0"}
+        {income ? `+$${Math.round(income / 100)}` : "$0"}
       </Text>
       <Text style={expense ? styles.amountExpense : styles.amountZero} numberOfLines={1}>
-        {expense ? `-${Math.round(expense)}` : "$0"}
+        {expense ? `-$${Math.round(expense / 100)}` : "$0"}
       </Text>
     </TouchableOpacity>
   );

@@ -60,7 +60,7 @@ export default function TransactionItem({ transaction, onEdit, onDelete }: Trans
         </View>
 
         <Text style={[styles.amount, { color: amountColor }]}>
-          {amountPrefix}${formatAmount(transaction.amount)}
+          {amountPrefix}${formatAmount(transaction.amountCents)}
         </Text>
       </View>
     </ReanimatedSwipeable>

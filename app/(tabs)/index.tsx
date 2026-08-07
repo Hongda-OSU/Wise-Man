@@ -32,10 +32,10 @@ export default function HomeScreen() {
     const allTransactions = sections.flatMap((s) => s.data);
     const income = allTransactions
       .filter((t) => t.type === "income")
-      .reduce((sum, t) => sum + t.amount, 0);
+      .reduce((sum, t) => sum + t.amountCents, 0);
     const expense = allTransactions
       .filter((t) => t.type === "expense")
-      .reduce((sum, t) => sum + t.amount, 0);
+      .reduce((sum, t) => sum + t.amountCents, 0);
     return { income, expense, netBalance: income - expense };
   }, [sections]);
 
