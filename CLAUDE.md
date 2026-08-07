@@ -4,11 +4,12 @@ Cross-platform, local-first personal finance app. Expo + React Native + TypeScri
 
 ## Stack
 
-Expo Router · expo-sqlite + Drizzle ORM · Zustand · StyleSheet · lucide-react-native
+Expo Router · expo-sqlite + Drizzle · Zustand · StyleSheet · lucide-react-native
 
 ## Structure
 
-`app/` routes and layouts · `components/` atoms → molecules → organisms, imports flow one way only · `constants/` design tokens · `db/` schema · `stores/` Zustand
+`app/` routes · `components/` atoms → molecules → organisms, imports flow one way ·
+`constants/` design tokens · `db/` schema, migrations, the only SQL · `stores/` Zustand
 
 ## Rules
 
@@ -16,6 +17,8 @@ Expo Router · expo-sqlite + Drizzle ORM · Zustand · StyleSheet · lucide-reac
 - Design tokens live in `constants/` — never hardcode a color, font, or spacing value
 - Icons: `lucide-react-native` SVG only, never emoji
 - Styles: `StyleSheet.create`; inline only for dynamic values
-- Shared types and unions go in `types/`, not inline
+- Shared types go in `types/`, not inline
+- Money is integer cents; dates are `YYYY-MM-DD` text
+- SQL stays in `db/`; screens read the store
 - Commits: Conventional Commits, imperative, ≤72 chars, straight to `main`
-- Check `git status` and `git diff` before every commit
+- Check `git status` and `git diff` before committing
