@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useState } from "react";
 import {
   View,
   Text,
@@ -18,7 +18,6 @@ import { useDismissKeyboardFirst } from "@/hooks/useDismissKeyboardFirst";
 import { COLORS } from "@/constants/colors";
 import { FONTS, FONT_SIZES } from "@/constants/fonts";
 import { EXPENSE_CATEGORIES, INCOME_CATEGORIES } from "@/constants/categories";
-import { formatAmountInput } from "@/utils/formatAmount";
 import { TRANSACTION_TYPES } from "@/types/transaction";
 import type { TransactionType } from "@/types/transaction";
 
@@ -29,7 +28,6 @@ const TYPE_OPTIONS = [
 
 export default function TrackScreen() {
   const router = useRouter();
-  const amountInput = useRef<TextInput>(null);
   const dismissFirst = useDismissKeyboardFirst();
 
   const [type, setType] = useState<TransactionType>(TRANSACTION_TYPES.expense);
@@ -91,10 +89,19 @@ export default function TrackScreen() {
             onPress={() => openSheet("type")}
           />
 
-          <FormRow label="AMOUNT" onPress={() => dismissFirst(() => amountInput.current?.focus())}>
-            <Text style={[styles.amount, !amount && styles.amountEmpty]}>
-              {formatAmountInput(amount)}
-            </Text>
+          <FormRow label="AMOUNT">
+            <View style={styles.amountField}>
+              <Text style={[styles.amount, !amount && styles.amountMuted]}>$</Text>
+              <TextInput
+                value={amount}
+                onChangeText={handleAmountChange}
+                keyboardType="decimal-pad"
+                placeholder="0.00"
+                placeholderTextColor={COLORS.textSecondary}
+                maxLength={13}
+                style={[styles.amount, styles.amountInput]}
+              />
+            </View>
           </FormRow>
 
           <FormRow
@@ -132,17 +139,6 @@ export default function TrackScreen() {
           <Text style={styles.confirmText}>Save</Text>
         </TouchableOpacity>
       </View>
-
-      {/* Off-screen: the amount row is the visible control, this holds the caret. */}
-      <TextInput
-        ref={amountInput}
-        value={amount}
-        onChangeText={handleAmountChange}
-        keyboardType="decimal-pad"
-        maxLength={13}
-        caretHidden
-        style={styles.hiddenInput}
-      />
 
       <OptionSheet
         visible={sheet === "type"}
@@ -197,6 +193,12 @@ const styles = StyleSheet.create({
     borderTopWidth: StyleSheet.hairlineWidth,
     borderTopColor: COLORS.border,
   },
+  amountField: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "flex-end",
+    width: "100%",
+  },
   amount: {
     fontFamily: FONTS.displayBold,
     fontSize: FONT_SIZES.subBody,
@@ -204,8 +206,14 @@ const styles = StyleSheet.create({
     letterSpacing: -0.3,
     fontVariant: ["tabular-nums"],
   },
-  amountEmpty: {
+  amountMuted: {
     color: COLORS.textSecondary,
+  },
+  // Hugs its content so the $ stays against the number; the placeholder keeps it
+  // wide enough to hit when empty.
+  amountInput: {
+    textAlign: "right",
+    padding: 0,
   },
   noteInput: {
     width: "100%",
@@ -235,14 +243,5 @@ const styles = StyleSheet.create({
     fontSize: FONT_SIZES.body,
     color: COLORS.onAccent,
     letterSpacing: -0.3,
-  },
-  hiddenInput: {
-    position: "absolute",
-    top: 0,
-    left: 0,
-    width: 1,
-    height: 1,
-    color: "transparent",
-    backgroundColor: "transparent",
   },
 });
