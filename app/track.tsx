@@ -18,6 +18,7 @@ import { useDismissKeyboardFirst } from "@/hooks/useDismissKeyboardFirst";
 import { COLORS } from "@/constants/colors";
 import { FONTS, FONT_SIZES } from "@/constants/fonts";
 import { EXPENSE_CATEGORIES, INCOME_CATEGORIES } from "@/constants/categories";
+import { recentDays } from "@/utils/dateUtils";
 import { TRANSACTION_TYPES } from "@/types/transaction";
 import type { TransactionType } from "@/types/transaction";
 
@@ -25,6 +26,10 @@ const TYPE_OPTIONS = [
   { id: TRANSACTION_TYPES.expense, label: "Expense" },
   { id: TRANSACTION_TYPES.income, label: "Income" },
 ];
+
+// Two weeks back covers entering something you forgot; anything older is rare
+// enough to belong in an edit rather than in this list.
+const DATE_OPTIONS = recentDays(14);
 
 export default function TrackScreen() {
   const router = useRouter();
@@ -34,13 +39,12 @@ export default function TrackScreen() {
   const [amount, setAmount] = useState("");
   const [categoryId, setCategoryId] = useState<string | null>(null);
   const [note, setNote] = useState("");
-  const [sheet, setSheet] = useState<"type" | "category" | null>(null);
+  const [date, setDate] = useState(DATE_OPTIONS[0].id);
+  const [sheet, setSheet] = useState<"type" | "category" | "date" | null>(null);
 
   const categories = type === TRANSACTION_TYPES.expense ? EXPENSE_CATEGORIES : INCOME_CATEGORIES;
   const selectedCategory = categories.find((c) => c.id === categoryId) ?? null;
   const isExpense = type === TRANSACTION_TYPES.expense;
-
-  const today = new Date().toLocaleDateString("en-US", { month: "short", day: "numeric" });
 
   const handleTypeChange = (next: string) => {
     if (next === type) return;
@@ -55,7 +59,9 @@ export default function TrackScreen() {
     setAmount(parts.length === 2 ? parts[0] + "." + parts[1].slice(0, 2) : cleaned);
   };
 
-  const openSheet = (which: "type" | "category") => dismissFirst(() => setSheet(which));
+  const selectedDate = DATE_OPTIONS.find((d) => d.id === date) ?? DATE_OPTIONS[0];
+
+  const openSheet = (which: "type" | "category" | "date") => dismissFirst(() => setSheet(which));
 
   return (
     <SafeAreaView style={styles.screen} edges={["top", "bottom"]}>
@@ -112,8 +118,15 @@ export default function TrackScreen() {
             onPress={() => openSheet("category")}
           />
 
-          <FormRow label="ACCOUNT" value="Cash" chevron />
-          <FormRow label="DATE" value={`Today, ${today}`} chevron />
+          {/* No chevron: there is no account model yet, so the row must not
+              claim to open one. */}
+          <FormRow label="ACCOUNT" value="Cash" />
+          <FormRow
+            label="DATE"
+            value={selectedDate.label}
+            chevron
+            onPress={() => openSheet("date")}
+          />
 
           <FormRow label="NOTE">
             <TextInput
@@ -146,6 +159,14 @@ export default function TrackScreen() {
         options={TYPE_OPTIONS}
         selectedId={type}
         onSelect={handleTypeChange}
+        onClose={() => setSheet(null)}
+      />
+      <OptionSheet
+        visible={sheet === "date"}
+        title="DATE"
+        options={DATE_OPTIONS}
+        selectedId={date}
+        onSelect={setDate}
         onClose={() => setSheet(null)}
       />
       <OptionSheet
