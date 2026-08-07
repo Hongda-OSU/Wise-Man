@@ -138,13 +138,19 @@ export default function TrackScreen() {
           />
 
           <FormRow label="NOTE">
+            {/* Wraps instead of scrolling a long note out of sight; Return closes
+                the keyboard rather than breaking the line. */}
             <TextInput
               value={note}
               onChangeText={setNote}
               placeholder="Add a note"
               placeholderTextColor={COLORS.textSecondary}
               style={styles.noteInput}
+              multiline
+              scrollEnabled={false}
+              maxLength={120}
               returnKeyType="done"
+              submitBehavior="blurAndSubmit"
             />
           </FormRow>
         </View>
@@ -257,7 +263,9 @@ const styles = StyleSheet.create({
     padding: 0,
   },
   noteInput: {
-    width: "100%",
+    // Stops a wrapped note running back into the label; it breaks earlier and
+    // keeps a clear column between the two.
+    width: "76%",
     fontFamily: FONTS.regular,
     fontSize: FONT_SIZES.subBody,
     color: COLORS.textPrimary,
