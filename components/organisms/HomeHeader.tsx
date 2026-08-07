@@ -3,7 +3,7 @@ import { Search, User } from "lucide-react-native";
 
 import { COLORS } from "@/constants/colors";
 import { FONTS, FONT_SIZES } from "@/constants/fonts";
-import { formatAmount } from "@/utils/formatAmount";
+import { formatAmount, formatSignedAmount } from "@/utils/formatAmount";
 
 interface HomeHeaderProps {
   month: string;
@@ -61,7 +61,7 @@ export default function HomeHeader({ month, netBalance, income, expense }: HomeH
       <View style={styles.band}>
         <View style={styles.netRow}>
           <Text style={styles.cellLabel}>{month.toUpperCase()}</Text>
-          <Text style={styles.netValue}>${formatAmount(netBalance)}</Text>
+          <Text style={styles.netValue}>{formatSignedAmount(netBalance)}</Text>
         </View>
 
         <View style={styles.splitRow}>

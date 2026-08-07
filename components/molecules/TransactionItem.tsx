@@ -52,11 +52,15 @@ export default function TransactionItem({ transaction, onEdit, onDelete }: Trans
           <category.icon size={18} color={COLORS.textSecondary} />
         </View>
 
+        {/* With no note the category is the whole story, so it is the title and
+            there is no second line. Repeating it under itself said nothing. */}
         <View style={styles.info}>
           <Text style={styles.name} numberOfLines={1}>
             {transaction.note ?? category.label}
           </Text>
-          <Text style={styles.category}>{category.label.toUpperCase()}</Text>
+          {transaction.note ? (
+            <Text style={styles.category}>{category.label.toUpperCase()}</Text>
+          ) : null}
         </View>
 
         <Text style={[styles.amount, { color: amountColor }]}>
