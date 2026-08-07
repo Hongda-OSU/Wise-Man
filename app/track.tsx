@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import {
   View,
   Text,
@@ -33,6 +33,7 @@ const DATE_OPTIONS = recentDays(14);
 
 export default function TrackScreen() {
   const router = useRouter();
+  const amountInput = useRef<TextInput>(null);
   const dismissFirst = useDismissKeyboardFirst();
 
   const [type, setType] = useState<TransactionType>(TRANSACTION_TYPES.expense);
@@ -95,10 +96,13 @@ export default function TrackScreen() {
             onPress={() => openSheet("type")}
           />
 
-          <FormRow label="AMOUNT">
+          {/* The row focuses the field, so the target is the full width rather
+              than the few points the number happens to occupy. */}
+          <FormRow label="AMOUNT" onPress={() => dismissFirst(() => amountInput.current?.focus())}>
             <View style={styles.amountField}>
               <Text style={[styles.amount, !amount && styles.amountMuted]}>$</Text>
               <TextInput
+                ref={amountInput}
                 value={amount}
                 onChangeText={handleAmountChange}
                 keyboardType="decimal-pad"
