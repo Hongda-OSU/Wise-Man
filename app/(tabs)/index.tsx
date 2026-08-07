@@ -6,11 +6,12 @@ import { useRouter } from "expo-router";
 import HomeHeader from "@/components/organisms/HomeHeader";
 import TransactionListHeader from "@/components/molecules/TransactionListHeader";
 import ViewMenu from "@/components/molecules/ViewMenu";
+import OptionSheet from "@/components/molecules/OptionSheet";
 import TransactionList from "@/components/organisms/TransactionList";
 import CalendarView from "@/components/organisms/CalendarView";
 import { COLORS } from "@/constants/colors";
 import { useTransactionStore } from "@/stores/transactions";
-import { formatMonthLabel } from "@/utils/dateUtils";
+import { formatMonthLabel, recentMonths } from "@/utils/dateUtils";
 import { groupByDay, sumByType } from "@/utils/groupTransactions";
 import { HOME_VIEW_MODES } from "@/types/ui";
 import type { HomeViewMode } from "@/types/ui";
@@ -22,6 +23,7 @@ export default function HomeScreen() {
   // closing fade instead of jumping to the top of the screen on the way out.
   const [menuOpen, setMenuOpen] = useState(false);
   const [menuTop, setMenuTop] = useState(0);
+  const [monthSheetOpen, setMonthSheetOpen] = useState(false);
 
   const month = useTransactionStore((state) => state.month);
   const items = useTransactionStore((state) => state.items);
@@ -36,6 +38,7 @@ export default function HomeScreen() {
   }, [load]);
 
   const sections = useMemo(() => groupByDay(items), [items]);
+  const monthOptions = useMemo(() => recentMonths(12), []);
   const { income, expense, netBalance } = useMemo(() => sumByType(items), [items]);
 
   const openMenu = (top: number) => {
@@ -63,6 +66,7 @@ export default function HomeScreen() {
         netBalance={netBalance}
         income={income}
         expense={expense}
+        onPressMonth={() => setMonthSheetOpen(true)}
       />
 
       {/* Outside the scroll container: the label and its menu stay put while the
@@ -88,6 +92,15 @@ export default function HomeScreen() {
         onSelect={setView}
         onClose={() => setMenuOpen(false)}
         extraActions={devActions}
+      />
+
+      <OptionSheet
+        visible={monthSheetOpen}
+        title="MONTH"
+        options={monthOptions}
+        selectedId={month}
+        onSelect={setMonth}
+        onClose={() => setMonthSheetOpen(false)}
       />
     </SafeAreaView>
   );

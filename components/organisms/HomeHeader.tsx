@@ -1,5 +1,5 @@
 import { View, Text, Image, TouchableOpacity, StyleSheet } from "react-native";
-import { Search, User } from "lucide-react-native";
+import { Search, User, ChevronDown } from "lucide-react-native";
 
 import { COLORS } from "@/constants/colors";
 import { FONTS, FONT_SIZES } from "@/constants/fonts";
@@ -10,6 +10,7 @@ interface HomeHeaderProps {
   netBalance: number;
   income: number;
   expense: number;
+  onPressMonth: () => void;
 }
 
 interface CellProps {
@@ -27,7 +28,13 @@ function Cell({ label, value, color = COLORS.textPrimary }: CellProps) {
   );
 }
 
-export default function HomeHeader({ month, netBalance, income, expense }: HomeHeaderProps) {
+export default function HomeHeader({
+  month,
+  netBalance,
+  income,
+  expense,
+  onPressMonth,
+}: HomeHeaderProps) {
   return (
     <View>
       <View style={styles.topRow}>
@@ -60,7 +67,19 @@ export default function HomeHeader({ month, netBalance, income, expense }: HomeH
           expense split the row beneath it. */}
       <View style={styles.band}>
         <View style={styles.netRow}>
-          <Text style={styles.cellLabel}>{month.toUpperCase()}</Text>
+          {/* Only the eyebrow is the control. Making the whole row tappable would
+              put a button under the headline figure, which is not one. */}
+          <TouchableOpacity
+            style={styles.monthButton}
+            onPress={onPressMonth}
+            hitSlop={10}
+            accessibilityRole="button"
+            accessibilityLabel={`Change month, currently ${month}`}
+          >
+            <Text style={styles.cellLabel}>{month.toUpperCase()}</Text>
+            <ChevronDown size={13} color={COLORS.textSecondary} />
+          </TouchableOpacity>
+
           <Text style={styles.netValue}>{formatSignedAmount(netBalance)}</Text>
         </View>
 
@@ -124,6 +143,12 @@ const styles = StyleSheet.create({
     paddingTop: 12,
     paddingBottom: 14,
     gap: 3,
+    alignItems: "flex-start",
+  },
+  monthButton: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 4,
   },
   netValue: {
     fontFamily: FONTS.displayExtraBold,

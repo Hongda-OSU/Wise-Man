@@ -29,6 +29,17 @@ export function formatMonthLabel(monthKey: string): string {
   });
 }
 
+/**
+ * The last `count` months ending with the one containing `today`. Transactions
+ * cannot be dated in the future, so there is nothing to offer ahead of it.
+ */
+export function recentMonths(count: number, today = new Date()) {
+  return Array.from({ length: count }, (_, offset) => {
+    const key = shiftMonth(toMonthKey(today), -offset);
+    return { id: key, label: formatMonthLabel(key) };
+  });
+}
+
 /** "March 15, 2026" — the heading over a day's rows. */
 export function formatDayHeading(isoDate: string): string {
   const [year, month, day] = isoDate.split("-").map(Number);
