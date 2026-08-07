@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { StyleSheet } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { useRouter } from "expo-router";
 
 import HomeHeader from "@/components/organisms/HomeHeader";
 import TransactionListHeader from "@/components/molecules/TransactionListHeader";
@@ -15,6 +16,7 @@ import { HOME_VIEW_MODES } from "@/types/ui";
 import type { HomeViewMode } from "@/types/ui";
 
 export default function HomeScreen() {
+  const router = useRouter();
   const [view, setView] = useState<HomeViewMode>(HOME_VIEW_MODES.list);
   // Kept apart from `menuOpen` so the panel holds its position through the
   // closing fade instead of jumping to the top of the screen on the way out.
@@ -42,7 +44,7 @@ export default function HomeScreen() {
   };
 
   const handleEdit = (id: string) => {
-    console.log("Edit transaction:", id);
+    router.push(`/transaction/${id}`);
   };
 
   // Stripped from release builds. Reinstalling drops the database, and there is

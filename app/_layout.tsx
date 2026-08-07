@@ -43,6 +43,7 @@ export default function RootLayout() {
       >
         <Stack.Screen name="(tabs)" />
         <Stack.Screen name="track" />
+        <Stack.Screen name="transaction/[id]" />
       </Stack>
     </GestureHandlerRootView>
   );

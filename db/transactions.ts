@@ -43,6 +43,11 @@ export async function listTransactionsInMonth(month: string): Promise<Transactio
   return rows.map(toTransaction);
 }
 
+export async function getTransaction(id: string): Promise<Transaction | null> {
+  const rows = await db.select().from(transactions).where(eq(transactions.id, id)).limit(1);
+  return rows.length ? toTransaction(rows[0]) : null;
+}
+
 export async function insertTransaction(input: NewTransaction): Promise<Transaction> {
   const now = new Date();
   const row: TransactionRow = {
