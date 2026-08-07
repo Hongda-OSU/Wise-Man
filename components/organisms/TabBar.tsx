@@ -2,22 +2,11 @@ import { View, TouchableOpacity, StyleSheet } from "react-native";
 import { useRouter, usePathname } from "expo-router";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { Plus } from "lucide-react-native";
-import { BlurView } from "expo-blur";
-import { GlassView, isLiquidGlassAvailable } from "expo-glass-effect";
 
 import { COLORS } from "@/constants/colors";
 import { TABS } from "@/constants/tabs";
+import GlassSurface from "@/components/atoms/GlassSurface";
 import TabButton from "@/components/molecules/TabButton";
-
-// Liquid Glass is iOS 26 and up. Everything else gets a blur, which is the same idea
-// with less depth, and Android falls back again to a translucent fill inside BlurView.
-const Bar = isLiquidGlassAvailable()
-  ? (props: { children: React.ReactNode }) => (
-      <GlassView glassEffectStyle="regular" colorScheme="dark" style={styles.bar} {...props} />
-    )
-  : (props: { children: React.ReactNode }) => (
-      <BlurView intensity={40} tint="dark" style={styles.bar} {...props} />
-    );
 
 export default function TabBar() {
   const router = useRouter();
@@ -26,7 +15,7 @@ export default function TabBar() {
 
   return (
     <View style={[styles.wrapper, { paddingBottom: Math.max(insets.bottom - 14, 8) }]}>
-      <Bar>
+      <GlassSurface style={styles.bar}>
         {TABS.slice(0, 2).map((tab) => (
           <TabButton
             key={tab.name}
@@ -57,7 +46,7 @@ export default function TabBar() {
             onPress={() => router.push(tab.route as any)}
           />
         ))}
-      </Bar>
+      </GlassSurface>
     </View>
   );
 }
