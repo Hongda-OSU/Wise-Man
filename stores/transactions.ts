@@ -6,6 +6,7 @@ import {
   listTransactionsInMonth,
   updateTransaction,
 } from "@/db/transactions";
+import { clearAllTransactions, seedSampleData } from "@/db/seed";
 import { toMonthKey } from "@/utils/dateUtils";
 import type { NewTransaction, Transaction } from "@/types/transaction";
 
@@ -22,6 +23,10 @@ interface TransactionState {
   add: (input: NewTransaction) => Promise<void>;
   edit: (id: string, patch: Partial<NewTransaction>) => Promise<void>;
   remove: (id: string) => Promise<void>;
+
+  /** Development only -- see db/seed.ts. */
+  seed: () => Promise<void>;
+  clear: () => Promise<void>;
 }
 
 function message(error: unknown): string {
@@ -71,6 +76,24 @@ export const useTransactionStore = create<TransactionState>((set, get) => ({
   remove: async (id) => {
     try {
       await deleteTransaction(id);
+      await get().load();
+    } catch (error) {
+      set({ error: message(error) });
+    }
+  },
+
+  seed: async () => {
+    try {
+      await seedSampleData();
+      await get().setMonth(toMonthKey());
+    } catch (error) {
+      set({ error: message(error) });
+    }
+  },
+
+  clear: async () => {
+    try {
+      await clearAllTransactions();
       await get().load();
     } catch (error) {
       set({ error: message(error) });

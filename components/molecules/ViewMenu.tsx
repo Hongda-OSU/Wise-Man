@@ -1,5 +1,5 @@
 import { Modal, Pressable, View, Text, StyleSheet } from "react-native";
-import { List, CalendarDays, Check } from "lucide-react-native";
+import { List, CalendarDays, Check, Wrench } from "lucide-react-native";
 
 import { COLORS } from "@/constants/colors";
 import { FONTS, FONT_SIZES } from "@/constants/fonts";
@@ -13,6 +13,8 @@ interface ViewMenuProps {
   value: HomeViewMode;
   onSelect: (view: HomeViewMode) => void;
   onClose: () => void;
+  /** Rendered under a rule below the view options. Development affordances. */
+  extraActions?: { label: string; onPress: () => void }[];
 }
 
 const OPTIONS = [
@@ -20,7 +22,14 @@ const OPTIONS = [
   { key: HOME_VIEW_MODES.calendar, icon: CalendarDays, label: "Calendar" },
 ] as const;
 
-export default function ViewMenu({ visible, top, value, onSelect, onClose }: ViewMenuProps) {
+export default function ViewMenu({
+  visible,
+  top,
+  value,
+  onSelect,
+  onClose,
+  extraActions = [],
+}: ViewMenuProps) {
   return (
     <Modal visible={visible} transparent animationType="fade" onRequestClose={onClose}>
       <Pressable style={styles.scrim} onPress={onClose} accessibilityLabel="Close menu" />
@@ -45,6 +54,21 @@ export default function ViewMenu({ visible, top, value, onSelect, onClose }: Vie
             </Pressable>
           );
         })}
+
+        {extraActions.map(({ label, onPress }) => (
+          <Pressable
+            key={label}
+            style={[styles.row, styles.rowDivided]}
+            onPress={() => {
+              onPress();
+              onClose();
+            }}
+            accessibilityRole="menuitem"
+          >
+            <Wrench size={17} color={COLORS.textSecondary} />
+            <Text style={styles.label}>{label}</Text>
+          </Pressable>
+        ))}
       </View>
     </Modal>
   );

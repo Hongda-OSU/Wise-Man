@@ -26,6 +26,8 @@ export default function HomeScreen() {
   const load = useTransactionStore((state) => state.load);
   const setMonth = useTransactionStore((state) => state.setMonth);
   const remove = useTransactionStore((state) => state.remove);
+  const seed = useTransactionStore((state) => state.seed);
+  const clear = useTransactionStore((state) => state.clear);
 
   useEffect(() => {
     load();
@@ -42,6 +44,15 @@ export default function HomeScreen() {
   const handleEdit = (id: string) => {
     console.log("Edit transaction:", id);
   };
+
+  // Stripped from release builds. Reinstalling drops the database, and there is
+  // no point retyping a dozen transactions to look at a populated screen.
+  const devActions = __DEV__
+    ? [
+        { label: "Load sample data", onPress: seed },
+        { label: "Clear all data", onPress: clear },
+      ]
+    : undefined;
 
   return (
     <SafeAreaView style={styles.container} edges={["top"]}>
@@ -74,6 +85,7 @@ export default function HomeScreen() {
         value={view}
         onSelect={setView}
         onClose={() => setMenuOpen(false)}
+        extraActions={devActions}
       />
     </SafeAreaView>
   );
