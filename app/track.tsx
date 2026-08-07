@@ -70,6 +70,7 @@ export default function TrackScreen() {
         <TouchableOpacity
           style={styles.backButton}
           onPress={() => router.back()}
+          hitSlop={12}
           accessibilityRole="button"
           accessibilityLabel="Go back"
         >
@@ -88,6 +89,7 @@ export default function TrackScreen() {
         contentContainerStyle={styles.scrollContent}
       >
         {/* One row per field. Tap to type, tap to choose -- nothing else. */}
+        <Text style={styles.sectionTitle}>TRANSACTION</Text>
         <View style={styles.rows}>
           <FormRow
             label="TYPE"
@@ -121,7 +123,10 @@ export default function TrackScreen() {
             chevron
             onPress={() => openSheet("category")}
           />
+        </View>
 
+        <Text style={styles.sectionTitle}>DETAILS</Text>
+        <View style={styles.rows}>
           {/* No chevron: there is no account model yet, so the row must not
               claim to open one. */}
           <FormRow label="ACCOUNT" value="Cash" />
@@ -193,8 +198,9 @@ const styles = StyleSheet.create({
   navBar: {
     flexDirection: "row",
     alignItems: "center",
-    paddingHorizontal: 12,
-    paddingVertical: 12,
+    paddingHorizontal: 20,
+    paddingTop: 6,
+    paddingBottom: 18,
   },
   backButton: {
     flex: 1,
@@ -213,6 +219,16 @@ const styles = StyleSheet.create({
   },
   scrollContent: {
     paddingBottom: 32,
+  },
+  // The same eyebrow over a ruled block that the home screen and the sheets use.
+  sectionTitle: {
+    fontFamily: FONTS.medium,
+    fontSize: FONT_SIZES.micro,
+    color: COLORS.textSecondary,
+    letterSpacing: 0.6,
+    paddingHorizontal: 20,
+    paddingTop: 22,
+    paddingBottom: 10,
   },
   rows: {
     borderTopWidth: StyleSheet.hairlineWidth,
@@ -256,17 +272,20 @@ const styles = StyleSheet.create({
     borderTopWidth: StyleSheet.hairlineWidth,
     borderTopColor: COLORS.border,
   },
+  // Outlined rather than filled: a white slab outweighed the whole form it
+  // belongs to.
   confirmBtn: {
     alignItems: "center",
     justifyContent: "center",
     paddingVertical: 15,
     borderRadius: 10,
-    backgroundColor: COLORS.accent,
+    borderWidth: 1,
+    borderColor: COLORS.overlayStrong,
   },
   confirmText: {
     fontFamily: FONTS.semiBold,
     fontSize: FONT_SIZES.body,
-    color: COLORS.onAccent,
+    color: COLORS.textPrimary,
     letterSpacing: -0.3,
   },
 });
