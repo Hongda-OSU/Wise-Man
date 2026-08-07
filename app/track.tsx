@@ -18,7 +18,9 @@ import { useDismissKeyboardFirst } from "@/hooks/useDismissKeyboardFirst";
 import { COLORS } from "@/constants/colors";
 import { FONTS, FONT_SIZES } from "@/constants/fonts";
 import { EXPENSE_CATEGORIES, INCOME_CATEGORIES } from "@/constants/categories";
-import { recentDays } from "@/utils/dateUtils";
+import { useTransactionStore } from "@/stores/transactions";
+import { recentDays, toMonthKey } from "@/utils/dateUtils";
+import { toCents } from "@/utils/formatAmount";
 import { TRANSACTION_TYPES } from "@/types/transaction";
 import type { TransactionType } from "@/types/transaction";
 
@@ -42,6 +44,10 @@ export default function TrackScreen() {
   const [note, setNote] = useState("");
   const [date, setDate] = useState(DATE_OPTIONS[0].id);
   const [sheet, setSheet] = useState<"type" | "category" | "date" | null>(null);
+  const [saving, setSaving] = useState(false);
+
+  const add = useTransactionStore((state) => state.add);
+  const setMonth = useTransactionStore((state) => state.setMonth);
 
   const categories = type === TRANSACTION_TYPES.expense ? EXPENSE_CATEGORIES : INCOME_CATEGORIES;
   const selectedCategory = categories.find((c) => c.id === categoryId) ?? null;
@@ -63,6 +69,28 @@ export default function TrackScreen() {
   const selectedDate = DATE_OPTIONS.find((d) => d.id === date) ?? DATE_OPTIONS[0];
 
   const openSheet = (which: "type" | "category" | "date") => dismissFirst(() => setSheet(which));
+
+  const amountCents = toCents(amount);
+  const canSave = amountCents > 0 && categoryId !== null && !saving;
+
+  const handleSave = async () => {
+    if (!canSave) return;
+    Keyboard.dismiss();
+    setSaving(true);
+
+    await add({
+      type,
+      amountCents,
+      categoryId,
+      accountId: "cash",
+      date,
+      note: note.trim() || undefined,
+    });
+
+    // Land on the month the transaction belongs to, not whichever one was open.
+    await setMonth(toMonthKey(new Date(`${date}T00:00:00`)));
+    router.back();
+  };
 
   return (
     <SafeAreaView style={styles.screen} edges={["top", "bottom"]}>
@@ -160,11 +188,13 @@ export default function TrackScreen() {
           at the bottom edge of the screen. */}
       <View style={styles.footer}>
         <TouchableOpacity
-          style={styles.confirmBtn}
-          onPress={() => Keyboard.dismiss()}
+          style={[styles.confirmBtn, !canSave && styles.confirmBtnDisabled]}
+          onPress={handleSave}
+          disabled={!canSave}
           accessibilityRole="button"
+          accessibilityState={{ disabled: !canSave }}
         >
-          <Text style={styles.confirmText}>Save</Text>
+          <Text style={[styles.confirmText, !canSave && styles.confirmTextDisabled]}>Save</Text>
         </TouchableOpacity>
       </View>
 
@@ -290,10 +320,18 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: COLORS.overlayStrong,
   },
+  // Dimmed rather than hidden until there is an amount and a category, so the
+  // button says what is missing by being unavailable.
+  confirmBtnDisabled: {
+    borderColor: COLORS.border,
+  },
   confirmText: {
     fontFamily: FONTS.semiBold,
     fontSize: FONT_SIZES.body,
     color: COLORS.textPrimary,
     letterSpacing: -0.3,
+  },
+  confirmTextDisabled: {
+    color: COLORS.textSecondary,
   },
 });

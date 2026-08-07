@@ -1,5 +1,5 @@
 import { Modal, Pressable, View, Text, StyleSheet } from "react-native";
-import { List, CalendarDays, Check, Database } from "lucide-react-native";
+import { List, CalendarDays, Check } from "lucide-react-native";
 
 import { COLORS } from "@/constants/colors";
 import { FONTS, FONT_SIZES } from "@/constants/fonts";
@@ -13,9 +13,6 @@ interface ViewMenuProps {
   value: HomeViewMode;
   onSelect: (view: HomeViewMode) => void;
   onClose: () => void;
-  /** TEMPORARY. Delete along with mocks/ once the store reads from SQLite. */
-  sampleDataLabel: string;
-  onToggleSampleData: () => void;
 }
 
 const OPTIONS = [
@@ -23,15 +20,7 @@ const OPTIONS = [
   { key: HOME_VIEW_MODES.calendar, icon: CalendarDays, label: "Calendar" },
 ] as const;
 
-export default function ViewMenu({
-  visible,
-  top,
-  value,
-  onSelect,
-  onClose,
-  sampleDataLabel,
-  onToggleSampleData,
-}: ViewMenuProps) {
+export default function ViewMenu({ visible, top, value, onSelect, onClose }: ViewMenuProps) {
   return (
     <Modal visible={visible} transparent animationType="fade" onRequestClose={onClose}>
       <Pressable style={styles.scrim} onPress={onClose} accessibilityLabel="Close menu" />
@@ -56,19 +45,6 @@ export default function ViewMenu({
             </Pressable>
           );
         })}
-
-        {/* TEMPORARY. Stands in for a seeded database until the store lands. */}
-        <Pressable
-          style={[styles.row, styles.rowDivided]}
-          onPress={() => {
-            onToggleSampleData();
-            onClose();
-          }}
-          accessibilityRole="menuitem"
-        >
-          <Database size={17} color={COLORS.textSecondary} />
-          <Text style={styles.label}>{sampleDataLabel}</Text>
-        </Pressable>
       </View>
     </Modal>
   );

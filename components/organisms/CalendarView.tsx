@@ -6,7 +6,7 @@ import { COLORS } from "@/constants/colors";
 import { FONTS, FONT_SIZES } from "@/constants/fonts";
 import CalendarDayCell from "@/components/molecules/CalendarDayCell";
 import TransactionItem from "@/components/molecules/TransactionItem";
-import { toDateString } from "@/utils/dateUtils";
+import { monthKeyToDate, shiftMonth, toDateString } from "@/utils/dateUtils";
 import type { TransactionSection } from "@/types/transaction";
 
 const WEEKDAYS = ["S", "M", "T", "W", "T", "F", "S"];
@@ -19,6 +19,9 @@ interface DayData {
 
 interface CalendarViewProps {
   sections: TransactionSection[];
+  /** YYYY-MM, owned by the store so the header and the list agree with it. */
+  month: string;
+  onMonthChange: (month: string) => void;
   onEdit: (id: string) => void;
   onDelete: (id: string) => void;
 }
@@ -33,19 +36,15 @@ function chunkIntoRows(days: (number | null)[]): (number | null)[][] {
   return rows;
 }
 
-export default function CalendarView({ sections, onEdit, onDelete }: CalendarViewProps) {
-  const [currentMonth, setCurrentMonth] = useState(() => {
-    if (sections.length > 0) {
-      const d = new Date(sections[0].data[0].date + "T00:00:00");
-      return new Date(d.getFullYear(), d.getMonth(), 1);
-    }
-    const now = new Date();
-    return new Date(now.getFullYear(), now.getMonth(), 1);
-  });
-
-  const [selectedDate, setSelectedDate] = useState<string | null>(() => {
-    return sections[0]?.data[0]?.date ?? null;
-  });
+export default function CalendarView({
+  sections,
+  month: monthKey,
+  onMonthChange,
+  onEdit,
+  onDelete,
+}: CalendarViewProps) {
+  const currentMonth = monthKeyToDate(monthKey);
+  const [selectedDate, setSelectedDate] = useState<string | null>(null);
 
   const dayDataMap = useMemo(() => {
     const map = new Map<string, DayData>();
@@ -85,11 +84,13 @@ export default function CalendarView({ sections, onEdit, onDelete }: CalendarVie
   const month = currentMonth.getMonth();
 
   function prevMonth() {
-    setCurrentMonth((m) => new Date(m.getFullYear(), m.getMonth() - 1, 1));
+    setSelectedDate(null);
+    onMonthChange(shiftMonth(monthKey, -1));
   }
 
   function nextMonth() {
-    setCurrentMonth((m) => new Date(m.getFullYear(), m.getMonth() + 1, 1));
+    setSelectedDate(null);
+    onMonthChange(shiftMonth(monthKey, 1));
   }
 
   return (
