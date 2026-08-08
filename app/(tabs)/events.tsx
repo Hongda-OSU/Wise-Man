@@ -3,13 +3,13 @@ import { Alert, StyleSheet } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useRouter } from "expo-router";
 
-import BillsHeader from "@/components/organisms/BillsHeader";
 import BillList from "@/components/organisms/BillList";
+import BillsHeader from "@/components/molecules/BillsHeader";
 import ErrorNotice from "@/components/molecules/ErrorNotice";
 import ListEyebrow from "@/components/molecules/ListEyebrow";
 import { COLORS } from "@/constants/colors";
 import { useBillStore } from "@/stores/bills";
-import { monthlyTotals, toDueList } from "@/utils/billSchedule";
+import { toDueList } from "@/utils/billSchedule";
 
 export default function EventsScreen() {
   const router = useRouter();
@@ -25,7 +25,6 @@ export default function EventsScreen() {
   }, [load]);
 
   const dueList = useMemo(() => toDueList(items), [items]);
-  const { income, expense, net } = useMemo(() => monthlyTotals(items), [items]);
 
   // Confirmed because there is no undo, and unlike a transaction a bill is the
   // rule behind every future one.
@@ -41,12 +40,7 @@ export default function EventsScreen() {
 
   return (
     <SafeAreaView style={styles.container} edges={["top"]}>
-      <BillsHeader
-        income={income}
-        expense={expense}
-        net={net}
-        onAdd={() => router.push("/bill/new")}
-      />
+      <BillsHeader onAdd={() => router.push("/bill/new")} />
 
       {error ? <ErrorNotice message={error} /> : null}
 

@@ -1,6 +1,5 @@
 import { CADENCES } from "@/types/bill";
 import type { Bill, BillDue, Cadence } from "@/types/bill";
-import { TRANSACTION_TYPES } from "@/types/transaction";
 import { toDateString, todayString } from "@/utils/dateUtils";
 
 // Where a recurring bill sits in time. All of it is pure and derived: nothing
@@ -100,28 +99,6 @@ export function toDueList(bills: Bill[], today = todayString()): BillDue[] {
   return bills
     .map((bill) => toBillDue(bill, today))
     .sort((a, b) => a.dueDate.localeCompare(b.dueDate));
-}
-
-// 52 and 12, not 365.25 / 7: these are the conventional periods per year, and a
-// weekly bill is budgeted as 52 payments however the calendar falls.
-const PERIODS_PER_YEAR: Record<Cadence, number> = { weekly: 52, monthly: 12, yearly: 1 };
-
-/** What a bill costs in an average month, whatever its cadence. */
-export function monthlyEquivalentCents(bill: Bill): number {
-  return Math.round((bill.amountCents * PERIODS_PER_YEAR[bill.cadence]) / 12);
-}
-
-export function monthlyTotals(bills: Bill[]) {
-  let income = 0;
-  let expense = 0;
-
-  for (const bill of bills) {
-    const monthly = monthlyEquivalentCents(bill);
-    if (bill.type === TRANSACTION_TYPES.income) income += monthly;
-    else expense += monthly;
-  }
-
-  return { income, expense, net: income - expense };
 }
 
 /**
