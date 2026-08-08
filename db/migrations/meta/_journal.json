@@ -8,6 +8,20 @@
       "when": 1786125432413,
       "tag": "0000_confused_trish_tilby",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "6",
+      "when": 1786201055697,
+      "tag": "0001_chief_sinister_six",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "6",
+      "when": 1786203145731,
+      "tag": "0002_messy_shatterstar",
+      "breakpoints": true
     }
   ]
 }

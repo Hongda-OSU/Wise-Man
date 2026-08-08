@@ -1,5 +1,6 @@
 import { index, integer, sqliteTable, text } from "drizzle-orm/sqlite-core";
 
+import { CADENCES } from "@/types/bill";
 import { TRANSACTION_TYPES } from "@/types/transaction";
 
 export const transactions = sqliteTable(
@@ -41,3 +42,43 @@ export const transactions = sqliteTable(
 
 export type TransactionRow = typeof transactions.$inferSelect;
 export type NewTransactionRow = typeof transactions.$inferInsert;
+
+/**
+ * A rule for money that moves on a schedule. Deliberately not joined to
+ * transactions: an occurrence posts an ordinary, independent transaction, so
+ * editing the rent later never rewrites what has already gone through, and
+ * deleting a transaction never resurrects the occurrence behind it.
+ */
+export const recurringBills = sqliteTable("recurring_bills", {
+  id: text("id").primaryKey(),
+
+  name: text("name").notNull(),
+
+  type: text("type", {
+    enum: [TRANSACTION_TYPES.income, TRANSACTION_TYPES.expense],
+  }).notNull(),
+
+  // Integer cents, for the same reason as transactions.
+  amountCents: integer("amount_cents").notNull(),
+
+  categoryId: text("category_id").notNull(),
+  accountId: text("account_id").notNull().default("cash"),
+
+  cadence: text("cadence", {
+    enum: [CADENCES.weekly, CADENCES.monthly, CADENCES.yearly],
+  }).notNull(),
+
+  // The series is these two dates plus the cadence; the next due date is
+  // computed, never stored. Storing it would need a writer to keep it fresh, and
+  // nothing runs while the app is closed.
+  startDate: text("start_date").notNull(),
+  // How far the ledger has been filled in. Null means nothing has posted yet.
+  lastPostedDate: text("last_posted_date"),
+
+  createdAt: integer("created_at", { mode: "timestamp_ms" }).notNull(),
+  updatedAt: integer("updated_at", { mode: "timestamp_ms" }).notNull(),
+});
+// No index: every read wants the whole table, which is a handful of rows.
+
+export type BillRow = typeof recurringBills.$inferSelect;
+export type NewBillRow = typeof recurringBills.$inferInsert;

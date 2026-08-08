@@ -6,7 +6,7 @@ import {
   listTransactionsInMonth,
   updateTransaction,
 } from "@/db/transactions";
-import { clearAllTransactions, seedSampleData } from "@/db/seed";
+import { clearAllData, seedSampleData } from "@/db/seed";
 import { toMonthKey } from "@/utils/dateUtils";
 import type { NewTransaction, Transaction } from "@/types/transaction";
 
@@ -93,7 +93,7 @@ export const useTransactionStore = create<TransactionState>((set, get) => ({
 
   clear: async () => {
     try {
-      await clearAllTransactions();
+      await clearAllData();
       await get().load();
     } catch (error) {
       set({ error: message(error) });

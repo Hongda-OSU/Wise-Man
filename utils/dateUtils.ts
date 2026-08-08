@@ -2,6 +2,11 @@ export function toDateString(year: number, month: number, day: number): string {
   return `${year}-${String(month + 1).padStart(2, "0")}-${String(day).padStart(2, "0")}`;
 }
 
+/** Today as YYYY-MM-DD, in whatever timezone the phone is in. */
+export function todayString(today = new Date()): string {
+  return toDateString(today.getFullYear(), today.getMonth(), today.getDate());
+}
+
 /**
  * A month as YYYY-MM. Every query and label keys off this string rather than a
  * Date, so there is one representation of "which month" in the whole app.
@@ -55,6 +60,13 @@ export function formatShortDate(date: Date): string {
   return date.toLocaleDateString("en-US", { month: "short", day: "numeric" });
 }
 
+function dayOption(date: Date, relative: string) {
+  return {
+    id: toDateString(date.getFullYear(), date.getMonth(), date.getDate()),
+    label: `${relative}, ${formatShortDate(date)}`,
+  };
+}
+
 /**
  * The last `count` days ending today, labelled the way someone entering a
  * transaction thinks of them: Today, Yesterday, then weekday and date.
@@ -64,15 +76,24 @@ export function recentDays(count: number, today = new Date()) {
     const date = new Date(today);
     date.setDate(today.getDate() - offset);
 
-    const short = formatShortDate(date);
-    let label = short;
-    if (offset === 0) label = `Today, ${short}`;
-    else if (offset === 1) label = `Yesterday, ${short}`;
-    else label = `${date.toLocaleDateString("en-US", { weekday: "short" })}, ${short}`;
+    if (offset === 0) return dayOption(date, "Today");
+    if (offset === 1) return dayOption(date, "Yesterday");
+    return dayOption(date, date.toLocaleDateString("en-US", { weekday: "short" }));
+  });
+}
 
-    return {
-      id: toDateString(date.getFullYear(), date.getMonth(), date.getDate()),
-      label,
-    };
+/**
+ * The next `count` days starting today. A recurring bill's first date is usually
+ * ahead rather than behind, and a month of them covers picking a day of the
+ * month without a full date picker.
+ */
+export function upcomingDays(count: number, today = new Date()) {
+  return Array.from({ length: count }, (_, offset) => {
+    const date = new Date(today);
+    date.setDate(today.getDate() + offset);
+
+    if (offset === 0) return dayOption(date, "Today");
+    if (offset === 1) return dayOption(date, "Tomorrow");
+    return dayOption(date, date.toLocaleDateString("en-US", { weekday: "short" }));
   });
 }

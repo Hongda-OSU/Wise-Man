@@ -1,0 +1,1 @@
+ALTER TABLE `recurring_bills` RENAME COLUMN "last_paid_date" TO "last_posted_date";

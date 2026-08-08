@@ -9,6 +9,7 @@ import { useMigrations } from "drizzle-orm/expo-sqlite/migrator";
 import { db } from "@/db/client";
 import migrations from "@/db/migrations/migrations";
 import { useAppFonts } from "@/hooks/useAppFonts";
+import { useBillStore } from "@/stores/bills";
 import { COLORS } from "@/constants/colors";
 
 SplashScreen.preventAutoHideAsync();
@@ -23,6 +24,16 @@ export default function RootLayout() {
       SplashScreen.hideAsync();
     }
   }, [ready]);
+
+  // Recurring bills post themselves, and this is the only moment guaranteed to
+  // happen before any screen reads: Home would otherwise show a month missing its
+  // rent until the Events tab had been opened. Gated on the migration, or the
+  // table it writes to does not exist yet.
+  useEffect(() => {
+    if (migrated) {
+      useBillStore.getState().load();
+    }
+  }, [migrated]);
 
   // Hold the native splash rather than flashing a spinner over it. A font that fails to
   // load still counts as ready: the app renders in the system font instead of hanging.
@@ -44,6 +55,8 @@ export default function RootLayout() {
         <Stack.Screen name="(tabs)" />
         <Stack.Screen name="track" />
         <Stack.Screen name="transaction/[id]" />
+        <Stack.Screen name="bill/new" />
+        <Stack.Screen name="bill/[id]" />
       </Stack>
     </GestureHandlerRootView>
   );

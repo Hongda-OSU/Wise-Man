@@ -5,12 +5,14 @@ import { MoreHorizontal } from "lucide-react-native";
 import { COLORS } from "@/constants/colors";
 import { FONTS, FONT_SIZES } from "@/constants/fonts";
 
-interface TransactionListHeaderProps {
+interface ListEyebrowProps {
+  title: string;
   /** Receives the window-space y the menu should hang from. Omit to hide the button. */
   onOpenMenu?: (top: number) => void;
 }
 
-export default function TransactionListHeader({ onOpenMenu }: TransactionListHeaderProps) {
+/** The label over a table, on every screen that has one. */
+export default function ListEyebrow({ title, onOpenMenu }: ListEyebrowProps) {
   const button = useRef<View>(null);
 
   const open = () => {
@@ -19,7 +21,7 @@ export default function TransactionListHeader({ onOpenMenu }: TransactionListHea
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>TRANSACTIONS</Text>
+      <Text style={styles.title}>{title}</Text>
 
       {/* No button when there is nothing behind it. */}
       {onOpenMenu ? (
