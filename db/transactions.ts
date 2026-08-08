@@ -17,6 +17,7 @@ function toTransaction(row: TransactionRow): Transaction {
     accountId: row.accountId,
     date: row.date,
     note: row.note ?? undefined,
+    billId: row.billId ?? undefined,
     createdAt: row.createdAt.getTime(),
     updatedAt: row.updatedAt.getTime(),
   };
@@ -58,6 +59,7 @@ export async function insertTransaction(input: NewTransaction): Promise<Transact
     accountId: input.accountId,
     date: input.date,
     note: input.note ?? null,
+    billId: input.billId ?? null,
     createdAt: now,
     updatedAt: now,
   };
@@ -67,6 +69,8 @@ export async function insertTransaction(input: NewTransaction): Promise<Transact
 }
 
 export async function updateTransaction(id: string, patch: Partial<NewTransaction>): Promise<void> {
+  // billId is left out on purpose: an undefined value is omitted from the SET, so
+  // editing a posted transaction does not erase which bill it came from.
   await db
     .update(transactions)
     .set({ ...patch, note: patch.note ?? null, updatedAt: new Date() })

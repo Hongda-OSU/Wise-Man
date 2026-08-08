@@ -4,7 +4,6 @@ import { Pencil, Trash2 } from "lucide-react-native";
 
 import { COLORS } from "@/constants/colors";
 import { FONTS, FONT_SIZES } from "@/constants/fonts";
-import { getCategoryConfig } from "@/constants/categories";
 import SwipeAction from "@/components/atoms/SwipeAction";
 import { describeDue } from "@/utils/billSchedule";
 import { formatShortDate } from "@/utils/dateUtils";
@@ -27,7 +26,6 @@ function shortDueDate(isoDate: string): string {
 
 export default function BillItem({ due, onEdit, onDelete }: BillItemProps) {
   const { bill, dueDate, daysUntil } = due;
-  const category = getCategoryConfig(bill.categoryId, bill.type);
   const isIncome = bill.type === TRANSACTION_TYPES.income;
 
   return (
@@ -52,10 +50,8 @@ export default function BillItem({ due, onEdit, onDelete }: BillItemProps) {
       )}
     >
       <View style={styles.row}>
-        <View style={styles.iconColumn}>
-          <category.icon size={18} color={COLORS.textSecondary} />
-        </View>
-
+        {/* No category glyph, as on a transaction row: the schedule and the date
+            are what this line is for. */}
         <View style={styles.info}>
           <Text style={styles.name} numberOfLines={1}>
             {bill.name}
@@ -90,10 +86,6 @@ const styles = StyleSheet.create({
     gap: 12,
     borderBottomWidth: StyleSheet.hairlineWidth,
     borderBottomColor: COLORS.border,
-  },
-  iconColumn: {
-    width: 22,
-    alignItems: "center",
   },
   info: {
     flex: 1,

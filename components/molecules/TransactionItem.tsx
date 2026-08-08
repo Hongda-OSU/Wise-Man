@@ -1,6 +1,6 @@
 import { View, Text, StyleSheet } from "react-native";
 import ReanimatedSwipeable from "react-native-gesture-handler/ReanimatedSwipeable";
-import { Pencil, Trash2 } from "lucide-react-native";
+import { Pencil, Repeat, Trash2 } from "lucide-react-native";
 
 import { COLORS } from "@/constants/colors";
 import { FONTS, FONT_SIZES } from "@/constants/fonts";
@@ -21,6 +21,7 @@ export default function TransactionItem({ transaction, onEdit, onDelete }: Trans
   const isIncome = transaction.type === TRANSACTION_TYPES.income;
   const amountColor = isIncome ? COLORS.income : COLORS.textPrimary;
   const amountPrefix = isIncome ? "+" : "-";
+  const isRecurring = transaction.billId !== undefined;
 
   return (
     <ReanimatedSwipeable
@@ -46,18 +47,28 @@ export default function TransactionItem({ transaction, onEdit, onDelete }: Trans
       {/* A table row, not a card: opaque so it covers the swipe actions, and ruled
           off from the next row by a single hairline. */}
       <View style={styles.row}>
-        {/* Monochrome on purpose: income green and expense red are the only colour
-            this interface spends, and a column of category hues dilutes them. */}
-        <View style={styles.iconColumn}>
-          <category.icon size={18} color={COLORS.textSecondary} />
-        </View>
-
-        {/* With no note the category is the whole story, so it is the title and
-            there is no second line. Repeating it under itself said nothing. */}
+        {/* No category glyph. The category is already written below, or is the
+            title itself, so the icon was the same fact a third time -- and a
+            column of grey shapes made the one glyph that carries meaning look
+            like more of the same. */}
         <View style={styles.info}>
-          <Text style={styles.name} numberOfLines={1}>
-            {transaction.note ?? category.label}
-          </Text>
+          <View style={styles.nameRow}>
+            <Text style={styles.name} numberOfLines={1}>
+              {transaction.note ?? category.label}
+            </Text>
+
+            {/* On the title line, not the one below: the second line only exists
+                when there is a note, and a lone glyph hanging under the name with
+                nothing beside it read as a mistake. */}
+            {isRecurring ? (
+              <View accessible accessibilityLabel="Recurring">
+                <Repeat size={12} color={COLORS.textSecondary} />
+              </View>
+            ) : null}
+          </View>
+
+          {/* With no note the category is the whole story, so it is the title and
+              there is no second line. Repeating it under itself said nothing. */}
           {transaction.note ? (
             <Text style={styles.category}>{category.label.toUpperCase()}</Text>
           ) : null}
@@ -78,19 +89,21 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.background,
     paddingHorizontal: 20,
     paddingVertical: 13,
-    gap: 14,
+    gap: 12,
     borderBottomWidth: StyleSheet.hairlineWidth,
     borderBottomColor: COLORS.border,
-  },
-  // Fixed width so every name in the list starts on the same vertical line.
-  iconColumn: {
-    width: 22,
-    alignItems: "center",
   },
   info: {
     flex: 1,
   },
+  nameRow: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 6,
+  },
   name: {
+    // Shrinks rather than pushing the recurring mark off the row.
+    flexShrink: 1,
     fontFamily: FONTS.semiBold,
     fontSize: FONT_SIZES.subBody,
     color: COLORS.textPrimary,

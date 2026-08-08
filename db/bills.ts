@@ -97,6 +97,7 @@ function postOccurrences(bill: Bill, dates: string[]): void {
           accountId: bill.accountId,
           date,
           note: bill.name,
+          billId: bill.id,
           createdAt: now,
           updatedAt: now,
         })

@@ -15,6 +15,8 @@ export interface Transaction {
   /** The calendar day it happened, as YYYY-MM-DD. */
   date: string;
   note?: string;
+  /** The recurring bill that posted this, if one did. See db/schema.ts. */
+  billId?: string;
   /** Epoch milliseconds. */
   createdAt: number;
   updatedAt: number;

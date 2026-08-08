@@ -33,6 +33,11 @@ export const transactions = sqliteTable(
 
     note: text("note"),
 
+    // Set when a recurring bill posted this row, null when a person entered it.
+    // Not a foreign key: deleting the bill does not make this transaction stop
+    // having come from one, and that is the fact the column records.
+    billId: text("bill_id"),
+
     // These two are instants: when the row was written, not when money moved.
     createdAt: integer("created_at", { mode: "timestamp_ms" }).notNull(),
     updatedAt: integer("updated_at", { mode: "timestamp_ms" }).notNull(),
