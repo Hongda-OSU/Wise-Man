@@ -8,7 +8,7 @@ import { COLORS } from "@/constants/colors";
 import { FONTS, FONT_SIZES } from "@/constants/fonts";
 import { EXPENSE_CATEGORIES, INCOME_CATEGORIES } from "@/constants/categories";
 import { formatDayHeading, upcomingDays } from "@/utils/dateUtils";
-import { toCents } from "@/utils/formatAmount";
+import { groupAmountInput, toCents } from "@/utils/formatAmount";
 import { CADENCES, CADENCE_LABELS } from "@/types/bill";
 import type { Bill, Cadence, NewBill } from "@/types/bill";
 import { TRANSACTION_TYPES } from "@/types/transaction";
@@ -75,6 +75,8 @@ export default function BillForm({ initial, submitLabel, onSubmit, onDelete }: B
   };
 
   const handleAmountChange = (text: string) => {
+    // Strips the grouping separators the field displays, so state stays a plain
+    // decimal string that toCents can parse.
     const cleaned = text.replace(/[^0-9.]/g, "");
     const parts = cleaned.split(".");
     if (parts.length > 2) return;
@@ -141,12 +143,14 @@ export default function BillForm({ initial, submitLabel, onSubmit, onDelete }: B
               <Text style={[styles.amount, !amount && styles.amountMuted]}>$</Text>
               <TextInput
                 ref={amountInput}
-                value={amount}
+                value={groupAmountInput(amount)}
                 onChangeText={handleAmountChange}
                 keyboardType="decimal-pad"
                 placeholder="0.00"
                 placeholderTextColor={COLORS.textSecondary}
-                maxLength={13}
+                // Counts the separators too, so this is the old 13 digits plus
+                // the three commas they can carry.
+                maxLength={16}
                 style={[styles.amount, styles.amountInput]}
               />
             </View>
