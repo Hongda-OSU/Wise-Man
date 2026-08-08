@@ -5,9 +5,12 @@ seconds; everything stays in SQLite on the device.
 
 ## Screens
 
-| Home                               | Events                                 | Transaction                                      | Bill                               |
-| ---------------------------------- | -------------------------------------- | ------------------------------------------------ | ---------------------------------- |
-| ![Home](docs/screenshots/home.png) | ![Events](docs/screenshots/events.png) | ![Transaction](docs/screenshots/transaction.png) | ![Bill](docs/screenshots/bill.png) |
+<!-- Widths are pinned because a markdown table sizes its columns by content, and
+     a long heading widened its image along with it. -->
+
+| Home                                                         | Events                                                           | Transaction                                                                | Bill                                                         |
+| ------------------------------------------------------------ | ---------------------------------------------------------------- | -------------------------------------------------------------------------- | ------------------------------------------------------------ |
+| <img src="docs/screenshots/home.png" alt="Home" width="185"> | <img src="docs/screenshots/events.png" alt="Events" width="185"> | <img src="docs/screenshots/transaction.png" alt="Transaction" width="185"> | <img src="docs/screenshots/bill.png" alt="Bill" width="185"> |
 
 ## Status
 
