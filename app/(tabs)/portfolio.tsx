@@ -1,7 +1,7 @@
-import { useEffect, useMemo } from "react";
-import { Alert, StyleSheet } from "react-native";
+import { useCallback, useMemo } from "react";
+import { StyleSheet } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { useRouter } from "expo-router";
+import { useFocusEffect, useRouter } from "expo-router";
 
 import AccountList from "@/components/organisms/AccountList";
 import ErrorNotice from "@/components/molecules/ErrorNotice";
@@ -9,6 +9,7 @@ import NetWorthBand from "@/components/molecules/NetWorthBand";
 import TabHeader from "@/components/molecules/TabHeader";
 import { COLORS } from "@/constants/colors";
 import { useAccountStore } from "@/stores/accounts";
+import { confirmAccountDelete } from "@/utils/confirmAccountDelete";
 import { groupByKind, netWorthCents } from "@/utils/groupAccounts";
 
 export default function PortfolioScreen() {
@@ -19,25 +20,23 @@ export default function PortfolioScreen() {
   const load = useAccountStore((state) => state.load);
   const remove = useAccountStore((state) => state.remove);
 
-  // Balances come from the ledger, so this has to re-read whenever the screen is
-  // shown -- a transaction entered on Home changes the figures here.
-  useEffect(() => {
-    load();
-  }, [load]);
+  // On focus, not on mount: a tab stays mounted once opened, so a transaction
+  // entered on Home would otherwise leave these balances as they were. It also
+  // clears a stale error, since a successful read resets it.
+  useFocusEffect(
+    useCallback(() => {
+      load();
+    }, [load]),
+  );
 
   const sections = useMemo(() => groupByKind(items), [items]);
   const netWorth = useMemo(() => netWorthCents(items), [items]);
 
-  // The store refuses when transactions still cite the account, and reports why
-  // through `error`; this only guards the case where deleting is allowed.
   const confirmDelete = (id: string) => {
     const found = items.find((item) => item.account.id === id);
     if (!found) return;
 
-    Alert.alert(`Delete ${found.account.name}?`, "The account's opening balance goes with it.", [
-      { text: "Cancel", style: "cancel" },
-      { text: "Delete", style: "destructive", onPress: () => remove(id) },
-    ]);
+    confirmAccountDelete({ id, name: found.account.name, onConfirm: () => remove(id) });
   };
 
   return (

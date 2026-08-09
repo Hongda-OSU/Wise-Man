@@ -1,7 +1,7 @@
-import { useEffect, useMemo } from "react";
+import { useCallback, useMemo } from "react";
 import { Alert, StyleSheet } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { useRouter } from "expo-router";
+import { useFocusEffect, useRouter } from "expo-router";
 
 import BillList from "@/components/organisms/BillList";
 import TabHeader from "@/components/molecules/TabHeader";
@@ -19,10 +19,14 @@ export default function EventsScreen() {
   const load = useBillStore((state) => state.load);
   const remove = useBillStore((state) => state.remove);
 
-  // Also posts anything that has come due since the last look -- see stores/bills.
-  useEffect(() => {
-    load();
-  }, [load]);
+  // On focus, not on mount: this also posts anything that has come due since the
+  // last look, and a tab stays mounted, so an app left open across a due date
+  // would never catch up. See stores/bills.
+  useFocusEffect(
+    useCallback(() => {
+      load();
+    }, [load]),
+  );
 
   const dueList = useMemo(() => toDueList(items), [items]);
 

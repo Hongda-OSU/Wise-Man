@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Alert, View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useLocalSearchParams, useRouter } from "expo-router";
 
@@ -7,8 +7,9 @@ import ScreenHeader from "@/components/molecules/ScreenHeader";
 import AccountForm from "@/components/organisms/AccountForm";
 import { COLORS } from "@/constants/colors";
 import { FONTS, FONT_SIZES } from "@/constants/fonts";
-import { countAccountTransactions, getAccount } from "@/db/accounts";
+import { getAccount } from "@/db/accounts";
 import { useAccountStore } from "@/stores/accounts";
+import { confirmAccountDelete } from "@/utils/confirmAccountDelete";
 import type { Account, NewAccount } from "@/types/account";
 
 export default function AccountDetailScreen() {
@@ -35,35 +36,17 @@ export default function AccountDetailScreen() {
     router.back();
   };
 
-  // Checked here as well as in the repository, so the refusal is a sentence in a
-  // dialog rather than an error banner on the screen behind this one.
   const handleDelete = async () => {
-    const used = await countAccountTransactions(id);
+    if (!account) return;
 
-    if (used > 0) {
-      Alert.alert(
-        "Account is in use",
-        `${used} transaction${used === 1 ? "" : "s"} still use this account. Move or delete them first.`,
-        [{ text: "OK" }],
-      );
-      return;
-    }
-
-    Alert.alert(
-      `Delete ${account?.name ?? "this account"}?`,
-      "The account's opening balance goes with it.",
-      [
-        { text: "Cancel", style: "cancel" },
-        {
-          text: "Delete",
-          style: "destructive",
-          onPress: async () => {
-            await remove(id);
-            router.back();
-          },
-        },
-      ],
-    );
+    await confirmAccountDelete({
+      id,
+      name: account.name,
+      onConfirm: async () => {
+        await remove(id);
+        router.back();
+      },
+    });
   };
 
   return (
