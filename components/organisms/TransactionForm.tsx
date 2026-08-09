@@ -1,14 +1,16 @@
-import { useRef, useState } from "react";
+import { useState } from "react";
 import { View, Text, TextInput, TouchableOpacity, ScrollView, StyleSheet } from "react-native";
 
+import AmountRow from "@/components/molecules/AmountRow";
 import FormRow from "@/components/molecules/FormRow";
 import OptionSheet from "@/components/molecules/OptionSheet";
 import { useDismissKeyboardFirst } from "@/hooks/useDismissKeyboardFirst";
 import { COLORS } from "@/constants/colors";
 import { FONTS, FONT_SIZES } from "@/constants/fonts";
 import { EXPENSE_CATEGORIES, INCOME_CATEGORIES } from "@/constants/categories";
+import { useAccountStore } from "@/stores/accounts";
 import { formatDayHeading, recentDays } from "@/utils/dateUtils";
-import { groupAmountInput, toCents } from "@/utils/formatAmount";
+import { toCents } from "@/utils/formatAmount";
 import { TRANSACTION_TYPES } from "@/types/transaction";
 import type { NewTransaction, Transaction, TransactionType } from "@/types/transaction";
 
@@ -27,6 +29,8 @@ function dateOptions(current: string) {
   return [{ id: current, label: formatDayHeading(current) }, ...RECENT_DATES];
 }
 
+type Sheet = "type" | "category" | "date" | "account" | null;
+
 interface TransactionFormProps {
   /** Absent when creating. */
   initial?: Transaction;
@@ -42,7 +46,6 @@ export default function TransactionForm({
   onSubmit,
   onDelete,
 }: TransactionFormProps) {
-  const amountInput = useRef<TextInput>(null);
   const dismissFirst = useDismissKeyboardFirst();
 
   const [type, setType] = useState<TransactionType>(initial?.type ?? TRANSACTION_TYPES.expense);
@@ -52,8 +55,16 @@ export default function TransactionForm({
   const [categoryId, setCategoryId] = useState<string | null>(initial?.categoryId ?? null);
   const [note, setNote] = useState(initial?.note ?? "");
   const [date, setDate] = useState(initial?.date ?? RECENT_DATES[0].id);
-  const [sheet, setSheet] = useState<"type" | "category" | "date" | null>(null);
+  const [chosenAccountId, setChosenAccountId] = useState<string | null>(initial?.accountId ?? null);
+  const [sheet, setSheet] = useState<Sheet>(null);
   const [busy, setBusy] = useState(false);
+
+  // Already loaded by the root layout, so this stays a synchronous read. The
+  // fallback is the first account rather than a hardcoded "cash": that id is
+  // what the migration seeds, not something the app may assume still exists.
+  const accounts = useAccountStore((state) => state.items);
+  const accountId = chosenAccountId ?? accounts[0]?.account.id ?? null;
+  const selectedAccount = accounts.find((item) => item.account.id === accountId)?.account ?? null;
 
   const categories = type === TRANSACTION_TYPES.expense ? EXPENSE_CATEGORIES : INCOME_CATEGORIES;
   const selectedCategory = categories.find((c) => c.id === categoryId) ?? null;
@@ -63,24 +74,15 @@ export default function TransactionForm({
   const selectedDate = dates.find((d) => d.id === date) ?? dates[0];
 
   const amountCents = toCents(amount);
-  const canSubmit = amountCents > 0 && categoryId !== null && !busy;
+  const canSubmit = amountCents > 0 && categoryId !== null && selectedAccount !== null && !busy;
 
-  const openSheet = (which: "type" | "category" | "date") => dismissFirst(() => setSheet(which));
+  const openSheet = (which: Sheet) => dismissFirst(() => setSheet(which));
 
   const handleTypeChange = (next: string) => {
     if (next === type) return;
     setType(next as TransactionType);
     // The two lists share only "other", so a carried-over id would be wrong.
     setCategoryId(null);
-  };
-
-  const handleAmountChange = (text: string) => {
-    // Strips the grouping separators the field displays, so state stays a plain
-    // decimal string that toCents can parse.
-    const cleaned = text.replace(/[^0-9.]/g, "");
-    const parts = cleaned.split(".");
-    if (parts.length > 2) return;
-    setAmount(parts.length === 2 ? parts[0] + "." + parts[1].slice(0, 2) : cleaned);
   };
 
   const handleSubmit = async () => {
@@ -90,7 +92,7 @@ export default function TransactionForm({
       type,
       amountCents,
       categoryId,
-      accountId: initial?.accountId ?? "cash",
+      accountId: selectedAccount.id,
       date,
       note: note.trim() || undefined,
     });
@@ -122,25 +124,7 @@ export default function TransactionForm({
             onPress={() => openSheet("type")}
           />
 
-          {/* The row focuses the field, so the target is the full width rather
-              than the few points the number happens to occupy. */}
-          <FormRow label="AMOUNT" onPress={() => dismissFirst(() => amountInput.current?.focus())}>
-            <View style={styles.amountField}>
-              <Text style={[styles.amount, !amount && styles.amountMuted]}>$</Text>
-              <TextInput
-                ref={amountInput}
-                value={groupAmountInput(amount)}
-                onChangeText={handleAmountChange}
-                keyboardType="decimal-pad"
-                placeholder="0.00"
-                placeholderTextColor={COLORS.textSecondary}
-                // Counts the separators too, so this is the old 13 digits plus
-                // the three commas they can carry.
-                maxLength={16}
-                style={[styles.amount, styles.amountInput]}
-              />
-            </View>
-          </FormRow>
+          <AmountRow label="AMOUNT" value={amount} onChange={setAmount} />
 
           <FormRow
             label="CATEGORY"
@@ -153,9 +137,13 @@ export default function TransactionForm({
 
         <Text style={styles.sectionTitle}>DETAILS</Text>
         <View style={styles.rows}>
-          {/* No chevron: there is no account model yet, so the row must not
-              claim to open one. */}
-          <FormRow label="ACCOUNT" value="Cash" />
+          <FormRow
+            label="ACCOUNT"
+            value={selectedAccount?.name ?? "Select"}
+            muted={!selectedAccount}
+            chevron
+            onPress={() => openSheet("account")}
+          />
           <FormRow
             label="DATE"
             value={selectedDate.label}
@@ -235,6 +223,14 @@ export default function TransactionForm({
         onSelect={setCategoryId}
         onClose={() => setSheet(null)}
       />
+      <OptionSheet
+        visible={sheet === "account"}
+        title="ACCOUNT"
+        options={accounts.map(({ account }) => ({ id: account.id, label: account.name }))}
+        selectedId={accountId}
+        onSelect={setChosenAccountId}
+        onClose={() => setSheet(null)}
+      />
     </>
   );
 }
@@ -259,28 +255,6 @@ const styles = StyleSheet.create({
   rows: {
     borderTopWidth: StyleSheet.hairlineWidth,
     borderTopColor: COLORS.border,
-  },
-  amountField: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "flex-end",
-    width: "100%",
-  },
-  amount: {
-    fontFamily: FONTS.displayBold,
-    fontSize: FONT_SIZES.subBody,
-    color: COLORS.textPrimary,
-    letterSpacing: -0.3,
-    fontVariant: ["tabular-nums"],
-  },
-  amountMuted: {
-    color: COLORS.textSecondary,
-  },
-  // Hugs its content so the $ stays against the number; the placeholder keeps it
-  // wide enough to hit when empty.
-  amountInput: {
-    textAlign: "right",
-    padding: 0,
   },
   noteInput: {
     // Stops a wrapped note running back into the label; it breaks earlier and

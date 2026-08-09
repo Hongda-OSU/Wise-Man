@@ -87,6 +87,7 @@ export default function HomeScreen() {
         sections={sections}
         onEdit={(id) => router.push(`/transaction/${id}`)}
         onDelete={remove}
+        onAdd={() => router.push("/track")}
       />
 
       <HomeMenu

@@ -1,7 +1,36 @@
 import { index, integer, sqliteTable, text } from "drizzle-orm/sqlite-core";
 
+import { ACCOUNT_KINDS } from "@/types/account";
 import { CADENCES } from "@/types/bill";
 import { TRANSACTION_TYPES } from "@/types/transaction";
+
+/**
+ * Somewhere money sits. Deliberately without a balance column: the balance is
+ * the opening figure plus every transaction against the account, computed on
+ * read. A stored one could disagree with the ledger, and an account that
+ * disagrees with its own transactions is the failure this app exists to prevent.
+ */
+export const accounts = sqliteTable("accounts", {
+  // A v4 UUID, except for the "cash" row the first migration seeds -- every
+  // transaction written before accounts existed points at that literal string,
+  // and minting an id for it would mean rewriting user data inside a migration.
+  id: text("id").primaryKey(),
+
+  name: text("name").notNull(),
+
+  kind: text("kind", {
+    enum: [ACCOUNT_KINDS.cash, ACCOUNT_KINDS.bank, ACCOUNT_KINDS.credit],
+  }).notNull(),
+
+  // Integer cents, and signed: a credit card opened owing money starts below
+  // zero, which is also why credit needs no special case in the total.
+  openingBalanceCents: integer("opening_balance_cents").notNull().default(0),
+
+  createdAt: integer("created_at", { mode: "timestamp_ms" }).notNull(),
+  updatedAt: integer("updated_at", { mode: "timestamp_ms" }).notNull(),
+});
+
+export type AccountRow = typeof accounts.$inferSelect;
 
 export const transactions = sqliteTable(
   "transactions",

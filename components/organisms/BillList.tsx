@@ -1,7 +1,7 @@
 import { FlatList, StyleSheet } from "react-native";
 
 import BillItem from "@/components/molecules/BillItem";
-import BillsEmptyState from "@/components/molecules/BillsEmptyState";
+import EmptyState from "@/components/molecules/EmptyState";
 import type { BillDue } from "@/types/bill";
 
 interface BillListProps {
@@ -19,7 +19,14 @@ export default function BillList({ items, onEdit, onDelete, onAdd }: BillListPro
       keyExtractor={(item) => item.bill.id}
       showsVerticalScrollIndicator={false}
       contentContainerStyle={styles.content}
-      ListEmptyComponent={<BillsEmptyState onAdd={onAdd} />}
+      ListEmptyComponent={
+        <EmptyState
+          label="NOTHING RECURRING"
+          body="Rent, a subscription, a paycheque — anything that repeats."
+          actionLabel="Add a recurring bill"
+          onAction={onAdd}
+        />
+      }
       renderItem={({ item }) => <BillItem due={item} onEdit={onEdit} onDelete={onDelete} />}
     />
   );

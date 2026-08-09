@@ -4,7 +4,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { useRouter } from "expo-router";
 
 import BillList from "@/components/organisms/BillList";
-import BillsHeader from "@/components/molecules/BillsHeader";
+import TabHeader from "@/components/molecules/TabHeader";
 import ErrorNotice from "@/components/molecules/ErrorNotice";
 import ListEyebrow from "@/components/molecules/ListEyebrow";
 import { COLORS } from "@/constants/colors";
@@ -40,7 +40,7 @@ export default function EventsScreen() {
 
   return (
     <SafeAreaView style={styles.container} edges={["top"]}>
-      <BillsHeader onAdd={() => router.push("/bill/new")} />
+      <TabHeader title="Events" onAdd={() => router.push("/bill/new")} />
 
       {error ? <ErrorNotice message={error} /> : null}
 

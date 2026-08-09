@@ -4,26 +4,25 @@ import { Plus } from "lucide-react-native";
 import { COLORS } from "@/constants/colors";
 import { FONTS } from "@/constants/fonts";
 
-interface BillsHeaderProps {
+interface TabHeaderProps {
+  title: string;
   onAdd: () => void;
+  /** Omit when something else below supplies the rule, as the figure band does. */
+  ruled?: boolean;
 }
 
-/**
- * No figures. A monthly total meant averaging a yearly bill across twelve
- * months, and a headline that size read as money on hand -- which is what the
- * same position on Home actually means.
- */
-export default function BillsHeader({ onAdd }: BillsHeaderProps) {
+/** A tab's title and its one action. Home has its own -- it carries a brand row. */
+export default function TabHeader({ title, onAdd, ruled = true }: TabHeaderProps) {
   return (
-    <View style={styles.topRow}>
-      <Text style={styles.title}>Events</Text>
+    <View style={[styles.row, ruled && styles.ruled]}>
+      <Text style={styles.title}>{title}</Text>
 
       <TouchableOpacity
         style={styles.action}
         onPress={onAdd}
         hitSlop={8}
         accessibilityRole="button"
-        accessibilityLabel="Add recurring bill"
+        accessibilityLabel={`Add to ${title}`}
       >
         <Plus size={19} color={COLORS.textPrimary} />
       </TouchableOpacity>
@@ -32,15 +31,17 @@ export default function BillsHeader({ onAdd }: BillsHeaderProps) {
 }
 
 const styles = StyleSheet.create({
-  topRow: {
+  row: {
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
     paddingHorizontal: 20,
     paddingTop: 8,
     paddingBottom: 14,
-    // Stands in for the header band's rule on Home, so the table below still
-    // starts against a line rather than floating.
+  },
+  // Stands in for Home's header band, so the table below starts against a line
+  // rather than floating.
+  ruled: {
     borderBottomWidth: StyleSheet.hairlineWidth,
     borderBottomColor: COLORS.border,
   },

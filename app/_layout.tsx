@@ -7,8 +7,10 @@ import * as SplashScreen from "expo-splash-screen";
 import { useMigrations } from "drizzle-orm/expo-sqlite/migrator";
 
 import { db } from "@/db/client";
+import { ensureDefaultAccount } from "@/db/accounts";
 import migrations from "@/db/migrations/migrations";
 import { useAppFonts } from "@/hooks/useAppFonts";
+import { useAccountStore } from "@/stores/accounts";
 import { useBillStore } from "@/stores/bills";
 import { COLORS } from "@/constants/colors";
 
@@ -25,14 +27,22 @@ export default function RootLayout() {
     }
   }, [ready]);
 
-  // Recurring bills post themselves, and this is the only moment guaranteed to
-  // happen before any screen reads: Home would otherwise show a month missing its
-  // rent until the Events tab had been opened. Gated on the migration, or the
-  // table it writes to does not exist yet.
+  // Both gated on the migration, or the tables they touch do not exist yet.
+  //
+  // Bills post themselves, and this is the only moment guaranteed to happen
+  // before any screen reads: Home would otherwise show a month missing its rent
+  // until the Events tab had been opened. Accounts load here for a different
+  // reason -- the transaction and bill forms read them straight from the store,
+  // so the list has to be there before either form can open.
   useEffect(() => {
-    if (migrated) {
+    if (!migrated) return;
+
+    // The account has to exist before anything reads: both stores and both forms
+    // assume there is one to fall back to.
+    ensureDefaultAccount().then(() => {
+      useAccountStore.getState().load();
       useBillStore.getState().load();
-    }
+    });
   }, [migrated]);
 
   // Hold the native splash rather than flashing a spinner over it. A font that fails to
@@ -57,6 +67,8 @@ export default function RootLayout() {
         <Stack.Screen name="transaction/[id]" />
         <Stack.Screen name="bill/new" />
         <Stack.Screen name="bill/[id]" />
+        <Stack.Screen name="account/new" />
+        <Stack.Screen name="account/[id]" />
       </Stack>
     </GestureHandlerRootView>
   );

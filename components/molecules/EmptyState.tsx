@@ -3,21 +3,28 @@ import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 import { COLORS } from "@/constants/colors";
 import { FONTS, FONT_SIZES } from "@/constants/fonts";
 
-interface BillsEmptyStateProps {
-  onAdd: () => void;
+interface EmptyStateProps {
+  /** Eyebrow, already uppercase. */
+  label: string;
+  body: string;
+  actionLabel: string;
+  onAction: () => void;
 }
 
-export default function BillsEmptyState({ onAdd }: BillsEmptyStateProps) {
+/**
+ * A ruled block where the rows would be, so a table reads as empty rather than
+ * as missing, with the one action that would fill it.
+ */
+export default function EmptyState({ label, body, actionLabel, onAction }: EmptyStateProps) {
   return (
     <View>
-      {/* A ruled block where the rows would be, matching the empty ledger. */}
       <View style={styles.block}>
-        <Text style={styles.label}>NOTHING RECURRING</Text>
-        <Text style={styles.body}>Rent, a subscription, a paycheque — anything that repeats.</Text>
+        <Text style={styles.label}>{label}</Text>
+        <Text style={styles.body}>{body}</Text>
       </View>
 
-      <TouchableOpacity style={styles.action} onPress={onAdd} accessibilityRole="button">
-        <Text style={styles.actionLabel}>Add a recurring bill</Text>
+      <TouchableOpacity style={styles.action} onPress={onAction} accessibilityRole="button">
+        <Text style={styles.actionLabel}>{actionLabel}</Text>
       </TouchableOpacity>
     </View>
   );
@@ -29,7 +36,7 @@ const styles = StyleSheet.create({
     paddingVertical: 18,
     gap: 6,
     borderBottomWidth: StyleSheet.hairlineWidth,
-    borderColor: COLORS.border,
+    borderBottomColor: COLORS.border,
   },
   label: {
     fontFamily: FONTS.medium,

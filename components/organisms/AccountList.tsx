@@ -2,47 +2,39 @@ import { SectionList, View, Text, StyleSheet } from "react-native";
 
 import { COLORS } from "@/constants/colors";
 import { FONTS, FONT_SIZES } from "@/constants/fonts";
-import TransactionItem from "@/components/molecules/TransactionItem";
+import AccountItem from "@/components/molecules/AccountItem";
 import EmptyState from "@/components/molecules/EmptyState";
-import type { TransactionSection } from "@/types/transaction";
+import type { AccountSection } from "@/utils/groupAccounts";
 
-interface TransactionListProps {
-  sections: TransactionSection[];
+interface AccountListProps {
+  sections: AccountSection[];
   onEdit: (id: string) => void;
   onDelete: (id: string) => void;
   onAdd: () => void;
 }
 
-export default function TransactionList({
-  sections,
-  onEdit,
-  onDelete,
-  onAdd,
-}: TransactionListProps) {
+export default function AccountList({ sections, onEdit, onDelete, onAdd }: AccountListProps) {
   return (
     <SectionList
       sections={sections}
-      keyExtractor={(item) => item.id}
+      keyExtractor={(item) => item.account.id}
       showsVerticalScrollIndicator={false}
       contentContainerStyle={styles.content}
       stickySectionHeadersEnabled={false}
       ListEmptyComponent={
         <EmptyState
-          label="NO TRANSACTIONS"
-          body="Nothing recorded for this month yet."
-          actionLabel="Add transaction"
+          label="NO ACCOUNTS"
+          body="Cash, a bank account, a credit card — wherever the money sits."
+          actionLabel="Add an account"
           onAction={onAdd}
         />
       }
-      // Each date is a ruled section head, in the same eyebrow the header band uses.
       renderSectionHeader={({ section }) => (
         <View style={styles.sectionHeader}>
-          <Text style={styles.sectionTitle}>{section.title.toUpperCase()}</Text>
+          <Text style={styles.sectionTitle}>{section.title}</Text>
         </View>
       )}
-      renderItem={({ item }) => (
-        <TransactionItem transaction={item} onEdit={onEdit} onDelete={onDelete} />
-      )}
+      renderItem={({ item }) => <AccountItem item={item} onEdit={onEdit} onDelete={onDelete} />}
     />
   );
 }
@@ -51,6 +43,7 @@ const styles = StyleSheet.create({
   content: {
     paddingBottom: 120,
   },
+  // The same ruled section head the ledger uses, so every table reads as one system.
   sectionHeader: {
     backgroundColor: COLORS.surface,
     paddingHorizontal: 20,

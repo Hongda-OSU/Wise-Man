@@ -1,14 +1,16 @@
-import { useRef, useState } from "react";
+import { useState } from "react";
 import { View, Text, TextInput, TouchableOpacity, ScrollView, StyleSheet } from "react-native";
 
+import AmountRow from "@/components/molecules/AmountRow";
 import FormRow from "@/components/molecules/FormRow";
 import OptionSheet from "@/components/molecules/OptionSheet";
 import { useDismissKeyboardFirst } from "@/hooks/useDismissKeyboardFirst";
 import { COLORS } from "@/constants/colors";
 import { FONTS, FONT_SIZES } from "@/constants/fonts";
 import { EXPENSE_CATEGORIES, INCOME_CATEGORIES } from "@/constants/categories";
+import { useAccountStore } from "@/stores/accounts";
 import { formatDayHeading, upcomingDays } from "@/utils/dateUtils";
-import { groupAmountInput, toCents } from "@/utils/formatAmount";
+import { toCents } from "@/utils/formatAmount";
 import { CADENCES, CADENCE_LABELS } from "@/types/bill";
 import type { Bill, Cadence, NewBill } from "@/types/bill";
 import { TRANSACTION_TYPES } from "@/types/transaction";
@@ -31,7 +33,7 @@ function dateOptions(current: string) {
   return [{ id: current, label: formatDayHeading(current) }, ...UPCOMING_DATES];
 }
 
-type Sheet = "type" | "category" | "cadence" | "date";
+type Sheet = "type" | "category" | "cadence" | "date" | "account";
 
 interface BillFormProps {
   /** Absent when creating. */
@@ -43,7 +45,6 @@ interface BillFormProps {
 }
 
 export default function BillForm({ initial, submitLabel, onSubmit, onDelete }: BillFormProps) {
-  const amountInput = useRef<TextInput>(null);
   const dismissFirst = useDismissKeyboardFirst();
 
   const [name, setName] = useState(initial?.name ?? "");
@@ -52,8 +53,16 @@ export default function BillForm({ initial, submitLabel, onSubmit, onDelete }: B
   const [categoryId, setCategoryId] = useState<string | null>(initial?.categoryId ?? null);
   const [cadence, setCadence] = useState<Cadence>(initial?.cadence ?? CADENCES.monthly);
   const [startDate, setStartDate] = useState(initial?.startDate ?? UPCOMING_DATES[0].id);
+  const [chosenAccountId, setChosenAccountId] = useState<string | null>(initial?.accountId ?? null);
   const [sheet, setSheet] = useState<Sheet | null>(null);
   const [busy, setBusy] = useState(false);
+
+  // Already loaded by the root layout, so this stays a synchronous read. The
+  // fallback is the first account rather than a hardcoded "cash": that id is
+  // what the migration seeds, not something the app may assume still exists.
+  const accounts = useAccountStore((state) => state.items);
+  const accountId = chosenAccountId ?? accounts[0]?.account.id ?? null;
+  const selectedAccount = accounts.find((item) => item.account.id === accountId)?.account ?? null;
 
   const categories = type === TRANSACTION_TYPES.expense ? EXPENSE_CATEGORIES : INCOME_CATEGORIES;
   const selectedCategory = categories.find((c) => c.id === categoryId) ?? null;
@@ -63,7 +72,12 @@ export default function BillForm({ initial, submitLabel, onSubmit, onDelete }: B
   const selectedDate = dates.find((d) => d.id === startDate) ?? dates[0];
 
   const amountCents = toCents(amount);
-  const canSubmit = name.trim().length > 0 && amountCents > 0 && categoryId !== null && !busy;
+  const canSubmit =
+    name.trim().length > 0 &&
+    amountCents > 0 &&
+    categoryId !== null &&
+    selectedAccount !== null &&
+    !busy;
 
   const openSheet = (which: Sheet) => dismissFirst(() => setSheet(which));
 
@@ -74,15 +88,6 @@ export default function BillForm({ initial, submitLabel, onSubmit, onDelete }: B
     setCategoryId(null);
   };
 
-  const handleAmountChange = (text: string) => {
-    // Strips the grouping separators the field displays, so state stays a plain
-    // decimal string that toCents can parse.
-    const cleaned = text.replace(/[^0-9.]/g, "");
-    const parts = cleaned.split(".");
-    if (parts.length > 2) return;
-    setAmount(parts.length === 2 ? parts[0] + "." + parts[1].slice(0, 2) : cleaned);
-  };
-
   const handleSubmit = async () => {
     if (!canSubmit) return;
     setBusy(true);
@@ -91,7 +96,7 @@ export default function BillForm({ initial, submitLabel, onSubmit, onDelete }: B
       type,
       amountCents,
       categoryId,
-      accountId: initial?.accountId ?? "cash",
+      accountId: selectedAccount.id,
       cadence,
       startDate,
     });
@@ -136,25 +141,7 @@ export default function BillForm({ initial, submitLabel, onSubmit, onDelete }: B
             onPress={() => openSheet("type")}
           />
 
-          {/* The row focuses the field, so the target is the full width rather
-              than the few points the number occupies. */}
-          <FormRow label="AMOUNT" onPress={() => dismissFirst(() => amountInput.current?.focus())}>
-            <View style={styles.amountField}>
-              <Text style={[styles.amount, !amount && styles.amountMuted]}>$</Text>
-              <TextInput
-                ref={amountInput}
-                value={groupAmountInput(amount)}
-                onChangeText={handleAmountChange}
-                keyboardType="decimal-pad"
-                placeholder="0.00"
-                placeholderTextColor={COLORS.textSecondary}
-                // Counts the separators too, so this is the old 13 digits plus
-                // the three commas they can carry.
-                maxLength={16}
-                style={[styles.amount, styles.amountInput]}
-              />
-            </View>
-          </FormRow>
+          <AmountRow label="AMOUNT" value={amount} onChange={setAmount} />
 
           <FormRow
             label="CATEGORY"
@@ -183,9 +170,14 @@ export default function BillForm({ initial, submitLabel, onSubmit, onDelete }: B
             onPress={() => openSheet("date")}
           />
 
-          {/* No chevron: there is no account model yet, so the row must not claim
-              to open one. */}
-          <FormRow label="ACCOUNT" value="Cash" />
+          {/* Where each occurrence will be posted. */}
+          <FormRow
+            label="ACCOUNT"
+            value={selectedAccount?.name ?? "Select"}
+            muted={!selectedAccount}
+            chevron
+            onPress={() => openSheet("account")}
+          />
         </View>
       </ScrollView>
 
@@ -239,6 +231,14 @@ export default function BillForm({ initial, submitLabel, onSubmit, onDelete }: B
         onClose={() => setSheet(null)}
       />
       <OptionSheet
+        visible={sheet === "account"}
+        title="ACCOUNT"
+        options={accounts.map(({ account }) => ({ id: account.id, label: account.name }))}
+        selectedId={accountId}
+        onSelect={setChosenAccountId}
+        onClose={() => setSheet(null)}
+      />
+      <OptionSheet
         visible={sheet === "date"}
         title="FIRST DUE"
         options={dates}
@@ -276,26 +276,6 @@ const styles = StyleSheet.create({
     fontSize: FONT_SIZES.subBody,
     color: COLORS.textPrimary,
     letterSpacing: -0.3,
-    textAlign: "right",
-    padding: 0,
-  },
-  amountField: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "flex-end",
-    width: "100%",
-  },
-  amount: {
-    fontFamily: FONTS.displayBold,
-    fontSize: FONT_SIZES.subBody,
-    color: COLORS.textPrimary,
-    letterSpacing: -0.3,
-    fontVariant: ["tabular-nums"],
-  },
-  amountMuted: {
-    color: COLORS.textSecondary,
-  },
-  amountInput: {
     textAlign: "right",
     padding: 0,
   },
