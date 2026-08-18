@@ -5,16 +5,12 @@ seconds; everything stays in SQLite on the device.
 
 ## Screens
 
-<!-- Not a table. Columns are sized by their content, so the longest heading made
-     its own image wider than the rest, and on a narrow screen max-width shrank
-     each one by however much its column had lost. A plain row has no columns to
-     disagree about, and wraps on its own. -->
+<!-- Widths are pinned because a markdown table sizes its columns by content, and
+     a long heading widens its image along with it. -->
 
-<img src="docs/screenshots/splash.png" alt="Splash" width="150">
-<img src="docs/screenshots/home.png" alt="Home: the month's ledger" width="150">
-<img src="docs/screenshots/portfolio.png" alt="Portfolio: accounts and net worth" width="150">
-<img src="docs/screenshots/events.png" alt="Events: recurring bills" width="150">
-<img src="docs/screenshots/transaction.png" alt="Editing a transaction" width="150">
+| Splash                                                           | Home                                                         | Portfolio                                                              | Events                                                           | Transaction                                                                |
+| ---------------------------------------------------------------- | ------------------------------------------------------------ | ---------------------------------------------------------------------- | ---------------------------------------------------------------- | -------------------------------------------------------------------------- |
+| <img src="docs/screenshots/splash.png" alt="Splash" width="150"> | <img src="docs/screenshots/home.png" alt="Home" width="150"> | <img src="docs/screenshots/portfolio.png" alt="Portfolio" width="150"> | <img src="docs/screenshots/events.png" alt="Events" width="150"> | <img src="docs/screenshots/transaction.png" alt="Transaction" width="150"> |
 
 ## Status
 
