@@ -52,15 +52,13 @@ against `xcodebuild -showsdks | grep iOS`; if the runtime is behind, run
 - **Categories are ids into `constants/categories.ts`**, not rows. They are code, and a
   table would mean seeding and migrating something that never changes.
 - **An account stores only where it started.** Its balance is that opening figure plus
-  every transaction against it, worked out on read. A stored balance could disagree with
-  the ledger, and an account that disagrees with its own transactions is the failure this
-  app exists to prevent. A credit card opened owing money starts negative and sums into
-  net worth as a debt, so nothing special-cases what is owed.
+  every transaction against it, worked out on read — a stored one could disagree with the
+  ledger. A credit card opened owing money starts negative, so nothing special-cases debt.
 - **A recurring bill is a rule, not a reminder.** Every occurrence it has reached posts an
-  ordinary transaction at launch, dated the day it was due. A `last_posted_date` cursor is
-  what makes that idempotent, so deleting a posted transaction does not bring it back —
-  that is how "this should not have happened" is expressed. There is nothing to tick off
-  and no overdue state: a date that has arrived has already posted.
+  ordinary transaction at launch, dated the day it was due. A `last_posted_date` cursor
+  keeps that idempotent, so deleting a posted transaction does not bring it back — which
+  is how "this should not have happened" is said. Nothing to tick off, and no overdue
+  state: a date that has arrived has already posted.
 
 Run `npx drizzle-kit generate` after editing `db/schema.ts`. Migrations are bundled into
 the JS and applied at launch. In development the `...` menu on Home loads and clears
