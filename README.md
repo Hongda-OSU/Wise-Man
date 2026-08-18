@@ -5,24 +5,28 @@ seconds; everything stays in SQLite on the device.
 
 ## Screens
 
-<!-- Widths are pinned because a markdown table sizes its columns by content, and
-     a long heading widened its image along with it. -->
+<!-- Not a table. Columns are sized by their content, so the longest heading made
+     its own image wider than the rest, and on a narrow screen max-width shrank
+     each one by however much its column had lost. A plain row has no columns to
+     disagree about, and wraps on its own. -->
 
-| Home                                                         | Events                                                           | Transaction                                                                | Bill                                                         |
-| ------------------------------------------------------------ | ---------------------------------------------------------------- | -------------------------------------------------------------------------- | ------------------------------------------------------------ |
-| <img src="docs/screenshots/home.png" alt="Home" width="185"> | <img src="docs/screenshots/events.png" alt="Events" width="185"> | <img src="docs/screenshots/transaction.png" alt="Transaction" width="185"> | <img src="docs/screenshots/bill.png" alt="Bill" width="185"> |
+<img src="docs/screenshots/splash.png" alt="Splash" width="150">
+<img src="docs/screenshots/home.png" alt="Home: the month's ledger" width="150">
+<img src="docs/screenshots/portfolio.png" alt="Portfolio: accounts and net worth" width="150">
+<img src="docs/screenshots/events.png" alt="Events: recurring bills" width="150">
+<img src="docs/screenshots/transaction.png" alt="Editing a transaction" width="150">
 
 ## Status
 
-Create, edit, delete, and it survives a restart. Recurring bills post themselves.
+Create, edit, delete, and it survives a restart. Money sits in accounts that add up to a
+net worth, and recurring bills post themselves.
 
-| Screen              | State       |
-| ------------------- | ----------- |
-| Home, Track, Events | Done        |
-| Portfolio, Analysis | Placeholder |
+| Screen                         | State       |
+| ------------------------------ | ----------- |
+| Home, Track, Portfolio, Events | Done        |
+| Analysis                       | Placeholder |
 
-Accounts are not modelled — every transaction is stored against `cash`. Search and the
-profile button in the header are inert.
+Search and the profile button in the header are inert.
 
 ## Getting started
 
@@ -51,6 +55,11 @@ against `xcodebuild -showsdks | grep iOS`; if the runtime is behind, run
   sorts chronologically and matches a month by prefix, and the column is indexed.
 - **Categories are ids into `constants/categories.ts`**, not rows. They are code, and a
   table would mean seeding and migrating something that never changes.
+- **An account stores only where it started.** Its balance is that opening figure plus
+  every transaction against it, worked out on read. A stored balance could disagree with
+  the ledger, and an account that disagrees with its own transactions is the failure this
+  app exists to prevent. A credit card opened owing money starts negative and sums into
+  net worth as a debt, so nothing special-cases what is owed.
 - **A recurring bill is a rule, not a reminder.** Every occurrence it has reached posts an
   ordinary transaction at launch, dated the day it was due. A `last_posted_date` cursor is
   what makes that idempotent, so deleting a posted transaction does not bring it back —
