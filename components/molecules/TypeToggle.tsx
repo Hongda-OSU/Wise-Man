@@ -78,11 +78,11 @@ const styles = StyleSheet.create({
     color: COLORS.textPrimary,
   },
   // Sits on the container's own bottom hairline, so the selected cell looks like
-  // it is holding the rule down rather than carrying an extra decoration.
+  // it is holding the rule down rather than carrying an extra decoration. Unset
+  // rather than transparent: the absence of a colour is not a colour to name.
   rule: {
     height: 2,
     alignSelf: "stretch",
-    backgroundColor: "transparent",
   },
   ruleSelected: {
     backgroundColor: COLORS.textPrimary,
