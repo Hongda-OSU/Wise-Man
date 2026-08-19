@@ -34,6 +34,16 @@ export function formatMonthLabel(monthKey: string): string {
   });
 }
 
+/** "AUG" — narrow enough to sit under a bar. */
+export function formatMonthAbbrev(monthKey: string): string {
+  return monthKeyToDate(monthKey).toLocaleDateString("en-US", { month: "short" }).toUpperCase();
+}
+
+/** "August" — the month on its own, for comparing it with another one. */
+export function formatMonthName(monthKey: string): string {
+  return monthKeyToDate(monthKey).toLocaleDateString("en-US", { month: "long" });
+}
+
 /**
  * The last `count` months ending with the one containing `today`. Transactions
  * cannot be dated in the future, so there is nothing to offer ahead of it.

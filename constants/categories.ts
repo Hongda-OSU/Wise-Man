@@ -6,6 +6,15 @@ export interface CategoryConfig {
   label: string;
 }
 
+/**
+ * Money moved between your own accounts, which is neither earned nor spent.
+ * Recording it takes two rows -- one leaving, one arriving -- so the id has to
+ * exist under both types, and both are left out of every total. A convention
+ * rather than a modelled transfer: nothing links the two rows or enters them for
+ * you.
+ */
+export const TRANSFER_CATEGORY_ID = "transfer";
+
 export const EXPENSE_CATEGORIES: CategoryConfig[] = [
   { id: "food", label: "Food & Drink" },
   { id: "transport", label: "Transport" },
@@ -15,6 +24,7 @@ export const EXPENSE_CATEGORIES: CategoryConfig[] = [
   { id: "health", label: "Health" },
   { id: "education", label: "Education" },
   { id: "social", label: "Social" },
+  { id: TRANSFER_CATEGORY_ID, label: "Transfer" },
   { id: "other", label: "Other" },
 ];
 
@@ -22,7 +32,7 @@ export const INCOME_CATEGORIES: CategoryConfig[] = [
   { id: "salary", label: "Salary" },
   { id: "freelance", label: "Freelance" },
   { id: "invest", label: "Invest" },
-  { id: "transfer", label: "Transfer" },
+  { id: TRANSFER_CATEGORY_ID, label: "Transfer" },
   { id: "gift", label: "Gift" },
   { id: "refund", label: "Refund" },
   { id: "allowance", label: "Allowance" },

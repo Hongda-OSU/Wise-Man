@@ -6,7 +6,8 @@ import { FONTS } from "@/constants/fonts";
 
 interface TabHeaderProps {
   title: string;
-  onAdd: () => void;
+  /** Omit on a tab that creates nothing -- no button is drawn. */
+  onAdd?: () => void;
   /** Omit when something else below supplies the rule, as the figure band does. */
   ruled?: boolean;
 }
@@ -17,15 +18,17 @@ export default function TabHeader({ title, onAdd, ruled = true }: TabHeaderProps
     <View style={[styles.row, ruled && styles.ruled]}>
       <Text style={styles.title}>{title}</Text>
 
-      <TouchableOpacity
-        style={styles.action}
-        onPress={onAdd}
-        hitSlop={8}
-        accessibilityRole="button"
-        accessibilityLabel={`Add to ${title}`}
-      >
-        <Plus size={19} color={COLORS.textPrimary} />
-      </TouchableOpacity>
+      {onAdd ? (
+        <TouchableOpacity
+          style={styles.action}
+          onPress={onAdd}
+          hitSlop={8}
+          accessibilityRole="button"
+          accessibilityLabel={`Add to ${title}`}
+        >
+          <Plus size={19} color={COLORS.textPrimary} />
+        </TouchableOpacity>
+      ) : null}
     </View>
   );
 }

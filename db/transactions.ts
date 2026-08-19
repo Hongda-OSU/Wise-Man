@@ -1,10 +1,12 @@
 import { randomUUID } from "expo-crypto";
-import { desc, eq, like } from "drizzle-orm";
+import { desc, eq, like, ne, sql } from "drizzle-orm";
 
 import { db } from "@/db/client";
 import { transactions } from "@/db/schema";
 import type { TransactionRow } from "@/db/schema";
-import type { NewTransaction, Transaction } from "@/types/transaction";
+import { TRANSFER_CATEGORY_ID } from "@/constants/categories";
+import { shiftMonth } from "@/utils/dateUtils";
+import type { NewTransaction, Transaction, TransactionType } from "@/types/transaction";
 
 // The only file that knows SQL. Everything above it works in Transaction.
 
@@ -42,6 +44,46 @@ export async function listTransactionsInMonth(month: string): Promise<Transactio
     .orderBy(desc(transactions.date), desc(transactions.createdAt));
 
   return rows.map(toTransaction);
+}
+
+export interface MonthlyTotal {
+  /** YYYY-MM. */
+  month: string;
+  amountCents: number;
+}
+
+/**
+ * Income or expense per month for the last `count` months, oldest first.
+ *
+ * One grouped query rather than one per month, and the grouping key is the first
+ * seven characters of the date -- which works only because dates are stored as
+ * ISO text. Months with nothing in them are filled in here rather than in SQL,
+ * since SQLite has no rows to group for a month that saw nothing. Transfers are
+ * excluded on both sides: moving money between your own accounts is neither.
+ */
+export async function listMonthlyTotals(
+  month: string,
+  count: number,
+  type: TransactionType,
+): Promise<MonthlyTotal[]> {
+  const rows = await db
+    .select({
+      month: sql<string>`substr(${transactions.date}, 1, 7)`,
+      amountCents: sql<number>`sum(${transactions.amountCents})`,
+    })
+    .from(transactions)
+    .where(
+      sql`${transactions.type} = ${type}
+        and ${ne(transactions.categoryId, TRANSFER_CATEGORY_ID)}`,
+    )
+    .groupBy(sql`substr(${transactions.date}, 1, 7)`);
+
+  const totals = new Map(rows.map((row) => [row.month, row.amountCents]));
+
+  return Array.from({ length: count }, (_, offset) => {
+    const key = shiftMonth(month, offset - (count - 1));
+    return { month: key, amountCents: totals.get(key) ?? 0 };
+  });
 }
 
 export async function getTransaction(id: string): Promise<Transaction | null> {
