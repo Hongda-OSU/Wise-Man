@@ -75,6 +75,7 @@ export default function HomeScreen() {
         income={income}
         expense={expense}
         onPressMonth={() => setMonthSheetOpen(true)}
+        onPressSearch={() => router.push("/search")}
       />
 
       {error ? <ErrorNotice message={error} /> : null}

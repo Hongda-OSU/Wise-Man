@@ -1,7 +1,6 @@
-import { SectionList, View, Text, StyleSheet } from "react-native";
+import { SectionList, StyleSheet } from "react-native";
 
-import { COLORS } from "@/constants/colors";
-import { FONTS, FONT_SIZES } from "@/constants/fonts";
+import SectionHeading from "@/components/molecules/SectionHeading";
 import TransactionItem from "@/components/molecules/TransactionItem";
 import EmptyState from "@/components/molecules/EmptyState";
 import type { TransactionSection } from "@/types/transaction";
@@ -35,11 +34,7 @@ export default function TransactionList({
         />
       }
       // Each date is a ruled section head, in the same eyebrow the header band uses.
-      renderSectionHeader={({ section }) => (
-        <View style={styles.sectionHeader}>
-          <Text style={styles.sectionTitle}>{section.title.toUpperCase()}</Text>
-        </View>
-      )}
+      renderSectionHeader={({ section }) => <SectionHeading title={section.title.toUpperCase()} />}
       renderItem={({ item }) => (
         <TransactionItem transaction={item} onEdit={onEdit} onDelete={onDelete} />
       )}
@@ -50,19 +45,5 @@ export default function TransactionList({
 const styles = StyleSheet.create({
   content: {
     paddingBottom: 120,
-  },
-  sectionHeader: {
-    backgroundColor: COLORS.surface,
-    paddingHorizontal: 20,
-    paddingVertical: 7,
-    borderTopWidth: StyleSheet.hairlineWidth,
-    borderBottomWidth: StyleSheet.hairlineWidth,
-    borderColor: COLORS.border,
-  },
-  sectionTitle: {
-    fontFamily: FONTS.medium,
-    fontSize: FONT_SIZES.micro,
-    color: COLORS.textSecondary,
-    letterSpacing: 0.6,
   },
 });

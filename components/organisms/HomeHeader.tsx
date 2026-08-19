@@ -1,5 +1,5 @@
 import { View, Text, Image, TouchableOpacity, StyleSheet } from "react-native";
-import { Search, User, ChevronDown } from "lucide-react-native";
+import { Search, ChevronDown } from "lucide-react-native";
 
 import { COLORS } from "@/constants/colors";
 import { FONTS, FONT_SIZES } from "@/constants/fonts";
@@ -11,6 +11,7 @@ interface HomeHeaderProps {
   income: number;
   expense: number;
   onPressMonth: () => void;
+  onPressSearch: () => void;
 }
 
 interface CellProps {
@@ -34,6 +35,7 @@ export default function HomeHeader({
   income,
   expense,
   onPressMonth,
+  onPressSearch,
 }: HomeHeaderProps) {
   return (
     <View>
@@ -43,23 +45,19 @@ export default function HomeHeader({
           <Text style={styles.wordmark}>Wise Man</Text>
         </View>
 
-        {/* Grouped, the way the reference groups its controls, rather than two loose glyphs. */}
-        <View style={styles.actions}>
-          <TouchableOpacity
-            style={styles.action}
-            accessibilityRole="button"
-            accessibilityLabel="Search"
-          >
-            <Search size={19} color={COLORS.textPrimary} />
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={styles.action}
-            accessibilityRole="button"
-            accessibilityLabel="Profile"
-          >
-            <User size={19} color={COLORS.textPrimary} />
-          </TouchableOpacity>
-        </View>
+        {/* One glyph, so no capsule around it. The container existed to group two
+            controls; the profile button went because there was nothing behind it
+            -- no account, no theme, no language, nothing to put on a settings
+            screen that would not have been invented for the occasion. */}
+        <TouchableOpacity
+          style={styles.action}
+          onPress={onPressSearch}
+          hitSlop={8}
+          accessibilityRole="button"
+          accessibilityLabel="Search"
+        >
+          <Search size={19} color={COLORS.textPrimary} />
+        </TouchableOpacity>
       </View>
 
       {/* A measured band of figures, divided by hairlines, in place of empty header space.
@@ -117,15 +115,6 @@ const styles = StyleSheet.create({
     fontSize: 19,
     color: COLORS.textPrimary,
     letterSpacing: -0.3,
-  },
-  actions: {
-    flexDirection: "row",
-    alignItems: "center",
-    backgroundColor: COLORS.surface,
-    borderRadius: 20,
-    paddingHorizontal: 6,
-    paddingVertical: 4,
-    gap: 10,
   },
   action: {
     width: 32,

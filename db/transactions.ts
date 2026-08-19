@@ -1,10 +1,14 @@
 import { randomUUID } from "expo-crypto";
-import { desc, eq, like, ne, sql } from "drizzle-orm";
+import { desc, eq, inArray, like, ne, or, sql } from "drizzle-orm";
 
 import { db } from "@/db/client";
 import { transactions } from "@/db/schema";
 import type { TransactionRow } from "@/db/schema";
-import { TRANSFER_CATEGORY_ID } from "@/constants/categories";
+import {
+  EXPENSE_CATEGORIES,
+  INCOME_CATEGORIES,
+  TRANSFER_CATEGORY_ID,
+} from "@/constants/categories";
 import { shiftMonth } from "@/utils/dateUtils";
 import type { NewTransaction, Transaction, TransactionType } from "@/types/transaction";
 
@@ -84,6 +88,38 @@ export async function listMonthlyTotals(
     const key = shiftMonth(month, offset - (count - 1));
     return { month: key, amountCents: totals.get(key) ?? 0 };
   });
+}
+
+/**
+ * Notes and category names, across every month -- unlike the store, which holds
+ * one month at a time.
+ *
+ * Category names are matched by resolving the term against the lists in
+ * `constants/` first: the rows store a category id, so "food" would never match
+ * "Food & Drink" in SQL. LIKE is left as-is because SQLite already ignores case
+ * for ASCII, and lower() on the column would defeat any future index.
+ */
+export async function searchTransactions(term: string): Promise<Transaction[]> {
+  const query = term.trim();
+  if (!query) return [];
+
+  const categoryIds = [...EXPENSE_CATEGORIES, ...INCOME_CATEGORIES]
+    .filter((category) => category.label.toLowerCase().includes(query.toLowerCase()))
+    .map((category) => category.id);
+
+  const matchesNote = like(transactions.note, `%${query}%`);
+
+  const rows = await db
+    .select()
+    .from(transactions)
+    .where(
+      categoryIds.length
+        ? or(matchesNote, inArray(transactions.categoryId, categoryIds))
+        : matchesNote,
+    )
+    .orderBy(desc(transactions.date), desc(transactions.createdAt));
+
+  return rows.map(toTransaction);
 }
 
 export async function getTransaction(id: string): Promise<Transaction | null> {

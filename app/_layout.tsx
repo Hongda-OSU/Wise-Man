@@ -64,6 +64,7 @@ export default function RootLayout() {
       >
         <Stack.Screen name="(tabs)" />
         <Stack.Screen name="track" />
+        <Stack.Screen name="search" />
         <Stack.Screen name="transaction/[id]" />
         <Stack.Screen name="bill/new" />
         <Stack.Screen name="bill/[id]" />

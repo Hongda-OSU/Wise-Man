@@ -20,11 +20,11 @@ seconds; everything stays in SQLite on the device.
 ## Status
 
 All five tabs are built. Create, edit, delete, and it survives a restart. Money sits in
-accounts that add up to a net worth, recurring bills post themselves, and Analysis breaks
-a month down against the one before it.
+accounts that add up to a net worth, recurring bills post themselves, Analysis breaks a
+month down against the one before it, and search reaches every month at once.
 
-Search and the profile button in the header are inert, and a transfer between your own
-accounts is a convention rather than a modelled operation — see below.
+A transfer between your own accounts is a convention rather than a modelled operation —
+see below.
 
 ## Getting started
 

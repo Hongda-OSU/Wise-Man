@@ -1,7 +1,6 @@
-import { SectionList, View, Text, StyleSheet } from "react-native";
+import { SectionList, StyleSheet } from "react-native";
 
-import { COLORS } from "@/constants/colors";
-import { FONTS, FONT_SIZES } from "@/constants/fonts";
+import SectionHeading from "@/components/molecules/SectionHeading";
 import AccountItem from "@/components/molecules/AccountItem";
 import EmptyState from "@/components/molecules/EmptyState";
 import type { AccountSection } from "@/utils/groupAccounts";
@@ -29,11 +28,7 @@ export default function AccountList({ sections, onEdit, onDelete, onAdd }: Accou
           onAction={onAdd}
         />
       }
-      renderSectionHeader={({ section }) => (
-        <View style={styles.sectionHeader}>
-          <Text style={styles.sectionTitle}>{section.title}</Text>
-        </View>
-      )}
+      renderSectionHeader={({ section }) => <SectionHeading title={section.title} />}
       renderItem={({ item }) => <AccountItem item={item} onEdit={onEdit} onDelete={onDelete} />}
     />
   );
@@ -42,20 +37,5 @@ export default function AccountList({ sections, onEdit, onDelete, onAdd }: Accou
 const styles = StyleSheet.create({
   content: {
     paddingBottom: 120,
-  },
-  // The same ruled section head the ledger uses, so every table reads as one system.
-  sectionHeader: {
-    backgroundColor: COLORS.surface,
-    paddingHorizontal: 20,
-    paddingVertical: 7,
-    borderTopWidth: StyleSheet.hairlineWidth,
-    borderBottomWidth: StyleSheet.hairlineWidth,
-    borderColor: COLORS.border,
-  },
-  sectionTitle: {
-    fontFamily: FONTS.medium,
-    fontSize: FONT_SIZES.micro,
-    color: COLORS.textSecondary,
-    letterSpacing: 0.6,
   },
 });
