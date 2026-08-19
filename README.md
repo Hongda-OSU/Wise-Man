@@ -17,15 +17,6 @@ seconds; everything stays in SQLite on the device.
 | ---------------------------------------------------------------- | -------------------------------------------------------------------- | -------------------------------------------------------------------------- |
 | <img src="docs/screenshots/events.png" alt="Events" width="185"> | <img src="docs/screenshots/analysis.png" alt="Analysis" width="185"> | <img src="docs/screenshots/transaction.png" alt="Transaction" width="185"> |
 
-## Status
-
-All five tabs are built. Create, edit, delete, and it survives a restart. Money sits in
-accounts that add up to a net worth, recurring bills post themselves, Analysis breaks a
-month down against the one before it, and search reaches every month at once.
-
-A transfer between your own accounts is a convention rather than a modelled operation —
-see below.
-
 ## Getting started
 
 Node 20.19.4 or newer, plus Xcode or Android Studio.
