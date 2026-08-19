@@ -6,23 +6,25 @@ seconds; everything stays in SQLite on the device.
 ## Screens
 
 <!-- Widths are pinned because a markdown table sizes its columns by content, and
-     a long heading widens its image along with it. -->
+     a long heading widens its image along with it. Three to a row rather than
+     six, so each one stays large enough to read. -->
 
-| Splash                                                           | Home                                                         | Portfolio                                                              | Events                                                           | Transaction                                                                |
-| ---------------------------------------------------------------- | ------------------------------------------------------------ | ---------------------------------------------------------------------- | ---------------------------------------------------------------- | -------------------------------------------------------------------------- |
-| <img src="docs/screenshots/splash.png" alt="Splash" width="150"> | <img src="docs/screenshots/home.png" alt="Home" width="150"> | <img src="docs/screenshots/portfolio.png" alt="Portfolio" width="150"> | <img src="docs/screenshots/events.png" alt="Events" width="150"> | <img src="docs/screenshots/transaction.png" alt="Transaction" width="150"> |
+| Splash                                                           | Home                                                         | Portfolio                                                              |
+| ---------------------------------------------------------------- | ------------------------------------------------------------ | ---------------------------------------------------------------------- |
+| <img src="docs/screenshots/splash.png" alt="Splash" width="185"> | <img src="docs/screenshots/home.png" alt="Home" width="185"> | <img src="docs/screenshots/portfolio.png" alt="Portfolio" width="185"> |
+
+| Events                                                           | Analysis                                                             | Transaction                                                                |
+| ---------------------------------------------------------------- | -------------------------------------------------------------------- | -------------------------------------------------------------------------- |
+| <img src="docs/screenshots/events.png" alt="Events" width="185"> | <img src="docs/screenshots/analysis.png" alt="Analysis" width="185"> | <img src="docs/screenshots/transaction.png" alt="Transaction" width="185"> |
 
 ## Status
 
-Create, edit, delete, and it survives a restart. Money sits in accounts that add up to a
-net worth, and recurring bills post themselves.
+All five tabs are built. Create, edit, delete, and it survives a restart. Money sits in
+accounts that add up to a net worth, recurring bills post themselves, and Analysis breaks
+a month down against the one before it.
 
-| Screen                         | State       |
-| ------------------------------ | ----------- |
-| Home, Track, Portfolio, Events | Done        |
-| Analysis                       | Placeholder |
-
-Search and the profile button in the header are inert.
+Search and the profile button in the header are inert, and a transfer between your own
+accounts is a convention rather than a modelled operation — see below.
 
 ## Getting started
 
@@ -54,6 +56,10 @@ against `xcodebuild -showsdks | grep iOS`; if the runtime is behind, run
 - **An account stores only where it started.** Its balance is that opening figure plus
   every transaction against it, worked out on read — a stored one could disagree with the
   ledger. A credit card opened owing money starts negative, so nothing special-cases debt.
+- **A transfer is two rows under the `transfer` category**, one leaving and one arriving,
+  and every total skips that category: moving $500 between your own accounts is not $500
+  earned and $500 spent. Nothing links the two rows or enters them for you, which is the
+  cost of not giving a transaction a third type and rewriting four working screens.
 - **A recurring bill is a rule, not a reminder.** Every occurrence it has reached posts an
   ordinary transaction at launch, dated the day it was due. A `last_posted_date` cursor
   keeps that idempotent, so deleting a posted transaction does not bring it back — which
