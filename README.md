@@ -38,24 +38,21 @@ against `xcodebuild -showsdks | grep iOS`; if the runtime is behind, run
 ## Data
 
 - **Amounts are integer cents.** SQLite `REAL` is IEEE 754, and a ledger of floats drifts
-  as it is summed — the one thing this app exists to do.
-- **Dates are `TEXT` as `YYYY-MM-DD`** — the calendar day the money moved, not an instant,
-  so which month a transaction falls in never depends on the reader's timezone. ISO text
-  sorts chronologically and matches a month by prefix, and the column is indexed.
-- **Categories are ids into `constants/categories.ts`**, not rows. They are code, and a
-  table would mean seeding and migrating something that never changes.
-- **An account stores only where it started.** Its balance is that opening figure plus
-  every transaction against it, worked out on read — a stored one could disagree with the
-  ledger. A credit card opened owing money starts negative, so nothing special-cases debt.
-- **A transfer is two rows under the `transfer` category**, one leaving and one arriving,
-  and every total skips that category: moving $500 between your own accounts is not $500
-  earned and $500 spent. Nothing links the two rows or enters them for you, which is the
-  cost of not giving a transaction a third type and rewriting four working screens.
-- **A recurring bill is a rule, not a reminder.** Every occurrence it has reached posts an
-  ordinary transaction at launch, dated the day it was due. A `last_posted_date` cursor
-  keeps that idempotent, so deleting a posted transaction does not bring it back — which
-  is how "this should not have happened" is said. Nothing to tick off, and no overdue
-  state: a date that has arrived has already posted.
+  as it is summed.
+- **Dates are `TEXT` as `YYYY-MM-DD`** — a calendar day, not an instant, so which month a
+  transaction falls in never depends on a timezone. ISO text also sorts, and matches a
+  month by prefix.
+- **Categories are ids into `constants/categories.ts`**, not rows: a table would mean
+  migrating something that never changes.
+- **An account stores only its opening balance.** The rest is the ledger, summed on read —
+  a stored balance could disagree with the transactions under it. A credit card starts
+  negative, so debt needs no special case.
+- **A transfer is two rows tagged `transfer`**, and every total skips them: $500 moved
+  between your own accounts is not $500 earned and $500 spent. Nothing links the pair or
+  enters them for you.
+- **A recurring bill posts itself.** Every occurrence it has reached becomes an ordinary
+  transaction at launch, dated the day it was due. A `last_posted_date` cursor keeps that
+  idempotent, so deleting one does not bring it back — and nothing is ever overdue.
 
 Run `npx drizzle-kit generate` after editing `db/schema.ts`. Migrations are bundled into
 the JS and applied at launch. In development the `...` menu on Home loads and clears
