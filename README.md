@@ -60,8 +60,9 @@ sample data.
 
 ## Stack
 
-Expo SDK 57 · React Native 0.86 · TypeScript · Expo Router · expo-sqlite + Drizzle ·
-Zustand · StyleSheet · lucide-react-native · DM Sans + Manrope
+Expo SDK 57 · React Native 0.86 · TypeScript · Expo Router\
+expo-sqlite · Drizzle · Zustand\
+StyleSheet · lucide-react-native · DM Sans · Manrope
 
 ## Conventions
 
