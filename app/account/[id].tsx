@@ -8,7 +8,6 @@ import AccountForm from "@/components/organisms/AccountForm";
 import { COLORS } from "@/constants/colors";
 import { FONTS, FONT_SIZES } from "@/constants/fonts";
 import { SPACING } from "@/constants/spacing";
-import { getAccount } from "@/db/accounts";
 import { useAccountStore } from "@/stores/accounts";
 import { confirmAccountDelete } from "@/utils/confirmAccountDelete";
 import type { Account, NewAccount } from "@/types/account";
@@ -19,18 +18,19 @@ export default function AccountDetailScreen() {
 
   const edit = useAccountStore((state) => state.edit);
   const remove = useAccountStore((state) => state.remove);
+  const find = useAccountStore((state) => state.find);
 
-  // Read from the database, so the screen works on a cold start rather than only
-  // when the list happens to be loaded behind it.
+  // Looked up by id rather than taken from `items`, so the screen works on a cold
+  // start rather than only when the list happens to be loaded behind it.
   const [account, setAccount] = useState<Account | null>(null);
   const [loaded, setLoaded] = useState(false);
 
   useEffect(() => {
-    getAccount(id).then((found) => {
+    find(id).then((found) => {
       setAccount(found);
       setLoaded(true);
     });
-  }, [id]);
+  }, [find, id]);
 
   const handleSubmit = async (input: NewAccount) => {
     await edit(id, input);

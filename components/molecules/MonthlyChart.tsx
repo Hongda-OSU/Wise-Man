@@ -6,8 +6,7 @@ import { SPACING } from "@/constants/spacing";
 import { formatMonthAbbrev } from "@/utils/dateUtils";
 import { formatAmount } from "@/utils/formatAmount";
 import { TRANSACTION_TYPES } from "@/types/transaction";
-import type { TransactionType } from "@/types/transaction";
-import type { MonthlyTotal } from "@/db/transactions";
+import type { MonthlyTotal, TransactionType } from "@/types/transaction";
 
 interface MonthlyChartProps {
   /** Oldest first. The last entry is the month being viewed. */

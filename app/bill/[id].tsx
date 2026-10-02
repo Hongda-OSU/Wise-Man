@@ -8,7 +8,6 @@ import BillForm from "@/components/organisms/BillForm";
 import { COLORS } from "@/constants/colors";
 import { FONTS, FONT_SIZES } from "@/constants/fonts";
 import { SPACING } from "@/constants/spacing";
-import { getBill } from "@/db/bills";
 import { useBillStore } from "@/stores/bills";
 import type { Bill, NewBill } from "@/types/bill";
 
@@ -18,18 +17,19 @@ export default function BillDetailScreen() {
 
   const edit = useBillStore((state) => state.edit);
   const remove = useBillStore((state) => state.remove);
+  const find = useBillStore((state) => state.find);
 
-  // Read from the database, so the screen works on a cold start rather than only
-  // when the list happens to be loaded behind it.
+  // Looked up by id rather than taken from `items`, so the screen works on a cold
+  // start rather than only when the list happens to be loaded behind it.
   const [bill, setBill] = useState<Bill | null>(null);
   const [loaded, setLoaded] = useState(false);
 
   useEffect(() => {
-    getBill(id).then((found) => {
+    find(id).then((found) => {
       setBill(found);
       setLoaded(true);
     });
-  }, [id]);
+  }, [find, id]);
 
   const handleSubmit = async (input: NewBill) => {
     await edit(id, input);

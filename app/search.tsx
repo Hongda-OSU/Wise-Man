@@ -9,7 +9,6 @@ import TransactionItem from "@/components/molecules/TransactionItem";
 import { COLORS } from "@/constants/colors";
 import { FONTS, FONT_SIZES } from "@/constants/fonts";
 import { SPACING } from "@/constants/spacing";
-import { searchTransactions } from "@/db/transactions";
 import { useTransactionStore } from "@/stores/transactions";
 import { groupByDay } from "@/utils/groupTransactions";
 import type { Transaction } from "@/types/transaction";
@@ -18,6 +17,7 @@ export default function SearchScreen() {
   const router = useRouter();
   const remove = useTransactionStore((state) => state.remove);
   const reload = useTransactionStore((state) => state.load);
+  const search = useTransactionStore((state) => state.search);
 
   const [term, setTerm] = useState("");
   const [results, setResults] = useState<Transaction[]>([]);
@@ -30,10 +30,10 @@ export default function SearchScreen() {
   useEffect(() => {
     latest.current = term;
 
-    searchTransactions(term).then((found) => {
+    search(term).then((found) => {
       if (latest.current === term) setResults(found);
     });
-  }, [term]);
+  }, [search, term]);
 
   const handleDelete = async (id: string) => {
     await remove(id);

@@ -1,6 +1,6 @@
 import { create } from "zustand";
 
-import { catchUpBills, deleteBill, insertBill, listBills, updateBill } from "@/db/bills";
+import { catchUpBills, deleteBill, getBill, insertBill, listBills, updateBill } from "@/db/bills";
 import { useTransactionStore } from "@/stores/transactions";
 import type { Bill, NewBill } from "@/types/bill";
 
@@ -15,6 +15,9 @@ interface BillState {
   add: (input: NewBill) => Promise<void>;
   edit: (id: string, patch: Partial<NewBill>) => Promise<void>;
   remove: (id: string) => Promise<void>;
+
+  /** One bill straight from the database, so it works before `load` has run. */
+  find: (id: string) => Promise<Bill | null>;
 }
 
 function message(error: unknown): string {
@@ -59,6 +62,8 @@ export const useBillStore = create<BillState>((set, get) => ({
       set({ error: message(error) });
     }
   },
+
+  find: (id) => getBill(id),
 
   remove: async (id) => {
     try {

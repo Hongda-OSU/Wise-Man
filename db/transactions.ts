@@ -10,7 +10,12 @@ import {
   TRANSFER_CATEGORY_ID,
 } from "@/constants/categories";
 import { shiftMonth } from "@/utils/dateUtils";
-import type { NewTransaction, Transaction, TransactionType } from "@/types/transaction";
+import type {
+  MonthlyTotal,
+  NewTransaction,
+  Transaction,
+  TransactionType,
+} from "@/types/transaction";
 
 // The only file that knows SQL. Everything above it works in Transaction.
 
@@ -48,12 +53,6 @@ export async function listTransactionsInMonth(month: string): Promise<Transactio
     .orderBy(desc(transactions.date), desc(transactions.createdAt));
 
   return rows.map(toTransaction);
-}
-
-export interface MonthlyTotal {
-  /** YYYY-MM. */
-  month: string;
-  amountCents: number;
 }
 
 /**

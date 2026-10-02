@@ -1,7 +1,13 @@
 import { create } from "zustand";
 
-import { deleteAccount, insertAccount, listAccountBalances, updateAccount } from "@/db/accounts";
-import type { AccountBalance, NewAccount } from "@/types/account";
+import {
+  deleteAccount,
+  getAccount,
+  insertAccount,
+  listAccountBalances,
+  updateAccount,
+} from "@/db/accounts";
+import type { Account, AccountBalance, NewAccount } from "@/types/account";
 
 interface AccountState {
   /** Each account with its balance already worked out from the ledger. */
@@ -14,6 +20,9 @@ interface AccountState {
   add: (input: NewAccount) => Promise<void>;
   edit: (id: string, patch: Partial<NewAccount>) => Promise<void>;
   remove: (id: string) => Promise<void>;
+
+  /** One account straight from the database, so it works before `load` has run. */
+  find: (id: string) => Promise<Account | null>;
 }
 
 function message(error: unknown): string {
@@ -53,6 +62,8 @@ export const useAccountStore = create<AccountState>((set, get) => ({
       set({ error: message(error) });
     }
   },
+
+  find: (id) => getAccount(id),
 
   // The refusal from deleteAccount lands in `error`, which the screen renders --
   // it is a message for the person, not a crash.

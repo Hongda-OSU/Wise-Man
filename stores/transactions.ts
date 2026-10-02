@@ -2,13 +2,21 @@ import { create } from "zustand";
 
 import {
   deleteTransaction,
+  getTransaction,
   insertTransaction,
+  listMonthlyTotals,
   listTransactionsInMonth,
+  searchTransactions,
   updateTransaction,
 } from "@/db/transactions";
 import { clearAllData, seedSampleData } from "@/db/seed";
 import { toMonthKey } from "@/utils/dateUtils";
-import type { NewTransaction, Transaction } from "@/types/transaction";
+import type {
+  MonthlyTotal,
+  NewTransaction,
+  Transaction,
+  TransactionType,
+} from "@/types/transaction";
 
 interface TransactionState {
   /** YYYY-MM. The one place that decides which month the app is showing. */
@@ -23,6 +31,12 @@ interface TransactionState {
   add: (input: NewTransaction) => Promise<void>;
   edit: (id: string, patch: Partial<NewTransaction>) => Promise<void>;
   remove: (id: string) => Promise<void>;
+
+  // Reads that reach past the month in `items`. They hand their result back
+  // rather than holding it, since no other screen needs it.
+  find: (id: string) => Promise<Transaction | null>;
+  search: (term: string) => Promise<Transaction[]>;
+  monthlyTotals: (month: string, count: number, type: TransactionType) => Promise<MonthlyTotal[]>;
 
   /** Development only -- see db/seed.ts. */
   seed: () => Promise<void>;
@@ -81,6 +95,10 @@ export const useTransactionStore = create<TransactionState>((set, get) => ({
       set({ error: message(error) });
     }
   },
+
+  find: (id) => getTransaction(id),
+  search: (term) => searchTransactions(term),
+  monthlyTotals: (month, count, type) => listMonthlyTotals(month, count, type),
 
   seed: async () => {
     try {

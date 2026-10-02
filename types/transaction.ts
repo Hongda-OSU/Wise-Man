@@ -25,6 +25,12 @@ export interface Transaction {
 /** What the track screen collects; the id and timestamps are set on write. */
 export type NewTransaction = Omit<Transaction, "id" | "createdAt" | "updatedAt">;
 
+export interface MonthlyTotal {
+  /** YYYY-MM. */
+  month: string;
+  amountCents: number;
+}
+
 export interface TransactionSection {
   title: string; // e.g. "March 15, 2026"
   data: Transaction[];

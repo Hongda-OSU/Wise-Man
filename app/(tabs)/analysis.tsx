@@ -14,13 +14,11 @@ import TabHeader from "@/components/molecules/TabHeader";
 import TypeToggle from "@/components/molecules/TypeToggle";
 import { COLORS } from "@/constants/colors";
 import { TAB_BAR_CLEARANCE } from "@/constants/spacing";
-import { listMonthlyTotals } from "@/db/transactions";
-import type { MonthlyTotal } from "@/db/transactions";
 import { useTransactionStore } from "@/stores/transactions";
 import { recentMonths, shiftMonth } from "@/utils/dateUtils";
 import { sumByCategory } from "@/utils/groupTransactions";
 import { TRANSACTION_TYPES } from "@/types/transaction";
-import type { TransactionType } from "@/types/transaction";
+import type { MonthlyTotal, TransactionType } from "@/types/transaction";
 
 // Half a year: enough for a shape to appear, few enough that the bars stay wide
 // enough to read on a phone. The last two also feed the comparison above them.
@@ -37,14 +35,15 @@ export default function AnalysisScreen() {
   const error = useTransactionStore((state) => state.error);
   const load = useTransactionStore((state) => state.load);
   const setMonth = useTransactionStore((state) => state.setMonth);
+  const monthlyTotals = useTransactionStore((state) => state.monthlyTotals);
 
   // On focus and whenever the month changes. None of this is in the store, which
   // holds one month of rows at a time.
   useFocusEffect(
     useCallback(() => {
       load();
-      listMonthlyTotals(month, TREND_MONTHS, type).then(setTotals);
-    }, [load, month, type]),
+      monthlyTotals(month, TREND_MONTHS, type).then(setTotals);
+    }, [load, monthlyTotals, month, type]),
   );
 
   const monthOptions = useMemo(() => recentMonths(12), []);

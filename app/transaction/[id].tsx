@@ -8,7 +8,6 @@ import TransactionForm from "@/components/organisms/TransactionForm";
 import { COLORS } from "@/constants/colors";
 import { FONTS, FONT_SIZES } from "@/constants/fonts";
 import { SPACING } from "@/constants/spacing";
-import { getTransaction } from "@/db/transactions";
 import { useTransactionStore } from "@/stores/transactions";
 import { toMonthKey } from "@/utils/dateUtils";
 import type { NewTransaction, Transaction } from "@/types/transaction";
@@ -20,18 +19,19 @@ export default function TransactionDetailScreen() {
   const edit = useTransactionStore((state) => state.edit);
   const remove = useTransactionStore((state) => state.remove);
   const setMonth = useTransactionStore((state) => state.setMonth);
+  const find = useTransactionStore((state) => state.find);
 
-  // Read from the database rather than the store: the row may belong to a month
+  // Looked up by id rather than taken from `items`: the row may belong to a month
   // the store is not currently holding.
   const [transaction, setTransaction] = useState<Transaction | null>(null);
   const [loaded, setLoaded] = useState(false);
 
   useEffect(() => {
-    getTransaction(id).then((found) => {
+    find(id).then((found) => {
       setTransaction(found);
       setLoaded(true);
     });
-  }, [id]);
+  }, [find, id]);
 
   const handleSubmit = async (input: NewTransaction) => {
     await edit(id, input);
