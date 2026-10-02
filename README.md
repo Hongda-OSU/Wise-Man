@@ -1,9 +1,7 @@
 # Wise Man
 
-A local-first personal finance app for iOS and Android. Log income and expenses in
-seconds; everything stays in SQLite on the device.
-
-## Screens
+A local-first personal finance app for iOS and Android: log income and expenses in
+seconds, with everything kept in SQLite on the device.
 
 <!-- Widths are pinned because a markdown table sizes its columns by content, and
      a long heading widens its image along with it. Three to a row rather than
@@ -17,53 +15,45 @@ seconds; everything stays in SQLite on the device.
 | ---------------------------------------------------------------- | -------------------------------------------------------------------- | -------------------------------------------------------------------------- |
 | <img src="docs/screenshots/events.png" alt="Events" width="185"> | <img src="docs/screenshots/analysis.png" alt="Analysis" width="185"> | <img src="docs/screenshots/transaction.png" alt="Transaction" width="185"> |
 
-## Getting started
+## Features
 
-Node 20.19.4 or newer, plus Xcode or Android Studio.
+- Log a transaction in a few taps, and search notes and categories across every month
+- Track several accounts, with balances and net worth worked out from the ledger
+- Recurring bills that post themselves when they come due
+- Compare the month with the last, see a six-month trend, and rank spending by category
+- No account, no server: the data never leaves the phone
+
+## Tech Stack
+
+- App: Expo SDK 57, React Native 0.86, TypeScript, Expo Router
+- Data: SQLite (expo-sqlite) with Drizzle, Zustand for state
+- UI: StyleSheet, lucide-react-native, DM Sans and Manrope
+
+## Getting Started
+
+### Prerequisites
+
+- Node.js 20.19.4 or newer
+- Xcode with an iOS simulator, or Android Studio
+
+### Installation
 
 ```bash
+git clone https://github.com/Hongda-OSU/Wise-Man.git
+cd Wise-Man
 npm install
-npm run ios       # or npm run android
-npm start         # Metro only, if the app is already installed
 ```
 
-There is no web target. The first build takes a few minutes; JS changes hot-reload after
-that.
+## Usage
 
-**iOS build fails with `error code 70`?** Xcode downloads the iOS platform separately from
-the SDK, and an update leaves the old runtime behind. Compare `xcrun simctl list runtimes`
-against `xcodebuild -showsdks | grep iOS`; if the runtime is behind, run
-`sudo xcodebuild -runFirstLaunch` then `xcodebuild -downloadPlatform iOS`.
+```bash
+npm run ios       # build and launch on the iOS simulator; npm run android for Android
+npm start         # Metro only, once the app is installed
+```
 
-## Data
+The first build takes a few minutes; JS changes hot-reload after that. There is no web
+target.
 
-- **Amounts are integer cents.** SQLite `REAL` is IEEE 754, and a ledger of floats drifts
-  as it is summed.
-- **Dates are `TEXT` as `YYYY-MM-DD`** — a calendar day, not an instant, so which month a
-  transaction falls in never depends on a timezone. ISO text also sorts, and matches a
-  month by prefix.
-- **Categories are ids into `constants/categories.ts`**, not rows: a table would mean
-  migrating something that never changes.
-- **An account stores only its opening balance.** The rest is the ledger, summed on read —
-  a stored balance could disagree with the transactions under it. A credit card starts
-  negative, so debt needs no special case.
-- **A transfer is two rows tagged `transfer`**, and every total skips them: $500 moved
-  between your own accounts is not $500 earned and $500 spent. Nothing links the pair or
-  enters them for you.
-- **A recurring bill posts itself.** Every occurrence it has reached becomes an ordinary
-  transaction at launch, dated the day it was due. A `last_posted_date` cursor keeps that
-  idempotent, so deleting one does not bring it back — and nothing is ever overdue.
-
-Run `npx drizzle-kit generate` after editing `db/schema.ts`. Migrations are bundled into
-the JS and applied at launch. In development the `...` menu on Home loads and clears
-sample data.
-
-## Stack
-
-- Expo SDK 57 · React Native 0.86 · TypeScript · Expo Router
-- expo-sqlite · Drizzle · Zustand
-- StyleSheet · lucide-react-native · DM Sans · Manrope
-
-## Conventions
-
-See [CLAUDE.md](CLAUDE.md).
+If the iOS build fails with `error code 70`, see
+[docs/troubleshooting.md](docs/troubleshooting.md). Why the data is shaped as it is:
+[docs/data.md](docs/data.md).
