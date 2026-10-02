@@ -10,7 +10,10 @@ export const FONTS = {
 } as const;
 
 export const FONT_SIZES = {
-  display: 38,
+  // The headline figure: net worth, the month's total, the month-on-month change.
+  display: 30,
+  // Screen titles and the wordmark.
+  heading1: 19,
   heading2: 17,
   body: 16,
   subBody: 15,

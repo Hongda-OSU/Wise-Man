@@ -2,7 +2,7 @@ import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 import { Plus } from "lucide-react-native";
 
 import { COLORS } from "@/constants/colors";
-import { FONTS } from "@/constants/fonts";
+import { FONTS, FONT_SIZES } from "@/constants/fonts";
 
 interface TabHeaderProps {
   title: string;
@@ -50,7 +50,7 @@ const styles = StyleSheet.create({
   },
   title: {
     fontFamily: FONTS.displayBold,
-    fontSize: 19,
+    fontSize: FONT_SIZES.heading1,
     color: COLORS.textPrimary,
     letterSpacing: -0.3,
   },

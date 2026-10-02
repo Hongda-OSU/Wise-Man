@@ -41,7 +41,7 @@ const styles = StyleSheet.create({
   },
   value: {
     fontFamily: FONTS.displayExtraBold,
-    fontSize: 30,
+    fontSize: FONT_SIZES.display,
     color: COLORS.textPrimary,
     letterSpacing: -1.2,
   },

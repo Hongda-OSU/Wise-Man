@@ -108,7 +108,7 @@ const styles = StyleSheet.create({
   },
   figure: {
     fontFamily: FONTS.displayExtraBold,
-    fontSize: 30,
+    fontSize: FONT_SIZES.display,
     color: COLORS.textPrimary,
     letterSpacing: -1.2,
   },

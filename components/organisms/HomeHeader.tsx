@@ -112,7 +112,7 @@ const styles = StyleSheet.create({
   },
   wordmark: {
     fontFamily: FONTS.displayBold,
-    fontSize: 19,
+    fontSize: FONT_SIZES.heading1,
     color: COLORS.textPrimary,
     letterSpacing: -0.3,
   },
@@ -141,7 +141,7 @@ const styles = StyleSheet.create({
   },
   netValue: {
     fontFamily: FONTS.displayExtraBold,
-    fontSize: 30,
+    fontSize: FONT_SIZES.display,
     color: COLORS.textPrimary,
     letterSpacing: -1.2,
   },
