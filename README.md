@@ -33,7 +33,7 @@ seconds, with everything kept in SQLite on the device.
 
 ### Prerequisites
 
-- Node.js 20.19.4 or newer
+- Node.js 20.19.4+, 22.13+ or 24.3+
 - Xcode with an iOS simulator, or Android Studio
 
 ### Installation
@@ -52,7 +52,7 @@ npm start         # Metro only, once the app is installed
 ```
 
 The first build takes a few minutes; JS changes hot-reload after that. There is no web
-target.
+target. In a development build, the `...` menu on Home loads and clears sample data.
 
 If the iOS build fails with `error code 70`, see
 [docs/troubleshooting.md](docs/troubleshooting.md). Why the data is shaped as it is:
