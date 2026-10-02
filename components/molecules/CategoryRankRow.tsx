@@ -2,6 +2,7 @@ import { View, Text, StyleSheet } from "react-native";
 
 import { COLORS } from "@/constants/colors";
 import { FONTS, FONT_SIZES } from "@/constants/fonts";
+import { SPACING } from "@/constants/spacing";
 import { formatAmount } from "@/utils/formatAmount";
 import type { CategoryTotal } from "@/utils/groupTransactions";
 
@@ -36,16 +37,16 @@ export default function CategoryRankRow({ total }: CategoryRankRowProps) {
 
 const styles = StyleSheet.create({
   row: {
-    paddingHorizontal: 20,
-    paddingVertical: 12,
-    gap: 8,
+    paddingHorizontal: SPACING.lg,
+    paddingVertical: SPACING.sm,
+    gap: SPACING.xs,
     borderBottomWidth: StyleSheet.hairlineWidth,
     borderBottomColor: COLORS.border,
   },
   line: {
     flexDirection: "row",
     alignItems: "center",
-    gap: 12,
+    gap: SPACING.sm,
   },
   label: {
     flex: 1,

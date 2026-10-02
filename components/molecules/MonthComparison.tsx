@@ -3,6 +3,7 @@ import { ChevronDown } from "lucide-react-native";
 
 import { COLORS } from "@/constants/colors";
 import { FONTS, FONT_SIZES } from "@/constants/fonts";
+import { SPACING } from "@/constants/spacing";
 import { formatMonthLabel, formatMonthName } from "@/utils/dateUtils";
 import { formatAmount } from "@/utils/formatAmount";
 import { TRANSACTION_TYPES } from "@/types/transaction";
@@ -87,10 +88,10 @@ export default function MonthComparison({
 
 const styles = StyleSheet.create({
   band: {
-    paddingHorizontal: 20,
-    paddingTop: 12,
-    paddingBottom: 14,
-    gap: 3,
+    paddingHorizontal: SPACING.lg,
+    paddingTop: SPACING.sm,
+    paddingBottom: SPACING.sm,
+    gap: SPACING.xxs,
     alignItems: "flex-start",
     borderBottomWidth: StyleSheet.hairlineWidth,
     borderBottomColor: COLORS.border,
@@ -98,7 +99,7 @@ const styles = StyleSheet.create({
   monthButton: {
     flexDirection: "row",
     alignItems: "center",
-    gap: 4,
+    gap: SPACING.xxs,
   },
   eyebrow: {
     fontFamily: FONTS.medium,

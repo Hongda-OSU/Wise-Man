@@ -8,6 +8,7 @@ import SectionHeading from "@/components/molecules/SectionHeading";
 import TransactionItem from "@/components/molecules/TransactionItem";
 import { COLORS } from "@/constants/colors";
 import { FONTS, FONT_SIZES } from "@/constants/fonts";
+import { SPACING } from "@/constants/spacing";
 import { searchTransactions } from "@/db/transactions";
 import { useTransactionStore } from "@/stores/transactions";
 import { groupByDay } from "@/utils/groupTransactions";
@@ -130,10 +131,10 @@ const styles = StyleSheet.create({
   header: {
     flexDirection: "row",
     alignItems: "center",
-    gap: 14,
-    paddingHorizontal: 20,
-    paddingTop: 6,
-    paddingBottom: 14,
+    gap: SPACING.sm,
+    paddingHorizontal: SPACING.lg,
+    paddingTop: SPACING.xxs,
+    paddingBottom: SPACING.sm,
     borderBottomWidth: StyleSheet.hairlineWidth,
     borderBottomColor: COLORS.border,
   },
@@ -146,12 +147,12 @@ const styles = StyleSheet.create({
     padding: 0,
   },
   content: {
-    paddingBottom: 32,
+    paddingBottom: SPACING.xxl,
   },
   empty: {
-    paddingHorizontal: 20,
-    paddingVertical: 18,
-    gap: 6,
+    paddingHorizontal: SPACING.lg,
+    paddingVertical: SPACING.md,
+    gap: SPACING.xxs,
     borderBottomWidth: StyleSheet.hairlineWidth,
     borderBottomColor: COLORS.border,
   },

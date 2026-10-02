@@ -3,6 +3,7 @@ import { Plus } from "lucide-react-native";
 
 import { COLORS } from "@/constants/colors";
 import { FONTS, FONT_SIZES } from "@/constants/fonts";
+import { SPACING } from "@/constants/spacing";
 
 interface TabHeaderProps {
   title: string;
@@ -38,9 +39,9 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
-    paddingHorizontal: 20,
-    paddingTop: 8,
-    paddingBottom: 14,
+    paddingHorizontal: SPACING.lg,
+    paddingTop: SPACING.xs,
+    paddingBottom: SPACING.sm,
   },
   // Stands in for Home's header band, so the table below starts against a line
   // rather than floating.

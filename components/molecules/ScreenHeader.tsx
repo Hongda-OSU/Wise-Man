@@ -4,6 +4,7 @@ import { ChevronLeft } from "lucide-react-native";
 
 import { COLORS } from "@/constants/colors";
 import { FONTS, FONT_SIZES } from "@/constants/fonts";
+import { SPACING } from "@/constants/spacing";
 
 interface ScreenHeaderProps {
   title: string;
@@ -34,9 +35,9 @@ const styles = StyleSheet.create({
   navBar: {
     flexDirection: "row",
     alignItems: "center",
-    paddingHorizontal: 20,
-    paddingTop: 6,
-    paddingBottom: 18,
+    paddingHorizontal: SPACING.lg,
+    paddingTop: SPACING.xxs,
+    paddingBottom: SPACING.md,
   },
   backButton: {
     flex: 1,

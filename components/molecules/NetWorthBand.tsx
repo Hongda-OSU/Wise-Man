@@ -2,6 +2,7 @@ import { View, Text, StyleSheet } from "react-native";
 
 import { COLORS } from "@/constants/colors";
 import { FONTS, FONT_SIZES } from "@/constants/fonts";
+import { SPACING } from "@/constants/spacing";
 import { formatSignedAmount } from "@/utils/formatAmount";
 
 interface NetWorthBandProps {
@@ -24,10 +25,10 @@ export default function NetWorthBand({ netWorthCents }: NetWorthBandProps) {
 
 const styles = StyleSheet.create({
   band: {
-    paddingHorizontal: 20,
-    paddingTop: 12,
-    paddingBottom: 14,
-    gap: 3,
+    paddingHorizontal: SPACING.lg,
+    paddingTop: SPACING.sm,
+    paddingBottom: SPACING.sm,
+    gap: SPACING.xxs,
     alignItems: "flex-start",
     borderTopWidth: StyleSheet.hairlineWidth,
     borderBottomWidth: StyleSheet.hairlineWidth,

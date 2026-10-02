@@ -3,6 +3,7 @@ import type { ComponentType } from "react";
 
 import { COLORS } from "@/constants/colors";
 import { FONTS, FONT_SIZES } from "@/constants/fonts";
+import { SPACING } from "@/constants/spacing";
 
 interface SwipeActionProps {
   icon: ComponentType<{ size: number; color: string }>;
@@ -40,7 +41,7 @@ const styles = StyleSheet.create({
     width: 64,
     alignItems: "center",
     justifyContent: "center",
-    gap: 5,
+    gap: SPACING.xxs,
     backgroundColor: COLORS.elevated,
   },
   ruledRight: {

@@ -3,6 +3,7 @@ import { Search, ChevronDown } from "lucide-react-native";
 
 import { COLORS } from "@/constants/colors";
 import { FONTS, FONT_SIZES } from "@/constants/fonts";
+import { SPACING } from "@/constants/spacing";
 import { formatAmount, formatSignedAmount } from "@/utils/formatAmount";
 
 interface HomeHeaderProps {
@@ -96,14 +97,14 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
-    paddingHorizontal: 20,
-    paddingTop: 8,
-    paddingBottom: 14,
+    paddingHorizontal: SPACING.lg,
+    paddingTop: SPACING.xs,
+    paddingBottom: SPACING.sm,
   },
   brand: {
     flexDirection: "row",
     alignItems: "center",
-    gap: 10,
+    gap: SPACING.xs,
   },
   logo: {
     width: 26,
@@ -128,16 +129,16 @@ const styles = StyleSheet.create({
     borderColor: COLORS.border,
   },
   netRow: {
-    paddingHorizontal: 20,
-    paddingTop: 12,
-    paddingBottom: 14,
-    gap: 3,
+    paddingHorizontal: SPACING.lg,
+    paddingTop: SPACING.sm,
+    paddingBottom: SPACING.sm,
+    gap: SPACING.xxs,
     alignItems: "flex-start",
   },
   monthButton: {
     flexDirection: "row",
     alignItems: "center",
-    gap: 4,
+    gap: SPACING.xxs,
   },
   netValue: {
     fontFamily: FONTS.displayExtraBold,
@@ -150,12 +151,12 @@ const styles = StyleSheet.create({
     alignItems: "stretch",
     borderTopWidth: StyleSheet.hairlineWidth,
     borderTopColor: COLORS.border,
-    paddingVertical: 10,
+    paddingVertical: SPACING.xs,
   },
   cell: {
     flex: 1,
-    paddingHorizontal: 20,
-    gap: 3,
+    paddingHorizontal: SPACING.lg,
+    gap: SPACING.xxs,
   },
   cellLabel: {
     fontFamily: FONTS.medium,

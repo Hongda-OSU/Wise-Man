@@ -3,6 +3,7 @@ import { FlatList, StyleSheet } from "react-native";
 import BillItem from "@/components/molecules/BillItem";
 import EmptyState from "@/components/molecules/EmptyState";
 import type { BillDue } from "@/types/bill";
+import { TAB_BAR_CLEARANCE } from "@/constants/spacing";
 
 interface BillListProps {
   /** Soonest first. Every date is ahead of today -- see utils/billSchedule. */
@@ -34,6 +35,6 @@ export default function BillList({ items, onEdit, onDelete, onAdd }: BillListPro
 
 const styles = StyleSheet.create({
   content: {
-    paddingBottom: 120,
+    paddingBottom: TAB_BAR_CLEARANCE,
   },
 });

@@ -4,6 +4,7 @@ import { Pencil, Trash2 } from "lucide-react-native";
 
 import { COLORS } from "@/constants/colors";
 import { FONTS, FONT_SIZES } from "@/constants/fonts";
+import { SPACING } from "@/constants/spacing";
 import SwipeAction from "@/components/atoms/SwipeAction";
 import { describeDue } from "@/utils/billSchedule";
 import { formatShortDate } from "@/utils/dateUtils";
@@ -81,9 +82,9 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     backgroundColor: COLORS.background,
-    paddingHorizontal: 20,
-    paddingVertical: 12,
-    gap: 12,
+    paddingHorizontal: SPACING.lg,
+    paddingVertical: SPACING.sm,
+    gap: SPACING.sm,
     borderBottomWidth: StyleSheet.hairlineWidth,
     borderBottomColor: COLORS.border,
   },
@@ -101,7 +102,7 @@ const styles = StyleSheet.create({
     fontSize: FONT_SIZES.micro,
     color: COLORS.textSecondary,
     letterSpacing: 0.6,
-    marginTop: 3,
+    marginTop: SPACING.xxs,
   },
   figures: {
     alignItems: "flex-end",
@@ -121,6 +122,6 @@ const styles = StyleSheet.create({
     fontSize: FONT_SIZES.micro,
     color: COLORS.textSecondary,
     letterSpacing: -0.1,
-    marginTop: 3,
+    marginTop: SPACING.xxs,
   },
 });

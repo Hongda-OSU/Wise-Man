@@ -2,6 +2,7 @@ import { View, Text, StyleSheet } from "react-native";
 
 import { COLORS } from "@/constants/colors";
 import { FONTS, FONT_SIZES } from "@/constants/fonts";
+import { SPACING } from "@/constants/spacing";
 
 interface ErrorNoticeProps {
   message: string;
@@ -25,9 +26,9 @@ const styles = StyleSheet.create({
   // The same ruled block as the empty states, so it sits in the grid rather than
   // floating over it as a toast.
   block: {
-    paddingHorizontal: 20,
-    paddingVertical: 14,
-    gap: 5,
+    paddingHorizontal: SPACING.lg,
+    paddingVertical: SPACING.sm,
+    gap: SPACING.xxs,
     borderBottomWidth: StyleSheet.hairlineWidth,
     borderBottomColor: COLORS.border,
   },

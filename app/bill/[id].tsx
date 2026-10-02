@@ -7,6 +7,7 @@ import ScreenHeader from "@/components/molecules/ScreenHeader";
 import BillForm from "@/components/organisms/BillForm";
 import { COLORS } from "@/constants/colors";
 import { FONTS, FONT_SIZES } from "@/constants/fonts";
+import { SPACING } from "@/constants/spacing";
 import { getBill } from "@/db/bills";
 import { useBillStore } from "@/stores/bills";
 import type { Bill, NewBill } from "@/types/bill";
@@ -81,9 +82,9 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.background,
   },
   missing: {
-    paddingHorizontal: 20,
-    paddingVertical: 18,
-    gap: 6,
+    paddingHorizontal: SPACING.lg,
+    paddingVertical: SPACING.md,
+    gap: SPACING.xxs,
     borderTopWidth: StyleSheet.hairlineWidth,
     borderBottomWidth: StyleSheet.hairlineWidth,
     borderColor: COLORS.border,

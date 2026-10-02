@@ -8,6 +8,7 @@ import { useDismissKeyboardFirst } from "@/hooks/useDismissKeyboardFirst";
 import { COLORS } from "@/constants/colors";
 import { FONTS, FONT_SIZES } from "@/constants/fonts";
 import { EXPENSE_CATEGORIES, INCOME_CATEGORIES } from "@/constants/categories";
+import { SPACING } from "@/constants/spacing";
 import { useAccountStore } from "@/stores/accounts";
 import { formatDayHeading, upcomingDays } from "@/utils/dateUtils";
 import { toCents } from "@/utils/formatAmount";
@@ -255,16 +256,16 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   scrollContent: {
-    paddingBottom: 32,
+    paddingBottom: SPACING.xxl,
   },
   sectionTitle: {
     fontFamily: FONTS.medium,
     fontSize: FONT_SIZES.micro,
     color: COLORS.textSecondary,
     letterSpacing: 0.6,
-    paddingHorizontal: 20,
-    paddingTop: 22,
-    paddingBottom: 10,
+    paddingHorizontal: SPACING.lg,
+    paddingTop: SPACING.lg,
+    paddingBottom: SPACING.xs,
   },
   rows: {
     borderTopWidth: StyleSheet.hairlineWidth,
@@ -280,17 +281,17 @@ const styles = StyleSheet.create({
     padding: 0,
   },
   footer: {
-    paddingHorizontal: 20,
-    paddingTop: 14,
-    paddingBottom: 6,
-    gap: 4,
+    paddingHorizontal: SPACING.lg,
+    paddingTop: SPACING.sm,
+    paddingBottom: SPACING.xxs,
+    gap: SPACING.xxs,
     borderTopWidth: StyleSheet.hairlineWidth,
     borderTopColor: COLORS.border,
   },
   confirmBtn: {
     alignItems: "center",
     justifyContent: "center",
-    paddingVertical: 15,
+    paddingVertical: SPACING.md,
     borderRadius: 10,
     borderWidth: 1,
     borderColor: COLORS.overlayStrong,
@@ -310,7 +311,7 @@ const styles = StyleSheet.create({
   deleteBtn: {
     alignItems: "center",
     justifyContent: "center",
-    paddingVertical: 13,
+    paddingVertical: SPACING.sm,
   },
   deleteText: {
     fontFamily: FONTS.medium,

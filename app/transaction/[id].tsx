@@ -7,6 +7,7 @@ import ScreenHeader from "@/components/molecules/ScreenHeader";
 import TransactionForm from "@/components/organisms/TransactionForm";
 import { COLORS } from "@/constants/colors";
 import { FONTS, FONT_SIZES } from "@/constants/fonts";
+import { SPACING } from "@/constants/spacing";
 import { getTransaction } from "@/db/transactions";
 import { useTransactionStore } from "@/stores/transactions";
 import { toMonthKey } from "@/utils/dateUtils";
@@ -70,9 +71,9 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.background,
   },
   missing: {
-    paddingHorizontal: 20,
-    paddingVertical: 18,
-    gap: 6,
+    paddingHorizontal: SPACING.lg,
+    paddingVertical: SPACING.md,
+    gap: SPACING.xxs,
     borderTopWidth: StyleSheet.hairlineWidth,
     borderBottomWidth: StyleSheet.hairlineWidth,
     borderColor: COLORS.border,

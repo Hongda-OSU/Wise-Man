@@ -2,6 +2,7 @@ import { View, Text, StyleSheet } from "react-native";
 
 import { COLORS } from "@/constants/colors";
 import { FONTS, FONT_SIZES } from "@/constants/fonts";
+import { SPACING } from "@/constants/spacing";
 
 interface SectionHeadingProps {
   /** Already uppercase. */
@@ -20,8 +21,8 @@ export default function SectionHeading({ title }: SectionHeadingProps) {
 const styles = StyleSheet.create({
   container: {
     backgroundColor: COLORS.surface,
-    paddingHorizontal: 20,
-    paddingVertical: 7,
+    paddingHorizontal: SPACING.lg,
+    paddingVertical: SPACING.xs,
     borderTopWidth: StyleSheet.hairlineWidth,
     borderBottomWidth: StyleSheet.hairlineWidth,
     borderColor: COLORS.border,

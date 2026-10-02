@@ -3,6 +3,7 @@ import { Wrench } from "lucide-react-native";
 
 import { COLORS } from "@/constants/colors";
 import { FONTS, FONT_SIZES } from "@/constants/fonts";
+import { SPACING } from "@/constants/spacing";
 
 export interface MenuAction {
   label: string;
@@ -65,8 +66,8 @@ const styles = StyleSheet.create({
   row: {
     flexDirection: "row",
     alignItems: "center",
-    gap: 12,
-    paddingHorizontal: 14,
+    gap: SPACING.sm,
+    paddingHorizontal: SPACING.sm,
     height: 46,
   },
   rowDivided: {

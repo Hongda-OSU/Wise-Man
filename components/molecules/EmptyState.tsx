@@ -2,6 +2,7 @@ import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 
 import { COLORS } from "@/constants/colors";
 import { FONTS, FONT_SIZES } from "@/constants/fonts";
+import { SPACING } from "@/constants/spacing";
 
 interface EmptyStateProps {
   /** Eyebrow, already uppercase. */
@@ -32,9 +33,9 @@ export default function EmptyState({ label, body, actionLabel, onAction }: Empty
 
 const styles = StyleSheet.create({
   block: {
-    paddingHorizontal: 20,
-    paddingVertical: 18,
-    gap: 6,
+    paddingHorizontal: SPACING.lg,
+    paddingVertical: SPACING.md,
+    gap: SPACING.xxs,
     borderBottomWidth: StyleSheet.hairlineWidth,
     borderBottomColor: COLORS.border,
   },
@@ -53,9 +54,9 @@ const styles = StyleSheet.create({
   action: {
     alignItems: "center",
     justifyContent: "center",
-    marginHorizontal: 20,
-    marginTop: 24,
-    paddingVertical: 14,
+    marginHorizontal: SPACING.lg,
+    marginTop: SPACING.xl,
+    paddingVertical: SPACING.sm,
     borderRadius: 10,
     borderWidth: 1,
     borderColor: COLORS.overlayStrong,

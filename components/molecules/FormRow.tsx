@@ -4,6 +4,7 @@ import type { ReactNode } from "react";
 
 import { COLORS } from "@/constants/colors";
 import { FONTS, FONT_SIZES } from "@/constants/fonts";
+import { SPACING } from "@/constants/spacing";
 
 interface FormRowProps {
   label: string;
@@ -48,9 +49,9 @@ const styles = StyleSheet.create({
   row: {
     flexDirection: "row",
     alignItems: "center",
-    gap: 12,
-    paddingHorizontal: 20,
-    paddingVertical: 10,
+    gap: SPACING.sm,
+    paddingHorizontal: SPACING.lg,
+    paddingVertical: SPACING.xs,
     minHeight: 52,
     borderBottomWidth: StyleSheet.hairlineWidth,
     borderBottomColor: COLORS.border,

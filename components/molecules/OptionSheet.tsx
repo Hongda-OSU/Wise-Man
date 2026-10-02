@@ -4,6 +4,7 @@ import { Check } from "lucide-react-native";
 
 import { COLORS } from "@/constants/colors";
 import { FONTS, FONT_SIZES } from "@/constants/fonts";
+import { SPACING } from "@/constants/spacing";
 
 export interface SheetOption {
   id: string;
@@ -112,16 +113,16 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.background,
     borderTopWidth: StyleSheet.hairlineWidth,
     borderTopColor: COLORS.border,
-    paddingBottom: 28,
+    paddingBottom: SPACING.xl,
   },
   title: {
     fontFamily: FONTS.medium,
     fontSize: FONT_SIZES.micro,
     color: COLORS.textSecondary,
     letterSpacing: 0.6,
-    paddingHorizontal: 20,
-    paddingTop: 16,
-    paddingBottom: 10,
+    paddingHorizontal: SPACING.lg,
+    paddingTop: SPACING.md,
+    paddingBottom: SPACING.xs,
     borderBottomWidth: StyleSheet.hairlineWidth,
     borderBottomColor: COLORS.border,
   },
@@ -129,7 +130,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
-    paddingHorizontal: 20,
+    paddingHorizontal: SPACING.lg,
     height: 52,
     borderBottomWidth: StyleSheet.hairlineWidth,
     borderBottomColor: COLORS.border,

@@ -13,6 +13,7 @@ import MonthlyChart from "@/components/molecules/MonthlyChart";
 import TabHeader from "@/components/molecules/TabHeader";
 import TypeToggle from "@/components/molecules/TypeToggle";
 import { COLORS } from "@/constants/colors";
+import { TAB_BAR_CLEARANCE } from "@/constants/spacing";
 import { listMonthlyTotals } from "@/db/transactions";
 import type { MonthlyTotal } from "@/db/transactions";
 import { useTransactionStore } from "@/stores/transactions";
@@ -110,6 +111,6 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.background,
   },
   content: {
-    paddingBottom: 120,
+    paddingBottom: TAB_BAR_CLEARANCE,
   },
 });

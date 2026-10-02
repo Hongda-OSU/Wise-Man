@@ -4,6 +4,7 @@ import SectionHeading from "@/components/molecules/SectionHeading";
 import AccountItem from "@/components/molecules/AccountItem";
 import EmptyState from "@/components/molecules/EmptyState";
 import type { AccountSection } from "@/utils/groupAccounts";
+import { TAB_BAR_CLEARANCE } from "@/constants/spacing";
 
 interface AccountListProps {
   sections: AccountSection[];
@@ -36,6 +37,6 @@ export default function AccountList({ sections, onEdit, onDelete, onAdd }: Accou
 
 const styles = StyleSheet.create({
   content: {
-    paddingBottom: 120,
+    paddingBottom: TAB_BAR_CLEARANCE,
   },
 });

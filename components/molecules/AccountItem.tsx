@@ -4,6 +4,7 @@ import { Pencil, Trash2 } from "lucide-react-native";
 
 import { COLORS } from "@/constants/colors";
 import { FONTS, FONT_SIZES } from "@/constants/fonts";
+import { SPACING } from "@/constants/spacing";
 import SwipeAction from "@/components/atoms/SwipeAction";
 import { formatSignedAmount } from "@/utils/formatAmount";
 import type { AccountBalance } from "@/types/account";
@@ -58,9 +59,9 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     backgroundColor: COLORS.background,
-    paddingHorizontal: 20,
-    paddingVertical: 15,
-    gap: 12,
+    paddingHorizontal: SPACING.lg,
+    paddingVertical: SPACING.md,
+    gap: SPACING.sm,
     borderBottomWidth: StyleSheet.hairlineWidth,
     borderBottomColor: COLORS.border,
   },

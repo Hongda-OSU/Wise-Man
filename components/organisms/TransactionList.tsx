@@ -4,6 +4,7 @@ import SectionHeading from "@/components/molecules/SectionHeading";
 import TransactionItem from "@/components/molecules/TransactionItem";
 import EmptyState from "@/components/molecules/EmptyState";
 import type { TransactionSection } from "@/types/transaction";
+import { TAB_BAR_CLEARANCE } from "@/constants/spacing";
 
 interface TransactionListProps {
   sections: TransactionSection[];
@@ -44,6 +45,6 @@ export default function TransactionList({
 
 const styles = StyleSheet.create({
   content: {
-    paddingBottom: 120,
+    paddingBottom: TAB_BAR_CLEARANCE,
   },
 });

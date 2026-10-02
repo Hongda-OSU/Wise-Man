@@ -5,6 +5,7 @@ import { Pencil, Repeat, Trash2 } from "lucide-react-native";
 import { COLORS } from "@/constants/colors";
 import { FONTS, FONT_SIZES } from "@/constants/fonts";
 import { getCategoryConfig } from "@/constants/categories";
+import { SPACING } from "@/constants/spacing";
 import { formatAmount } from "@/utils/formatAmount";
 import { TRANSACTION_TYPES } from "@/types/transaction";
 import SwipeAction from "@/components/atoms/SwipeAction";
@@ -87,9 +88,9 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     backgroundColor: COLORS.background,
-    paddingHorizontal: 20,
-    paddingVertical: 13,
-    gap: 12,
+    paddingHorizontal: SPACING.lg,
+    paddingVertical: SPACING.sm,
+    gap: SPACING.sm,
     borderBottomWidth: StyleSheet.hairlineWidth,
     borderBottomColor: COLORS.border,
   },
@@ -99,7 +100,7 @@ const styles = StyleSheet.create({
   nameRow: {
     flexDirection: "row",
     alignItems: "center",
-    gap: 6,
+    gap: SPACING.xxs,
   },
   name: {
     // Shrinks rather than pushing the recurring mark off the row.
@@ -114,7 +115,7 @@ const styles = StyleSheet.create({
     fontSize: FONT_SIZES.micro,
     color: COLORS.textSecondary,
     letterSpacing: 0.6,
-    marginTop: 3,
+    marginTop: SPACING.xxs,
   },
   amount: {
     fontFamily: FONTS.displayBold,

@@ -2,6 +2,7 @@ import { TouchableOpacity, View, Text, StyleSheet } from "react-native";
 
 import { COLORS } from "@/constants/colors";
 import { FONTS, FONT_SIZES } from "@/constants/fonts";
+import { SPACING } from "@/constants/spacing";
 
 interface TabButtonProps {
   label: string;
@@ -35,9 +36,9 @@ const styles = StyleSheet.create({
   pill: {
     alignItems: "center",
     justifyContent: "center",
-    gap: 3,
-    paddingVertical: 6,
-    paddingHorizontal: 14,
+    gap: SPACING.xxs,
+    paddingVertical: SPACING.xxs,
+    paddingHorizontal: SPACING.sm,
     borderRadius: 24,
   },
   pillActive: {

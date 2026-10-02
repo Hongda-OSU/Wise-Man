@@ -5,6 +5,7 @@ import { Plus } from "lucide-react-native";
 
 import { COLORS } from "@/constants/colors";
 import { TABS } from "@/constants/tabs";
+import { SPACING } from "@/constants/spacing";
 import GlassSurface from "@/components/atoms/GlassSurface";
 import TabButton from "@/components/molecules/TabButton";
 
@@ -14,7 +15,9 @@ export default function TabBar() {
   const insets = useSafeAreaInsets();
 
   return (
-    <View style={[styles.wrapper, { paddingBottom: Math.max(insets.bottom - 14, 8) }]}>
+    <View
+      style={[styles.wrapper, { paddingBottom: Math.max(insets.bottom - SPACING.sm, SPACING.xs) }]}
+    >
       <GlassSurface style={styles.bar}>
         {TABS.slice(0, 2).map((tab) => (
           <TabButton
@@ -53,7 +56,7 @@ export default function TabBar() {
 
 const styles = StyleSheet.create({
   wrapper: {
-    paddingHorizontal: 12,
+    paddingHorizontal: SPACING.sm,
   },
   // A floating capsule rather than a full-width bar with a notch, so the centre action
   // sits inside the bar instead of breaking out of it.
@@ -63,8 +66,8 @@ const styles = StyleSheet.create({
     borderRadius: 34,
     // Clips the blur to the capsule; without it BlurView paints its own square corners.
     overflow: "hidden",
-    paddingHorizontal: 6,
-    paddingVertical: 4,
+    paddingHorizontal: SPACING.xxs,
+    paddingVertical: SPACING.xxs,
   },
   trackSlot: {
     flex: 1,

@@ -4,6 +4,7 @@ import { MoreHorizontal } from "lucide-react-native";
 
 import { COLORS } from "@/constants/colors";
 import { FONTS, FONT_SIZES } from "@/constants/fonts";
+import { SPACING } from "@/constants/spacing";
 
 interface ListEyebrowProps {
   title: string;
@@ -45,11 +46,11 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "space-between",
     minHeight: 32,
-    paddingLeft: 20,
+    paddingLeft: SPACING.lg,
     // The button is 32 wide, so 4 puts the bare glyph's centre on the 20pt gutter.
-    paddingRight: 4,
-    marginTop: 14,
-    marginBottom: 6,
+    paddingRight: SPACING.xxs,
+    marginTop: SPACING.sm,
+    marginBottom: SPACING.xxs,
   },
   // Same eyebrow as the labels in the header band, so the two rows read as one system.
   title: {

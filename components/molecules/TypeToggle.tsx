@@ -2,6 +2,7 @@ import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 
 import { COLORS } from "@/constants/colors";
 import { FONTS, FONT_SIZES } from "@/constants/fonts";
+import { SPACING } from "@/constants/spacing";
 import { TRANSACTION_TYPES } from "@/types/transaction";
 import type { TransactionType } from "@/types/transaction";
 
@@ -65,8 +66,8 @@ const styles = StyleSheet.create({
   cell: {
     flex: 1,
     alignItems: "center",
-    paddingTop: 12,
-    gap: 10,
+    paddingTop: SPACING.sm,
+    gap: SPACING.xs,
   },
   label: {
     fontFamily: FONTS.medium,

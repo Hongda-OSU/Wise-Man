@@ -2,6 +2,7 @@ import { View, Text, StyleSheet } from "react-native";
 
 import { COLORS } from "@/constants/colors";
 import { FONTS, FONT_SIZES } from "@/constants/fonts";
+import { SPACING } from "@/constants/spacing";
 import { formatMonthAbbrev } from "@/utils/dateUtils";
 import { formatAmount } from "@/utils/formatAmount";
 import { TRANSACTION_TYPES } from "@/types/transaction";
@@ -101,9 +102,9 @@ const TICK_WIDTH = 58;
 
 const styles = StyleSheet.create({
   container: {
-    paddingHorizontal: 20,
-    paddingTop: 14,
-    paddingBottom: 12,
+    paddingHorizontal: SPACING.lg,
+    paddingTop: SPACING.sm,
+    paddingBottom: SPACING.sm,
     borderBottomWidth: StyleSheet.hairlineWidth,
     borderBottomColor: COLORS.border,
   },
@@ -112,7 +113,7 @@ const styles = StyleSheet.create({
     fontSize: FONT_SIZES.micro,
     color: COLORS.textSecondary,
     letterSpacing: 0.6,
-    marginBottom: 14,
+    marginBottom: SPACING.sm,
   },
   chart: {
     height: PLOT_HEIGHT,
@@ -128,7 +129,7 @@ const styles = StyleSheet.create({
   gridRow: {
     flexDirection: "row",
     alignItems: "center",
-    gap: 8,
+    gap: SPACING.xs,
     // Half the label's line height, so the rule meets the text's centre.
     marginBottom: -6,
   },
@@ -149,8 +150,8 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "flex-end",
     height: PLOT_HEIGHT,
-    paddingLeft: TICK_WIDTH + 8,
-    gap: 8,
+    paddingLeft: TICK_WIDTH + SPACING.xs,
+    gap: SPACING.xs,
   },
   column: {
     flex: 1,
@@ -168,9 +169,9 @@ const styles = StyleSheet.create({
   },
   axis: {
     flexDirection: "row",
-    paddingLeft: TICK_WIDTH + 8,
-    paddingTop: 7,
-    gap: 8,
+    paddingLeft: TICK_WIDTH + SPACING.xs,
+    paddingTop: SPACING.xs,
+    gap: SPACING.xs,
   },
   monthLabel: {
     flex: 1,
